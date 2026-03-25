@@ -198,7 +198,8 @@
 
     .ticker-track {
       display: inline-flex;
-      animation: ticker 26s linear infinite;
+      animation: ticker 14s linear infinite;
+      will-change: transform;
     }
 
     .ticker-item {
@@ -217,7 +218,7 @@
 
     @keyframes ticker {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to   { transform: translateX(-33.333%); }
     }
 
     /* ── STATS ── */
@@ -644,6 +645,12 @@
   <!-- ─── TICKER ─── -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
+      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Social</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
       <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
       <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
       <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
