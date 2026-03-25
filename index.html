@@ -6,7 +6,7 @@
   <title>Larry John Wright — Full-Service Ad Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -22,6 +22,7 @@
       --border-hi: rgba(100,160,237,0.28);
       --spring:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --spring-b:  cubic-bezier(0.34, 1.56, 0.64, 1);
+      --mono:      'JetBrains Mono', 'IBM Plex Mono', monospace;
     }
 
     html { scroll-behavior: smooth; }
@@ -43,6 +44,13 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
+    }
+
+    /* ── MONO UTILITY ── */
+    .mono {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
     }
 
     /* ── NAV ── */
@@ -82,9 +90,10 @@
     .nav-links a {
       color: var(--text);
       text-decoration: none;
-      font-size: 0.625rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       opacity: 0.5;
       transition: opacity 0.2s;
@@ -97,8 +106,9 @@
       color: var(--blue) !important;
       border: 1px solid var(--border-hi) !important;
       padding: 0.5rem 1.25rem;
-      border-radius: 3px;
-      font-size: 0.625rem !important;
+      border-radius: 2px;
+      font-size: 0.6rem !important;
+      font-family: var(--mono) !important;
       transition: background 0.2s, color 0.2s, border-color 0.2s !important;
     }
 
@@ -116,6 +126,49 @@
       grid-template-rows: 1fr auto;
       padding: 0 3rem;
       overflow: hidden;
+    }
+
+    /* CRT scanlines — subtle, isolated to hero */
+    .hero-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* technical metadata bar at bottom of hero */
+    .hero-telemetry {
+      font-family: var(--mono);
+      font-size: 0.575rem;
+      letter-spacing: 0.12em;
+      color: var(--faint);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.25rem 0 2.5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--spring) 0.75s forwards;
+    }
+
+    .hero-telemetry-item { display: flex; align-items: center; gap: 0.6rem; }
+
+    .hero-telemetry-item::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--blue);
+      border-radius: 50%;
+      opacity: 0.5;
     }
 
     .hero-glow {
@@ -152,9 +205,10 @@
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      font-size: 0.625rem;
-      font-weight: 500;
-      letter-spacing: 0.28em;
+      font-family: var(--mono);
+      font-size: 0.575rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--blue);
       margin-bottom: 2rem;
@@ -164,11 +218,10 @@
     }
 
     .hero-eyebrow::before {
-      content: '';
-      width: 2rem;
-      height: 1px;
-      background: var(--blue);
-      flex-shrink: 0;
+      content: '//';
+      color: var(--blue);
+      opacity: 0.5;
+      font-size: 0.65rem;
     }
 
     .hero-headline {
@@ -329,11 +382,12 @@
     .stat-feature:hover::after { width: 100%; }
 
     .stat-feature-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.24em;
+      font-family: var(--mono);
+      font-size: 0.575rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .stat-feature-num {
@@ -391,33 +445,31 @@
     }
 
     .stat-lbl {
-      font-size: 0.625rem;
-      letter-spacing: 0.2em;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
       margin-top: 0.5rem;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     /* ── SECTION LABELS ── */
     .label {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.28em;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.575rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--blue);
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 1.25rem;
     }
 
-    .label::before {
-      content: '';
-      width: 1.5rem;
-      height: 1px;
-      background: var(--blue);
-    }
+    .label::before { content: '['; opacity: 0.5; }
+    .label::after  { content: ']'; opacity: 0.5; }
 
     .heading {
       font-family: 'Bebas Neue', sans-serif;
@@ -533,11 +585,12 @@
     .p-card:hover .p-card-info { transform: translateY(0); }
 
     .p-card-cat {
-      font-size: 0.575rem;
-      letter-spacing: 0.24em;
+      font-family: var(--mono);
+      font-size: 0.525rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--blue);
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 0.35rem;
     }
 
@@ -559,12 +612,13 @@
       border: 1px solid var(--border);
       backdrop-filter: blur(8px);
       padding: 0.28rem 0.7rem;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
+      font-family: var(--mono);
+      font-size: 0.525rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
       border-radius: 2px;
-      font-weight: 500;
+      font-weight: 400;
       z-index: 2;
     }
 
@@ -647,11 +701,11 @@
     .process-step:hover { padding-left: 0.75rem; }
 
     .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.875rem;
+      font-family: var(--mono);
+      font-size: 0.575rem;
       color: var(--blue);
       letter-spacing: 0.08em;
-      padding-top: 0.2rem;
+      padding-top: 0.35rem;
       opacity: 0.65;
     }
 
@@ -755,11 +809,11 @@
     .services-list li:hover { padding-left: 0.5rem; }
 
     .svc-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.55rem;
       color: var(--blue);
       letter-spacing: 0.08em;
-      padding-top: 0.15rem;
+      padding-top: 0.25rem;
       opacity: 0.55;
     }
 
@@ -788,11 +842,12 @@
     }
 
     .clients-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.26em;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 3rem;
     }
 
@@ -899,12 +954,13 @@
     }
 
     .footer-col h4 {
-      font-size: 0.575rem;
-      letter-spacing: 0.26em;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.5rem;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .footer-col ul { list-style: none; }
@@ -929,9 +985,10 @@
     }
 
     .footer-copy {
-      font-size: 0.675rem;
+      font-family: var(--mono);
+      font-size: 0.55rem;
       color: var(--muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       opacity: 0.55;
     }
 
@@ -999,8 +1056,9 @@
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-grid-lines"></div>
+    <div class="hero-scanlines"></div>
     <div class="hero-body">
-      <p class="hero-eyebrow">Mesa, Arizona &nbsp;·&nbsp; Est. 1984</p>
+      <p class="hero-eyebrow">LJW-INC &nbsp;//&nbsp; MESA, AZ &nbsp;//&nbsp; EST. 1984</p>
       <h1 class="hero-headline">
         <span class="line1">Less Talk</span>
         <span class="line2">More</span>
@@ -1013,6 +1071,11 @@
         <a href="#work" class="btn btn-primary">See Our Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
+    </div>
+    <div class="hero-telemetry">
+      <span class="hero-telemetry-item">FULL-SERVICE AGENCY</span>
+      <span class="hero-telemetry-item">IN-HOUSE PRODUCTION STUDIO</span>
+      <span class="hero-telemetry-item">TV // DIGITAL // RADIO // PRINT // SOCIAL // MEDIA BUYING</span>
     </div>
   </section>
 
@@ -1319,7 +1382,7 @@
 
   <!-- CLIENTS -->
   <section class="clients">
-    <p class="clients-eyebrow reveal">Brands We've Built With</p>
+    <p class="clients-eyebrow reveal">[ BRANDS WE'VE BUILT WITH ]</p>
     <div class="clients-row stagger">
       <span class="client-mark">Moxie</span>
       <span class="client-mark">Express</span>
