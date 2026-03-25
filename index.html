@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Larry John Wright — Advertising & Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0D0C0B;
+      --text: #F4EFE6;
+      --red: #C8281A;
+      --glass: rgba(13,12,11,0.78);
+      --border: rgba(244,239,230,0.08);
+      --muted: rgba(244,239,230,0.42);
+      --spring: cubic-bezier(0.32,0.72,0,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 72px;
+      transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: var(--glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      opacity: 1 !important;
+      color: var(--red) !important;
+      border: 1px solid var(--red) !important;
+      padding: 0.45rem 1.25rem;
+      border-radius: 2px;
+      transition: background 0.22s, color 0.22s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--red) !important;
+      color: #fff !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100dvh;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 4rem 5.5rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5.5rem, 9.5vw, 10.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-headline .accent { color: var(--red); }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 38ch;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--bg) 0%, transparent 28%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-video-wrap {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(150deg, #171512 0%, #0e0d0c 50%, #1a1310 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .play-btn {
+      width: 64px;
+      height: 64px;
+      border: 1px solid rgba(244,239,230,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s var(--spring);
+    }
+
+    .play-btn:hover { border-color: var(--red); transform: scale(1.08); }
+
+    .play-btn svg { width: 20px; height: 20px; fill: var(--text); margin-left: 3px; }
+
+    .video-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--red);
+      overflow: hidden;
+      padding: 0.85rem 0;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 26s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.14em;
+      color: #fff;
+      padding: 0 1.25rem;
+    }
+
+    .ticker-sep {
+      color: rgba(255,255,255,0.4);
+      align-self: center;
+      font-size: 0.5rem;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item {
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 5vw, 6.5rem);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .stat-number sup {
+      font-size: 0.38em;
+      color: var(--red);
+      vertical-align: super;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      line-height: 0.93;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio {
+      padding: 7rem 2.5rem;
+    }
+
+    .portfolio-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+    }
+
+    .link-sm {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .link-sm:hover { color: var(--text); border-color: rgba(244,239,230,0.4); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .p-card {
+      position: relative;
+      overflow: hidden;
+      background: #141312;
+      cursor: pointer;
+    }
+
+    .p-card:first-child { grid-column: span 2; }
+
+    .p-card-inner {
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .p-card:first-child .p-card-inner { aspect-ratio: 21/9; }
+
+    .p-card-bg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.75s var(--spring);
+    }
+
+    .p-card:hover .p-card-bg { transform: scale(1.055); }
+
+    .p-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,12,11,0.96) 0%, rgba(13,12,11,0.2) 55%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s var(--spring);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.75rem;
+    }
+
+    .p-card:hover .p-card-overlay { opacity: 1; }
+
+    .p-card-cat {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+    }
+
+    .p-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      line-height: 1.88;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .about-copy strong { color: var(--text); font-weight: 400; }
+
+    .about-actions { margin-top: 2rem; display: flex; gap: 1rem; }
+
+    .btn-red {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 1rem 1.9rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+      font-weight: 400;
+    }
+
+    .btn-red:hover { opacity: 0.86; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 1rem 1.9rem;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+      font-weight: 400;
+    }
+
+    .btn-ghost:hover { border-color: rgba(244,239,230,0.35); }
+
+    .services-list { list-style: none; }
+
+    .services-list li {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: background 0.2s;
+    }
+
+    .services-list li:first-child { border-top: 1px solid var(--border); }
+
+    .svc-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      padding-top: 0.15rem;
+    }
+
+    .svc-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.05em;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .svc-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      display: block;
+      line-height: 1.6;
+    }
+
+    /* ── CLIENTS ── */
+    .clients {
+      padding: 5.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .clients-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .clients-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4.5rem;
+      flex-wrap: wrap;
+    }
+
+    .client-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      cursor: default;
+      transition: color 0.3s;
+    }
+
+    .client-mark:hover { color: var(--text); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      line-height: 0.92;
+    }
+
+    .cta-band h2 .accent { color: var(--red); }
+
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .cta-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 5.5rem 2.5rem 3rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand-logo {
+      height: 34px;
+      filter: brightness(0) invert(1);
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 28ch;
+    }
+
+    .footer-col h4 {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li { margin-bottom: 0.9rem; }
+
+    .footer-col ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+
+    .footer-col ul li a:hover { opacity: 1; }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .social-row { display: flex; gap: 0.5rem; }
+
+    .social-sq {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-sq:hover { border-color: rgba(244,239,230,0.35); color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="main-nav">
+    <a href="#" class="nav-logo">
+      <img src="https://www.larryjohnwright.com/wp-content/uploads/2018/10/ljwicon.png" alt="Larry John Wright">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#culture">Culture</a></li>
+      <li><a href="#careers">Careers</a></li>
+      <li><a href="#contact" class="nav-cta">Message Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Mesa, AZ &nbsp;·&nbsp; Est. 1984</p>
+      <h1 class="hero-headline">
+        Creative<br>
+        <span class="accent">That</span><br>
+        Converts
+      </h1>
+      <p class="hero-sub">We blend creative superiority with data-driven precision — from inside our own production studio.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-red">See Our Work</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- swap <div class="hero-video-wrap"> for <video autoplay muted loop playsinline> in production -->
+      <div class="hero-video-wrap">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <span class="video-label">Watch Our Reel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Social</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Social</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
+    </div>
+  </div>
+
+  <!-- ─── STATS ─── -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-number">40<sup>+</sup></div>
+      <div class="stat-label">Years in Business</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">500<sup>+</sup></div>
+      <div class="stat-label">Campaigns Launched</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">06</div>
+      <div class="stat-label">Disciplines</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">PHX</div>
+      <div class="stat-label">Southwest Region</div>
+    </div>
+  </div>
+
+  <!-- ─── PORTFOLIO ─── -->
+  <section class="portfolio" id="work">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">What We've<br>Built</h2>
+      </div>
+      <a href="#" class="link-sm">View All Projects &rarr;</a>
+    </div>
+
+    <div class="portfolio-grid">
+
+      <div class="p-card">
+        <div class="p-card-inner">
+          <div class="p-card-bg" style="background: linear-gradient(140deg,#1d1a17 0%,#261f18 50%,#1a1510 100%);"></div>
+          <div class="p-card-overlay">
+            <p class="p-card-cat">Television</p>
+            <div class="p-card-title">Moxie Pest Control<br>Brand Campaign</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-inner">
+          <div class="p-card-bg" style="background: linear-gradient(140deg,#171a1d 0%,#18202a 50%,#101520 100%);"></div>
+          <div class="p-card-overlay">
+            <p class="p-card-cat">Digital</p>
+            <div class="p-card-title">Express<br>Social Campaign</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-inner">
+          <div class="p-card-bg" style="background: linear-gradient(140deg,#1d1717 0%,#261818 50%,#1a1010 100%);"></div>
+          <div class="p-card-overlay">
+            <p class="p-card-cat">Print</p>
+            <div class="p-card-title">Weathergard<br>Product Launch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-inner">
+          <div class="p-card-bg" style="background: linear-gradient(140deg,#171d17 0%,#182618 50%,#101a10 100%);"></div>
+          <div class="p-card-overlay">
+            <p class="p-card-cat">Radio</p>
+            <div class="p-card-title">Hastings<br>Automotive</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-inner">
+          <div class="p-card-bg" style="background: linear-gradient(140deg,#1a171d 0%,#221826 50%,#15101a 100%);"></div>
+          <div class="p-card-overlay">
+            <p class="p-card-cat">Digital</p>
+            <div class="p-card-title">Blue Sky<br>Campaign</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <p class="section-label">About the Agency</p>
+    <h2 class="section-title">Know the Client.<br>Understand the Need.</h2>
+
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>Larry John Wright, Inc. is a <strong>full-service advertising and marketing agency</strong> based in Mesa, Arizona. For over four decades, we've helped brands connect with their audiences through creative work that drives measurable results.</p>
+        <p>Our difference is in how we operate. We run an <strong>on-site, in-house production studio</strong> — giving us the speed, control, and quality that outside vendors simply can't match. From concept to final cut, every element is built under one roof.</p>
+        <p>We don't just make things that look good. We make things that <strong>work</strong> — backed by data, sharpened by strategy, and delivered with the craft this market deserves.</p>
+        <div class="about-actions">
+          <a href="#" class="btn-red">Our Story</a>
+          <a href="#careers" class="btn-ghost">Careers</a>
+        </div>
+      </div>
+
+      <ul class="services-list">
+        <li>
+          <span class="svc-num">01</span>
+          <div>
+            <span class="svc-name">Television</span>
+            <span class="svc-desc">Broadcast spots, OTT/streaming, and full production in-house.</span>
+          </div>
+        </li>
+        <li>
+          <span class="svc-num">02</span>
+          <div>
+            <span class="svc-name">Digital</span>
+            <span class="svc-desc">Paid media, display, video pre-roll, and programmatic campaigns.</span>
+          </div>
+        </li>
+        <li>
+          <span class="svc-num">03</span>
+          <div>
+            <span class="svc-name">Radio</span>
+            <span class="svc-desc">Scripting, voice talent sourcing, and airtime strategy.</span>
+          </div>
+        </li>
+        <li>
+          <span class="svc-num">04</span>
+          <div>
+            <span class="svc-name">Social Media</span>
+            <span class="svc-desc">Content creation, paid social, and community strategy.</span>
+          </div>
+        </li>
+        <li>
+          <span class="svc-num">05</span>
+          <div>
+            <span class="svc-name">Print</span>
+            <span class="svc-desc">Direct mail, collateral, OOH, and publication design.</span>
+          </div>
+        </li>
+        <li>
+          <span class="svc-num">06</span>
+          <div>
+            <span class="svc-name">Media Buying</span>
+            <span class="svc-desc">Strategic placement across all channels for maximum reach and ROI.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── CLIENTS ─── -->
+  <section class="clients">
+    <p class="clients-eyebrow">Brands We've Built With</p>
+    <div class="clients-row">
+      <span class="client-mark">Moxie</span>
+      <span class="client-mark">Express</span>
+      <span class="client-mark">Hastings</span>
+      <span class="client-mark">Weathergard</span>
+      <span class="client-mark">Blue Sky</span>
+    </div>
+  </section>
+
+  <!-- ─── CTA BAND ─── -->
+  <section class="cta-band" id="contact">
+    <h2>
+      Ready to Build<br>
+      <span class="accent">Something Real?</span>
+    </h2>
+    <div class="cta-stack">
+      <a href="mailto:hello@larryjohnwright.com" class="btn-red">Start a Conversation &rarr;</a>
+      <span class="cta-meta">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000</span>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <img class="footer-brand-logo" src="https://www.larryjohnwright.com/wp-content/uploads/2018/10/ljwicon.png" alt="LJW">
+        <p class="footer-tagline">Full-service advertising and marketing in the heart of the Southwest. Creative that connects — since 1984.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <ul>
+          <li><a href="#">Television</a></li>
+          <li><a href="#">Digital</a></li>
+          <li><a href="#">Radio</a></li>
+          <li><a href="#">Social</a></li>
+          <li><a href="#">Print</a></li>
+          <li><a href="#">Media Buying</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Culture</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Studio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Message Us</a></li>
+          <li><a href="#">Mesa, Arizona</a></li>
+          <li><a href="#">hello@ljw.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 Larry John Wright, Inc. All rights reserved.</span>
+      <div class="social-row">
+        <a href="#" class="social-sq">in</a>
+        <a href="#" class="social-sq">fb</a>
+        <a href="#" class="social-sq">ig</a>
+        <a href="#" class="social-sq">yt</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+
+</body>
+</html>
