@@ -411,30 +411,53 @@
 
     .p-card:first-child .p-card-inner { aspect-ratio: 21/9; }
 
-    .p-card-bg {
+    /* video fills the card */
+    .p-card video {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
       transition: transform 0.9s var(--spring);
+      display: block;
     }
 
-    .p-card:hover .p-card-bg { transform: scale(1.06); }
+    .p-card:hover video { transform: scale(1.04); }
 
+    /* consistent blue tint so all thumbnails feel cohesive */
+    .p-card-tint {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(20,40,80,0.55) 0%, rgba(8,11,18,0.2) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .p-card:hover .p-card-tint { opacity: 0.5; }
+
+    /* bottom info overlay */
     .p-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(8,11,18,0.97) 0%, rgba(8,11,18,0.3) 50%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.4s var(--spring);
+      background: linear-gradient(to top, rgba(8,11,18,0.95) 0%, rgba(8,11,18,0.15) 45%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 1.75rem;
+      pointer-events: none;
     }
 
-    .p-card:hover .p-card-overlay { opacity: 1; }
+    /* info always visible at bottom, brightens on hover */
+    .p-card-info {
+      transform: translateY(4px);
+      transition: transform 0.4s var(--spring);
+    }
+
+    .p-card:hover .p-card-info { transform: translateY(0); }
 
     .p-card-cat {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--blue);
@@ -448,6 +471,36 @@
       letter-spacing: 0.04em;
       line-height: 1.05;
     }
+
+    /* play indicator */
+    .p-card-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s var(--spring), border-color 0.3s;
+      backdrop-filter: blur(6px);
+      background: rgba(8,11,18,0.4);
+    }
+
+    .p-card-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
+
+    .p-card:hover .p-card-play {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      border-color: var(--blue);
+    }
+
+    /* hide play icon once video is playing */
+    .p-card.playing .p-card-play { opacity: 0 !important; }
 
     .p-card-tag {
       position: absolute;
@@ -463,6 +516,7 @@
       color: var(--muted);
       border-radius: 2px;
       font-weight: 500;
+      z-index: 2;
     }
 
     /* ── PROCESS ── */
@@ -932,60 +986,102 @@
     </div>
 
     <div class="portfolio-grid">
+
+      <!-- Moxie — featured wide card -->
       <div class="p-card reveal">
         <span class="p-card-tag">Television</span>
         <div class="p-card-inner">
-          <div class="p-card-bg" style="background: linear-gradient(140deg,#0d1a2e 0%,#0e2040 40%,#091525 100%);"></div>
+          <video src="https://www.larryjohnwright.com/tvspots/67477.mp4"
+                 preload="metadata" muted loop playsinline></video>
+          <div class="p-card-tint"></div>
+          <div class="p-card-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
           <div class="p-card-overlay">
-            <p class="p-card-cat">Television · Brand Campaign</p>
-            <div class="p-card-title">Moxie Pest Control<br>National Brand Campaign</div>
+            <div class="p-card-info">
+              <p class="p-card-cat">Television · Brand Campaign</p>
+              <div class="p-card-title">Moxie Pest Control</div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Express -->
       <div class="p-card reveal reveal-delay-1">
-        <span class="p-card-tag">Digital</span>
+        <span class="p-card-tag">Television</span>
         <div class="p-card-inner">
-          <div class="p-card-bg" style="background: linear-gradient(140deg,#131520 0%,#1a1d2e 50%,#0e1020 100%);"></div>
+          <video src="https://www.larryjohnwright.com/tvspots/67707.mp4"
+                 preload="metadata" muted loop playsinline></video>
+          <div class="p-card-tint"></div>
+          <div class="p-card-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
           <div class="p-card-overlay">
-            <p class="p-card-cat">Digital · Social</p>
-            <div class="p-card-title">Express<br>Social Campaign</div>
+            <div class="p-card-info">
+              <p class="p-card-cat">Television · Retail</p>
+              <div class="p-card-title">Express — BOGO</div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Weathergard -->
       <div class="p-card reveal reveal-delay-1">
-        <span class="p-card-tag">Print</span>
+        <span class="p-card-tag">Television</span>
         <div class="p-card-inner">
-          <div class="p-card-bg" style="background: linear-gradient(140deg,#15181e 0%,#1c2030 50%,#101318 100%);"></div>
+          <video src="https://www.larryjohnwright.com/tvspots/67878.mp4"
+                 preload="metadata" muted loop playsinline></video>
+          <div class="p-card-tint"></div>
+          <div class="p-card-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
           <div class="p-card-overlay">
-            <p class="p-card-cat">Print · Product</p>
-            <div class="p-card-title">Weathergard<br>Product Launch</div>
+            <div class="p-card-info">
+              <p class="p-card-cat">Television · Home Services</p>
+              <div class="p-card-title">Weathergard</div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Hastings -->
       <div class="p-card reveal reveal-delay-2">
-        <span class="p-card-tag">Radio</span>
+        <span class="p-card-tag">Television</span>
         <div class="p-card-inner">
-          <div class="p-card-bg" style="background: linear-gradient(140deg,#141620 0%,#1a1c2e 50%,#0f1020 100%);"></div>
+          <video src="https://www.larryjohnwright.com/tvspots/67794.mp4"
+                 preload="metadata" muted loop playsinline></video>
+          <div class="p-card-tint"></div>
+          <div class="p-card-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
           <div class="p-card-overlay">
-            <p class="p-card-cat">Radio · Local</p>
-            <div class="p-card-title">Hastings<br>Automotive Group</div>
+            <div class="p-card-info">
+              <p class="p-card-cat">Television · Automotive</p>
+              <div class="p-card-title">Hastings Motorcycle</div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Blue Sky -->
       <div class="p-card reveal reveal-delay-2">
-        <span class="p-card-tag">Digital</span>
+        <span class="p-card-tag">Television</span>
         <div class="p-card-inner">
-          <div class="p-card-bg" style="background: linear-gradient(140deg,#0e1520 0%,#121c2e 50%,#090f18 100%);"></div>
+          <video src="https://www.larryjohnwright.com/tvspots/67734.mp4"
+                 preload="metadata" muted loop playsinline></video>
+          <div class="p-card-tint"></div>
+          <div class="p-card-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
           <div class="p-card-overlay">
-            <p class="p-card-cat">Digital · Brand</p>
-            <div class="p-card-title">Blue Sky<br>Full Campaign</div>
+            <div class="p-card-info">
+              <p class="p-card-cat">Television · Sports</p>
+              <div class="p-card-title">Blue Sky Pitcher</div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -1220,6 +1316,22 @@
     }, { threshold: 0.5 });
 
     document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    // Portfolio video hover-to-play
+    document.querySelectorAll('.p-card').forEach(card => {
+      const video = card.querySelector('video');
+      if (!video) return;
+
+      card.addEventListener('mouseenter', () => {
+        video.play().then(() => card.classList.add('playing')).catch(() => {});
+      });
+
+      card.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+        card.classList.remove('playing');
+      });
+    });
   </script>
 
 </body>
