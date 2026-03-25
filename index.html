@@ -6,21 +6,22 @@
   <title>Larry John Wright — Full-Service Ad Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #080B12;
-      --bg2:     #0D1119;
-      --text:    #EDF0F7;
-      --blue:    #64A0ED;
-      --blue2:   #3A7BD5;
-      --purple:  #50485B;
-      --glass:   rgba(8,11,18,0.82);
-      --border:  rgba(100,160,237,0.1);
-      --muted:   rgba(237,240,247,0.45);
-      --spring:  cubic-bezier(0.32,0.72,0,1);
+      --bg:        #09090F;
+      --bg-raised: #0E0F18;
+      --text:      #ECEEF5;
+      --muted:     rgba(236,238,245,0.42);
+      --faint:     rgba(236,238,245,0.14);
+      --blue:      #64A0ED;
+      --blue-dim:  rgba(100,160,237,0.12);
+      --border:    rgba(100,160,237,0.1);
+      --border-hi: rgba(100,160,237,0.28);
+      --spring:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --spring-b:  cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -34,15 +35,14 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE TEXTURE ── */
+    /* SVG noise texture */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
-      opacity: 0.6;
     }
 
     /* ── NAV ── */
@@ -53,40 +53,40 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 70px;
-      transition: background 0.45s, backdrop-filter 0.45s, border-color 0.45s;
+      padding: 0 3rem;
+      height: 68px;
+      transition: background 0.5s var(--spring), border-color 0.5s;
       border-bottom: 1px solid transparent;
     }
 
     nav.scrolled {
-      background: var(--glass);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      background: rgba(9,9,15,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom-color: var(--border);
     }
 
     .nav-logo img {
-      height: 34px;
+      height: 32px;
       filter: brightness(0) invert(1);
-      opacity: 0.85;
+      opacity: 0.8;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
+      gap: 2.75rem;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text);
       text-decoration: none;
-      font-size: 0.65rem;
+      font-size: 0.625rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      opacity: 0.55;
+      opacity: 0.5;
       transition: opacity 0.2s;
     }
 
@@ -95,10 +95,11 @@
     .nav-cta {
       opacity: 1 !important;
       color: var(--blue) !important;
-      border: 1px solid rgba(100,160,237,0.4) !important;
-      padding: 0.45rem 1.3rem;
-      border-radius: 2px;
-      transition: background 0.22s, color 0.22s, border-color 0.22s !important;
+      border: 1px solid var(--border-hi) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 3px;
+      font-size: 0.625rem !important;
+      transition: background 0.2s, color 0.2s, border-color 0.2s !important;
     }
 
     .nav-cta:hover {
@@ -111,142 +112,160 @@
     .hero {
       position: relative;
       min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 9rem 5rem 5.5rem;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 0 3rem;
       overflow: hidden;
     }
 
-    /* large background glow */
-    .hero::after {
-      content: '';
+    .hero-glow {
       position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 70vw;
-      height: 70vw;
-      background: radial-gradient(ellipse at center, rgba(100,160,237,0.07) 0%, transparent 65%);
+      top: -15%;
+      right: -5%;
+      width: 65vw;
+      height: 65vw;
+      background: radial-gradient(ellipse at center, rgba(100,160,237,0.06) 0%, transparent 62%);
       pointer-events: none;
     }
 
-    /* grid overlay */
-    .hero-grid-bg {
+    .hero-grid-lines {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(100,160,237,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(100,160,237,0.04) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: radial-gradient(ellipse 80% 80% at 60% 40%, black 30%, transparent 100%);
+        linear-gradient(rgba(100,160,237,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100,160,237,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 85% 75% at 65% 35%, black 20%, transparent 100%);
       pointer-events: none;
     }
 
-    .hero-content { position: relative; z-index: 1; }
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
 
     .hero-eyebrow {
-      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      font-size: 0.625rem;
+      font-weight: 500;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 1.75rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s var(--spring) 0.2s forwards;
     }
 
     .hero-eyebrow::before {
       content: '';
-      display: inline-block;
       width: 2rem;
       height: 1px;
       background: var(--blue);
+      flex-shrink: 0;
     }
 
     .hero-headline {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(6rem, 13vw, 15rem);
-      line-height: 0.88;
-      letter-spacing: 0.01em;
+      font-size: clamp(6.5rem, 14vw, 16rem);
+      line-height: 0.86;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.85s var(--spring) 0.35s forwards;
     }
 
-    .hero-headline span {
-      display: block;
-    }
+    .hero-headline .line1 { display: block; }
 
     .hero-headline .line2 {
-      -webkit-text-stroke: 1px rgba(237,240,247,0.25);
+      display: block;
       color: transparent;
+      -webkit-text-stroke: 1px rgba(236,238,245,0.2);
     }
 
-    .hero-headline .accent { color: var(--blue); }
+    .hero-headline .line3 {
+      display: block;
+      color: var(--blue);
+    }
 
-    .hero-bottom {
+    .hero-foot {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-top: 3rem;
+      padding: 2rem 0 5rem;
+      position: relative;
+      z-index: 1;
       gap: 3rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s var(--spring) 0.55s forwards;
     }
 
     .hero-sub {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       color: var(--muted);
-      max-width: 40ch;
-      line-height: 1.8;
+      max-width: 38ch;
+      line-height: 1.85;
+      font-weight: 300;
     }
 
     .hero-actions {
       display: flex;
-      gap: 1rem;
-      align-items: center;
+      gap: 0.75rem;
       flex-shrink: 0;
     }
 
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* ── BUTTONS ── */
-    .btn-primary {
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.875rem 1.875rem;
+      border-radius: 3px;
+      transition: transform 0.25s var(--spring-b), background 0.2s, border-color 0.2s, opacity 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
       background: var(--blue);
       color: #fff;
-      text-decoration: none;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 1rem 2rem;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.2s var(--spring);
     }
 
-    .btn-primary:hover { background: var(--blue2); transform: translateY(-1px); }
+    .btn-primary:hover { background: #5591de; }
 
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
+    .btn-outline {
       background: transparent;
       color: var(--text);
-      text-decoration: none;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 1rem 2rem;
-      border-radius: 2px;
       border: 1px solid var(--border);
-      transition: border-color 0.2s, transform 0.2s var(--spring);
     }
 
-    .btn-ghost:hover { border-color: rgba(100,160,237,0.4); transform: translateY(-1px); }
+    .btn-outline:hover { border-color: var(--border-hi); }
 
     /* ── TICKER ── */
     .ticker {
       background: var(--blue);
       overflow: hidden;
-      padding: 0.9rem 0;
+      padding: 0.8rem 0;
       white-space: nowrap;
       position: relative;
       z-index: 1;
@@ -254,22 +273,8 @@
 
     .ticker-track {
       display: inline-flex;
-      animation: ticker 16s linear infinite;
+      animation: ticker 18s linear infinite;
       will-change: transform;
-    }
-
-    .ticker-item {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.16em;
-      color: #fff;
-      padding: 0 1.5rem;
-    }
-
-    .ticker-sep {
-      color: rgba(255,255,255,0.35);
-      align-self: center;
-      font-size: 0.45rem;
     }
 
     @keyframes ticker {
@@ -277,90 +282,153 @@
       to   { transform: translateX(-33.333%); }
     }
 
-    /* ── STATS ── */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      color: #fff;
+      padding: 0 1.5rem;
     }
 
-    .stat-item {
-      padding: 4.5rem 3rem;
+    .ticker-dot {
+      align-self: center;
+      font-size: 0.35rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── STATS — editorial asymmetric layout ── */
+    .stats-section {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-feature {
+      padding: 5rem 3rem;
       border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 1rem;
       position: relative;
       overflow: hidden;
     }
 
-    .stat-item::before {
+    .stat-feature::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0;
-      width: 100%;
+      width: 3rem;
       height: 2px;
       background: var(--blue);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.6s var(--spring);
+      transition: width 0.6s var(--spring);
     }
 
-    .stat-item:hover::before { transform: scaleX(1); }
-    .stat-item:last-child { border-right: none; }
+    .stat-feature:hover::after { width: 100%; }
 
-    .stat-number {
+    .stat-feature-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .stat-feature-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 5vw, 6.5rem);
-      line-height: 1;
+      font-size: clamp(5rem, 8vw, 9rem);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
       color: var(--text);
     }
 
-    .stat-number sup {
+    .stat-feature-num sup {
+      font-size: 0.3em;
+      color: var(--blue);
+      vertical-align: super;
+      letter-spacing: 0;
+    }
+
+    .stat-feature-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 20ch;
+      line-height: 1.6;
+    }
+
+    .stat-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-item {
+      padding: 2.75rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .stat-item:hover { background: var(--blue-dim); }
+    .stat-col:last-child .stat-item { border-right: none; }
+    .stat-item:last-child { border-bottom: none; }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-num sup {
       font-size: 0.38em;
       color: var(--blue);
       vertical-align: super;
     }
 
-    .stat-label {
-      font-size: 0.65rem;
+    .stat-lbl {
+      font-size: 0.625rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
       font-weight: 500;
     }
 
-    /* ── SECTION SHARED ── */
-    .section-label {
-      font-size: 0.62rem;
+    /* ── SECTION LABELS ── */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.6rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 1rem;
       font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      margin-bottom: 1.25rem;
     }
 
-    .section-label::before {
+    .label::before {
       content: '';
-      display: inline-block;
       width: 1.5rem;
       height: 1px;
       background: var(--blue);
     }
 
-    .section-title {
+    .heading {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 5vw, 5.5rem);
-      line-height: 0.93;
-      letter-spacing: 0.02em;
+      font-size: clamp(3rem, 5vw, 5.25rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
     }
 
-    /* ── PORTFOLIO ── */
+    /* ── PORTFOLIO — asymmetric bento ── */
     .portfolio {
-      padding: 8rem 2.5rem;
+      padding: 8rem 3rem;
       position: relative;
       z-index: 1;
     }
@@ -369,39 +437,49 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
 
     .link-sm {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.2rem;
-      transition: color 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       font-weight: 500;
+      transition: color 0.2s;
     }
 
-    .link-sm:hover { color: var(--blue); border-color: var(--blue); }
+    .link-sm:hover { color: var(--blue); }
+    .link-sm::after { content: '→'; transition: transform 0.2s var(--spring-b); }
+    .link-sm:hover::after { transform: translateX(4px); }
 
-    .portfolio-grid {
+    /* Asymmetric bento grid */
+    .bento {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 0.875rem;
     }
 
     .p-card {
       position: relative;
       overflow: hidden;
-      background: var(--bg2);
+      background: var(--bg-raised);
       border: 1px solid var(--border);
+      border-radius: 4px;
       cursor: pointer;
-      border-radius: 3px;
     }
 
-    .p-card:first-child { grid-column: span 2; }
+    /* Featured card: tall left column */
+    .p-card--featured {
+      grid-row: span 2;
+    }
+
+    .p-card--featured .p-card-inner { aspect-ratio: unset; height: 100%; min-height: 520px; }
 
     .p-card-inner {
       aspect-ratio: 16/9;
@@ -409,109 +487,80 @@
       overflow: hidden;
     }
 
-    .p-card:first-child .p-card-inner { aspect-ratio: 21/9; }
-
-    /* video fills the card */
     .p-card video {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.9s var(--spring);
+      transition: transform 1s var(--spring);
       display: block;
     }
 
-    .p-card:hover video { transform: scale(1.04); }
+    .p-card:hover video { transform: scale(1.05); }
 
-    /* consistent blue tint so all thumbnails feel cohesive */
+    /* cohesive tint */
     .p-card-tint {
       position: absolute;
       inset: 0;
-      background: linear-gradient(160deg, rgba(20,40,80,0.55) 0%, rgba(8,11,18,0.2) 100%);
+      background: linear-gradient(150deg, rgba(12,22,48,0.6) 0%, rgba(9,9,15,0.15) 100%);
       mix-blend-mode: multiply;
       pointer-events: none;
       transition: opacity 0.4s;
     }
 
-    .p-card:hover .p-card-tint { opacity: 0.5; }
+    .p-card:hover .p-card-tint { opacity: 0.55; }
 
-    /* bottom info overlay */
+    /* always-visible bottom info */
     .p-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(8,11,18,0.95) 0%, rgba(8,11,18,0.15) 45%, transparent 100%);
+      background: linear-gradient(to top, rgba(9,9,15,0.96) 0%, rgba(9,9,15,0.1) 50%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 1.75rem;
+      padding: 1.5rem;
       pointer-events: none;
     }
 
-    /* info always visible at bottom, brightens on hover */
+    .p-card--featured .p-card-overlay { padding: 2rem; }
+
     .p-card-info {
-      transform: translateY(4px);
-      transition: transform 0.4s var(--spring);
+      transform: translateY(5px);
+      transition: transform 0.45s var(--spring);
     }
 
     .p-card:hover .p-card-info { transform: translateY(0); }
 
     .p-card-cat {
-      font-size: 0.58rem;
+      font-size: 0.575rem;
       letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 0.4rem;
       font-weight: 500;
+      margin-bottom: 0.35rem;
     }
 
     .p-card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.9rem;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       line-height: 1.05;
     }
 
-    /* play indicator */
-    .p-card-play {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.85);
-      width: 56px;
-      height: 56px;
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s var(--spring), border-color 0.3s;
-      backdrop-filter: blur(6px);
-      background: rgba(8,11,18,0.4);
-    }
+    .p-card--featured .p-card-title { font-size: 2.5rem; }
+    .p-card-title { font-size: 1.6rem; }
 
-    .p-card-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
-
-    .p-card:hover .p-card-play {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      border-color: var(--blue);
-    }
-
-    /* hide play icon once video is playing */
-    .p-card.playing .p-card-play { opacity: 0 !important; }
-
-    .p-card-tag {
+    /* type badge */
+    .p-card-badge {
       position: absolute;
       top: 1rem;
       left: 1rem;
-      background: rgba(8,11,18,0.7);
+      background: rgba(9,9,15,0.72);
       border: 1px solid var(--border);
       backdrop-filter: blur(8px);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
+      padding: 0.28rem 0.7rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       border-radius: 2px;
@@ -519,78 +568,112 @@
       z-index: 2;
     }
 
+    /* play button */
+    .p-card-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .p-card-play-btn {
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(9,9,15,0.45);
+      backdrop-filter: blur(8px);
+      transform: scale(0.88);
+      transition: transform 0.35s var(--spring-b), border-color 0.3s;
+    }
+
+    .p-card-play-btn svg { width: 16px; height: 16px; fill: #fff; margin-left: 3px; }
+
+    .p-card:hover .p-card-play { opacity: 1; }
+
+    .p-card:hover .p-card-play-btn {
+      transform: scale(1);
+      border-color: var(--blue);
+    }
+
+    .p-card.playing .p-card-play { opacity: 0 !important; }
+
     /* ── PROCESS ── */
     .process {
-      padding: 8rem 2.5rem;
+      padding: 8rem 3rem;
       border-top: 1px solid var(--border);
       position: relative;
       z-index: 1;
     }
 
-    .process-header { margin-bottom: 5rem; }
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      margin-top: 5rem;
+      align-items: start;
+    }
+
+    .process-intro p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-top: 1.5rem;
+    }
 
     .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .process-step {
-      padding: 2.5rem 2.5rem 2.5rem 0;
-      border-right: 1px solid var(--border);
-      position: relative;
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1.5rem;
+      padding: 1.875rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: padding-left 0.35s var(--spring);
+      cursor: default;
     }
 
-    .process-step:last-child { border-right: none; padding-right: 0; }
-    .process-step:not(:first-child) { padding-left: 2.5rem; }
+    .process-step:first-child { border-top: 1px solid var(--border); }
+    .process-step:hover { padding-left: 0.75rem; }
 
     .step-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 4rem;
-      color: rgba(100,160,237,0.12);
-      line-height: 1;
-      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--blue);
+      letter-spacing: 0.08em;
+      padding-top: 0.2rem;
+      opacity: 0.65;
     }
 
-    .step-icon {
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(100,160,237,0.25);
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .step-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
+    .step-body {}
 
     .step-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
     }
 
     .step-desc {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
       line-height: 1.75;
     }
 
-    .step-connector {
-      position: absolute;
-      top: 2.5rem;
-      right: -1.25rem;
-      width: 2.5rem;
-      height: 1px;
-      background: linear-gradient(to right, var(--border), transparent);
-      pointer-events: none;
-    }
-
     /* ── ABOUT ── */
     .about {
-      padding: 8rem 2.5rem;
+      padding: 8rem 3rem;
       border-top: 1px solid var(--border);
       position: relative;
       z-index: 1;
@@ -600,11 +683,11 @@
     .about::before {
       content: '';
       position: absolute;
-      left: -20%;
-      top: 10%;
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(ellipse, rgba(80,72,91,0.08) 0%, transparent 65%);
+      left: -25%;
+      bottom: 0;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(ellipse, rgba(80,72,91,0.07) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -612,58 +695,59 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 7rem;
-      margin-top: 4.5rem;
+      margin-top: 5rem;
       align-items: start;
     }
 
     .about-copy p {
+      font-size: 0.9375rem;
       color: var(--muted);
       line-height: 1.9;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.375rem;
     }
 
     .about-copy strong { color: var(--text); font-weight: 400; }
 
-    .about-actions { margin-top: 2.5rem; display: flex; gap: 1rem; }
-
     .studio-callout {
       margin-top: 2.5rem;
-      padding: 1.5rem;
+      padding: 1.375rem 1.5rem;
       border: 1px solid var(--border);
-      border-radius: 3px;
-      background: rgba(100,160,237,0.03);
+      border-radius: 4px;
+      background: var(--blue-dim);
       display: flex;
       gap: 1rem;
       align-items: flex-start;
     }
 
     .studio-icon {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       flex-shrink: 0;
-      border: 1px solid rgba(100,160,237,0.2);
+      border: 1px solid rgba(100,160,237,0.22);
       border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .studio-icon svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
+    .studio-icon svg { width: 15px; height: 15px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
 
     .studio-text { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
     .studio-text strong { color: var(--blue); font-weight: 500; }
 
+    .about-actions { margin-top: 2.5rem; display: flex; gap: 0.75rem; }
+
+    /* services list */
     .services-list { list-style: none; }
 
     .services-list li {
       display: grid;
       grid-template-columns: 2.5rem 1fr;
       gap: 1rem;
-      padding: 1.5rem 0;
+      padding: 1.625rem 0;
       border-bottom: 1px solid var(--border);
       align-items: start;
-      transition: padding-left 0.3s var(--spring);
+      transition: padding-left 0.3s var(--spring), background 0.25s;
       cursor: default;
     }
 
@@ -672,154 +756,151 @@
 
     .svc-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--blue);
-      letter-spacing: 0.06em;
-      padding-top: 0.18rem;
-      opacity: 0.6;
+      letter-spacing: 0.08em;
+      padding-top: 0.15rem;
+      opacity: 0.55;
     }
 
     .svc-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.05em;
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
       display: block;
       line-height: 1.1;
     }
 
     .svc-desc {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--muted);
       margin-top: 0.3rem;
       display: block;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* ── CLIENTS ── */
     .clients {
-      padding: 6rem 2.5rem;
+      padding: 5.5rem 3rem;
       border-top: 1px solid var(--border);
-      text-align: center;
       position: relative;
       z-index: 1;
     }
 
     .clients-eyebrow {
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 3.5rem;
       font-weight: 500;
+      margin-bottom: 3rem;
     }
 
     .clients-row {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 5rem;
+      gap: 4.5rem;
       flex-wrap: wrap;
     }
 
     .client-mark {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.65rem;
+      font-size: 1.5rem;
       letter-spacing: 0.12em;
-      color: var(--muted);
+      color: var(--faint);
       cursor: default;
-      transition: color 0.3s;
-      opacity: 0.5;
+      transition: color 0.3s var(--spring);
     }
 
-    .client-mark:hover { color: var(--text); opacity: 1; }
+    .client-mark:hover { color: var(--muted); }
 
     /* ── CTA BAND ── */
     .cta-band {
-      padding: 8rem 2.5rem;
+      padding: 9rem 3rem;
       border-top: 1px solid var(--border);
       position: relative;
       z-index: 1;
       overflow: hidden;
-      text-align: center;
     }
 
     .cta-band::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(100,160,237,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse 65% 75% at 50% 60%, rgba(100,160,237,0.055) 0%, transparent 70%);
       pointer-events: none;
     }
 
-    .cta-band-inner { position: relative; }
+    .cta-inner { position: relative; }
 
     .cta-band h2 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 8vw, 9rem);
-      line-height: 0.9;
-      margin-bottom: 2rem;
-    }
-
-    .cta-band h2 .outline {
-      -webkit-text-stroke: 1px rgba(237,240,247,0.25);
-      color: transparent;
-    }
-
-    .cta-band h2 .accent { color: var(--blue); }
-
-    .cta-sub {
-      font-size: 1rem;
-      color: var(--muted);
+      font-size: clamp(4rem, 9vw, 10.5rem);
+      line-height: 0.87;
+      letter-spacing: -0.02em;
       margin-bottom: 2.5rem;
     }
 
-    .cta-actions {
+    .cta-band h2 .outline {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(236,238,245,0.18);
+    }
+
+    .cta-band h2 .solid { display: block; color: var(--blue); }
+
+    .cta-row {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
       align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-divider {
+      width: 1px;
+      height: 2rem;
+      background: var(--border);
     }
 
     .cta-meta {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
-      margin-top: 1.5rem;
+      letter-spacing: 0.06em;
     }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 5.5rem 2.5rem 3rem;
+      padding: 5rem 3rem 3rem;
       position: relative;
       z-index: 1;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      grid-template-columns: 1.75fr 1fr 1fr 1fr;
       gap: 3rem;
       margin-bottom: 4rem;
     }
 
     .footer-brand-logo {
-      height: 32px;
+      height: 30px;
       filter: brightness(0) invert(1);
-      opacity: 0.55;
+      opacity: 0.5;
       margin-bottom: 1.5rem;
       display: block;
     }
 
     .footer-tagline {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
       line-height: 1.9;
-      max-width: 28ch;
+      max-width: 26ch;
     }
 
     .footer-col h4 {
-      font-size: 0.6rem;
-      letter-spacing: 0.24em;
+      font-size: 0.575rem;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.5rem;
@@ -827,17 +908,17 @@
     }
 
     .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.85rem; }
+    .footer-col ul li { margin-bottom: 0.875rem; }
 
     .footer-col ul li a {
       color: var(--text);
       text-decoration: none;
       font-size: 0.875rem;
-      opacity: 0.45;
+      opacity: 0.38;
       transition: opacity 0.2s, color 0.2s;
     }
 
-    .footer-col ul li a:hover { opacity: 1; color: var(--blue); }
+    .footer-col ul li a:hover { opacity: 0.9; color: var(--blue); }
 
     .footer-bottom {
       display: flex;
@@ -848,10 +929,10 @@
     }
 
     .footer-copy {
-      font-size: 0.68rem;
+      font-size: 0.675rem;
       color: var(--muted);
       letter-spacing: 0.06em;
-      opacity: 0.6;
+      opacity: 0.55;
     }
 
     .social-row { display: flex; gap: 0.5rem; }
@@ -860,41 +941,47 @@
       width: 34px;
       height: 34px;
       border: 1px solid var(--border);
-      border-radius: 2px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 500;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--muted);
       text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
+      transition: border-color 0.2s, color 0.2s, transform 0.25s var(--spring-b);
     }
 
-    .social-sq:hover { border-color: var(--blue); color: var(--blue); }
+    .social-sq:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
 
-    /* ── REVEAL ANIMATIONS ── */
+    /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s var(--spring);
+      transform: translateY(20px);
+      transition: opacity 0.65s var(--spring), transform 0.65s var(--spring);
     }
 
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* staggered cascade via --i custom property */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s var(--spring), transform 0.6s var(--spring);
     }
 
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
+    .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+    .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+    .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+    .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+    .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+    .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
   </style>
 </head>
 <body>
 
-  <!-- ─── NAV ─── -->
+  <!-- NAV -->
   <nav id="main-nav">
     <a href="#" class="nav-logo">
       <img src="https://www.larryjohnwright.com/wp-content/uploads/2018/10/ljwicon.png" alt="Larry John Wright">
@@ -908,94 +995,118 @@
     </ul>
   </nav>
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-content">
+    <div class="hero-glow"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-body">
       <p class="hero-eyebrow">Mesa, Arizona &nbsp;·&nbsp; Est. 1984</p>
       <h1 class="hero-headline">
         <span class="line1">Less Talk</span>
         <span class="line2">More</span>
-        <span class="accent">Advertising</span>
+        <span class="line3">Advertising</span>
       </h1>
-      <div class="hero-bottom">
-        <p class="hero-sub">We're a full-service advertising agency with an on-site production studio. Four decades of creative that connects — built under one roof.</p>
-        <div class="hero-actions">
-          <a href="#work" class="btn-primary">See Our Work</a>
-          <a href="#contact" class="btn-ghost">Get in Touch</a>
-        </div>
+    </div>
+    <div class="hero-foot">
+      <p class="hero-sub">Full-service advertising and marketing agency with an on-site production studio. Four decades of creative that drives measurable results.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">See Our Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
     </div>
   </section>
 
-  <!-- ─── TICKER ─── -->
+  <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Social Media</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">In-House Production</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Social Media</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">In-House Production</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Television</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Digital</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Radio</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Social Media</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Print</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">Media Buying</span><span class="ticker-sep">●</span>
-      <span class="ticker-item">In-House Production</span><span class="ticker-sep">●</span>
+      <span class="ticker-item">Television</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Social Media</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">In-House Production</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Television</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Social Media</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">In-House Production</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Television</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Digital</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Radio</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Social Media</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Print</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">Media Buying</span><span class="ticker-dot">●</span>
+      <span class="ticker-item">In-House Production</span><span class="ticker-dot">●</span>
     </div>
   </div>
 
-  <!-- ─── STATS ─── -->
-  <div class="stats">
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="40"><span class="count-val">40</span><sup>+</sup></div>
-      <div class="stat-label">Years in Business</div>
+  <!-- STATS -->
+  <div class="stats-section">
+    <!-- Featured stat — largest cell -->
+    <div class="stat-feature reveal">
+      <span class="stat-feature-eyebrow">Years in Business</span>
+      <div class="stat-feature-num"><span class="count-val" data-count="40">40</span><sup>+</sup></div>
+      <p class="stat-feature-label">Four decades of full-service advertising out of Mesa, Arizona.</p>
     </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <div class="stat-number" data-count="500"><span class="count-val">500</span><sup>+</sup></div>
-      <div class="stat-label">Campaigns Launched</div>
+    <!-- Right column — stacked -->
+    <div class="stat-col">
+      <div class="stat-item reveal">
+        <div class="stat-num"><span class="count-val" data-count="500">500</span><sup>+</sup></div>
+        <div class="stat-lbl">Campaigns Launched</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num">06</div>
+        <div class="stat-lbl">Core Disciplines</div>
+      </div>
     </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-number">06</div>
-      <div class="stat-label">Core Disciplines</div>
+    <div class="stat-col">
+      <div class="stat-item reveal">
+        <div class="stat-num">US</div>
+        <div class="stat-lbl">Nationwide Reach</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num">01</div>
+        <div class="stat-lbl">In-House Studio</div>
+      </div>
     </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <div class="stat-number">US</div>
-      <div class="stat-label">Nationwide Reach</div>
+    <div class="stat-col">
+      <div class="stat-item reveal">
+        <div class="stat-num">TV</div>
+        <div class="stat-lbl">Broadcast to Streaming</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num">AZ</div>
+        <div class="stat-lbl">Based in Mesa</div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── PORTFOLIO ─── -->
+  <!-- PORTFOLIO -->
   <section class="portfolio" id="work">
     <div class="portfolio-header reveal">
       <div>
-        <p class="section-label">Selected Work</p>
-        <h2 class="section-title">What We've<br>Built</h2>
+        <p class="label">Selected Work</p>
+        <h2 class="heading">What We've Built</h2>
       </div>
-      <a href="#" class="link-sm">View All Projects &rarr;</a>
+      <a href="#" class="link-sm">View All Projects</a>
     </div>
 
-    <div class="portfolio-grid">
+    <div class="bento stagger">
 
-      <!-- Moxie — featured wide card -->
-      <div class="p-card reveal">
-        <span class="p-card-tag">Television</span>
+      <!-- Featured tall card -->
+      <div class="p-card p-card--featured">
+        <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
           <video src="https://www.larryjohnwright.com/tvspots/67477.mp4"
                  preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="p-card-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
           </div>
           <div class="p-card-overlay">
             <div class="p-card-info">
@@ -1007,14 +1118,16 @@
       </div>
 
       <!-- Express -->
-      <div class="p-card reveal reveal-delay-1">
-        <span class="p-card-tag">Television</span>
+      <div class="p-card">
+        <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
           <video src="https://www.larryjohnwright.com/tvspots/67707.mp4"
                  preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="p-card-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
           </div>
           <div class="p-card-overlay">
             <div class="p-card-info">
@@ -1026,14 +1139,16 @@
       </div>
 
       <!-- Weathergard -->
-      <div class="p-card reveal reveal-delay-1">
-        <span class="p-card-tag">Television</span>
+      <div class="p-card">
+        <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
           <video src="https://www.larryjohnwright.com/tvspots/67878.mp4"
                  preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="p-card-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
           </div>
           <div class="p-card-overlay">
             <div class="p-card-info">
@@ -1045,14 +1160,16 @@
       </div>
 
       <!-- Hastings -->
-      <div class="p-card reveal reveal-delay-2">
-        <span class="p-card-tag">Television</span>
+      <div class="p-card">
+        <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
           <video src="https://www.larryjohnwright.com/tvspots/67794.mp4"
                  preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="p-card-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
           </div>
           <div class="p-card-overlay">
             <div class="p-card-info">
@@ -1064,14 +1181,16 @@
       </div>
 
       <!-- Blue Sky -->
-      <div class="p-card reveal reveal-delay-2">
-        <span class="p-card-tag">Television</span>
+      <div class="p-card">
+        <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
           <video src="https://www.larryjohnwright.com/tvspots/67734.mp4"
                  preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="p-card-play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
           </div>
           <div class="p-card-overlay">
             <div class="p-card-info">
@@ -1085,56 +1204,52 @@
     </div>
   </section>
 
-  <!-- ─── PROCESS ─── -->
+  <!-- PROCESS -->
   <section class="process" id="process">
-    <div class="process-header reveal">
-      <p class="section-label">How We Work</p>
-      <h2 class="section-title">From Idea<br>to Impact</h2>
-    </div>
-
-    <div class="process-steps">
-      <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
-        </div>
-        <div class="step-title">Discover</div>
-        <p class="step-desc">We dig into your brand, audience, and competitive landscape before touching a single creative asset.</p>
+    <p class="label reveal">How We Work</p>
+    <div class="process-grid">
+      <div class="process-intro reveal">
+        <h2 class="heading">From Idea<br>to Impact</h2>
+        <p>We run a tight process — no handoffs to unknown vendors, no creative by committee. Strategy and production live under the same roof.</p>
       </div>
 
-      <div class="process-step reveal reveal-delay-1">
-        <div class="step-num">02</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-        </div>
-        <div class="step-title">Strategy</div>
-        <p class="step-desc">A precise media and messaging strategy built around your goals — not guesswork or trend-chasing.</p>
-      </div>
-
-      <div class="process-step reveal reveal-delay-2">
-        <div class="step-num">03</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div class="step-title">Create</div>
-        <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print, all under one roof.</p>
-      </div>
-
-      <div class="process-step reveal reveal-delay-3">
-        <div class="step-num">04</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div class="step-title">Measure</div>
-        <p class="step-desc">We track, report, and optimize so your campaign keeps getting sharper — not just launched and forgotten.</p>
-      </div>
+      <ul class="process-steps stagger">
+        <li class="process-step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <div class="step-title">Discover</div>
+            <p class="step-desc">We dig into your brand, audience, and competitive landscape before touching a single creative asset.</p>
+          </div>
+        </li>
+        <li class="process-step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <div class="step-title">Strategy</div>
+            <p class="step-desc">A precise media and messaging strategy built around your goals — not guesswork or trend-chasing.</p>
+          </div>
+        </li>
+        <li class="process-step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <div class="step-title">Create</div>
+            <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print, all under one roof.</p>
+          </div>
+        </li>
+        <li class="process-step">
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <div class="step-title">Measure</div>
+            <p class="step-desc">We track, report, and optimize so your campaign keeps improving — not just launched and forgotten.</p>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
-  <!-- ─── ABOUT ─── -->
+  <!-- ABOUT -->
   <section class="about" id="about">
-    <p class="section-label reveal">About the Agency</p>
-    <h2 class="section-title reveal">Know the Client.<br>Understand the Need.</h2>
+    <p class="label reveal">About the Agency</p>
+    <h2 class="heading reveal">Know the Client.<br>Understand the Need.</h2>
 
     <div class="about-grid">
       <div class="about-copy reveal">
@@ -1146,21 +1261,21 @@
           <div class="studio-icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
           </div>
-          <p class="studio-text"><strong>On-site production studio.</strong> Broadcast quality TV spots, radio production, and digital content — no outside vendors, no scheduling delays, no budget markup.</p>
+          <p class="studio-text"><strong>On-site production studio.</strong> Broadcast-quality TV spots, radio production, and digital content — no outside vendors, no scheduling delays, no markup.</p>
         </div>
 
         <div class="about-actions">
-          <a href="#" class="btn-primary">Our Story</a>
-          <a href="#careers" class="btn-ghost">Careers</a>
+          <a href="#" class="btn btn-primary">Our Story</a>
+          <a href="#careers" class="btn btn-outline">Careers</a>
         </div>
       </div>
 
-      <ul class="services-list reveal reveal-delay-2">
+      <ul class="services-list stagger">
         <li>
           <span class="svc-num">01</span>
           <div>
             <span class="svc-name">Television</span>
-            <span class="svc-desc">Broadcast spots, OTT/streaming, and full production in-house.</span>
+            <span class="svc-desc">Broadcast spots, OTT/streaming, and full in-house production.</span>
           </div>
         </li>
         <li>
@@ -1202,10 +1317,10 @@
     </div>
   </section>
 
-  <!-- ─── CLIENTS ─── -->
+  <!-- CLIENTS -->
   <section class="clients">
     <p class="clients-eyebrow reveal">Brands We've Built With</p>
-    <div class="clients-row reveal reveal-delay-1">
+    <div class="clients-row stagger">
       <span class="client-mark">Moxie</span>
       <span class="client-mark">Express</span>
       <span class="client-mark">Hastings</span>
@@ -1214,24 +1329,22 @@
     </div>
   </section>
 
-  <!-- ─── CTA BAND ─── -->
+  <!-- CTA -->
   <section class="cta-band" id="contact">
-    <div class="cta-band-inner">
+    <div class="cta-inner">
       <h2 class="reveal">
-        Ready to Build<br>
-        <span class="outline">Something</span>
-        <span class="accent"> Real?</span>
+        <span class="outline">Ready to Build</span>
+        <span class="solid">Something Real?</span>
       </h2>
-      <p class="cta-sub reveal reveal-delay-1">Less talk. More advertising. Let's get to work.</p>
-      <div class="cta-actions reveal reveal-delay-2">
-        <a href="mailto:hello@larryjohnwright.com" class="btn-primary">Start a Conversation &rarr;</a>
-        <a href="tel:+14800000000" class="btn-ghost">Call Us</a>
+      <div class="cta-row reveal">
+        <a href="mailto:hello@larryjohnwright.com" class="btn btn-primary">Start a Conversation</a>
+        <div class="cta-divider"></div>
+        <span class="cta-meta">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000</span>
       </div>
-      <p class="cta-meta reveal reveal-delay-3">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000 &nbsp;·&nbsp; hello@larryjohnwright.com</p>
     </div>
   </section>
 
-  <!-- ─── FOOTER ─── -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
       <div>
@@ -1283,49 +1396,51 @@
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
 
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); } });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Counter animation
-    function animateCount(el, target, duration = 1800) {
-      let start = null;
-      const step = (timestamp) => {
-        if (!start) start = timestamp;
-        const progress = Math.min((timestamp - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(eased * target);
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target;
-      };
-      requestAnimationFrame(step);
-    }
-
-    const countObserver = new IntersectionObserver((entries) => {
+    // Scroll reveal — single IntersectionObserver handles both .reveal and .stagger
+    const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          const el = e.target.querySelector('.count-val');
-          const target = parseInt(e.target.dataset.count);
-          if (el && target) animateCount(el, target);
-          countObserver.unobserve(e.target);
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
         }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+    // Counter animation — spring ease out cubic
+    function animateCount(el, target, duration = 1600) {
+      let start = null;
+      const tick = (t) => {
+        if (!start) start = t;
+        const p = Math.min((t - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target.querySelector('.count-val');
+        const target = parseInt(e.target.dataset.count);
+        if (el && target) animateCount(el, target);
+        countIO.unobserve(e.target);
       });
     }, { threshold: 0.5 });
 
-    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+    document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
 
-    // Portfolio video hover-to-play
+    // Video hover-to-play — transform/opacity only, no layout changes
     document.querySelectorAll('.p-card').forEach(card => {
       const video = card.querySelector('video');
       if (!video) return;
-
       card.addEventListener('mouseenter', () => {
         video.play().then(() => card.classList.add('playing')).catch(() => {});
       });
-
       card.addEventListener('mouseleave', () => {
         video.pause();
         video.currentTime = 0;
@@ -1333,6 +1448,5 @@
       });
     });
   </script>
-
 </body>
 </html>
