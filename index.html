@@ -606,63 +606,94 @@
 
     /* ── PROCESS ── */
     .process {
-      padding: 8rem 3rem;
+      padding: 7rem 3rem;
       border-top: 1px solid var(--border);
+      background: var(--bg-raised);
       position: relative;
       z-index: 1;
     }
 
-    .process-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 6rem;
-      margin-top: 5rem;
-      align-items: start;
-    }
-
-    .process-intro p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.85;
-      margin-top: 1.5rem;
-    }
-
-    .process-steps {
+    .process-header {
       display: flex;
-      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-header p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      max-width: 36ch;
+      line-height: 1.75;
+      margin-top: 0.75rem;
+    }
+
+    /* 4-col horizontal diagram */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+
+    /* connecting line across the top */
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 3.5rem;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, var(--blue-dim), var(--border), var(--blue-dim));
     }
 
     .process-step {
-      display: grid;
-      grid-template-columns: 3rem 1fr;
-      gap: 1.5rem;
-      padding: 1.875rem 0;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
-      transition: padding-left 0.35s var(--spring);
+      padding: 0 2.5rem 2.5rem 0;
+      position: relative;
       cursor: default;
     }
 
-    .process-step:first-child { border-top: 1px solid var(--border); }
-    .process-step:hover { padding-left: 0.75rem; }
+    .process-step:not(:first-child) { padding-left: 2.5rem; border-left: 1px solid var(--border); }
+
+    /* dot on the connecting line */
+    .process-step::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s var(--spring-b), box-shadow 0.3s;
+    }
+
+    .process-step:hover::before {
+      transform: scale(1.5);
+      box-shadow: 0 0 12px rgba(100,160,237,0.5);
+    }
 
     .step-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.875rem;
-      color: var(--blue);
-      letter-spacing: 0.08em;
-      padding-top: 0.2rem;
-      opacity: 0.65;
+      font-size: 5rem;
+      color: rgba(100,160,237,0.07);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      transition: color 0.3s;
     }
 
-    .step-body {}
+    .process-step:hover .step-num { color: rgba(100,160,237,0.14); }
 
     .step-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      color: var(--text);
     }
 
     .step-desc {
@@ -673,11 +704,51 @@
 
     /* ── ABOUT ── */
     .about {
-      padding: 8rem 3rem;
       border-top: 1px solid var(--border);
       position: relative;
       z-index: 1;
       overflow: hidden;
+      background: var(--bg);
+    }
+
+    /* big pull-quote strip at the top */
+    .about-quote {
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 3rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .about-quote-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 8rem;
+      line-height: 0.75;
+      color: var(--blue);
+      opacity: 0.18;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .about-quote-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      opacity: 0.55;
+    }
+
+    .about-quote-text em {
+      font-family: 'Poppins', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.6em;
+      color: var(--blue);
+      display: block;
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+      opacity: 0.8;
     }
 
     .about::before {
@@ -695,7 +766,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 7rem;
-      margin-top: 5rem;
+      padding: 6rem 3rem;
       align-items: start;
     }
 
@@ -1206,53 +1277,51 @@
 
   <!-- PROCESS -->
   <section class="process" id="process">
-    <p class="label reveal">How We Work</p>
-    <div class="process-grid">
-      <div class="process-intro reveal">
-        <h2 class="heading">From Idea<br>to Impact</h2>
-        <p>We run a tight process — no handoffs to unknown vendors, no creative by committee. Strategy and production live under the same roof.</p>
+    <div class="process-header reveal">
+      <div>
+        <p class="label">How We Work</p>
+        <h2 class="heading">From Idea to Impact</h2>
       </div>
+      <p>We run a tight process — no handoffs to unknown vendors, no creative by committee. Strategy and production live under the same roof.</p>
+    </div>
 
-      <ul class="process-steps stagger">
-        <li class="process-step">
-          <span class="step-num">01</span>
-          <div class="step-body">
-            <div class="step-title">Discover</div>
-            <p class="step-desc">We dig into your brand, audience, and competitive landscape before touching a single creative asset.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <span class="step-num">02</span>
-          <div class="step-body">
-            <div class="step-title">Strategy</div>
-            <p class="step-desc">A precise media and messaging strategy built around your goals — not guesswork or trend-chasing.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <span class="step-num">03</span>
-          <div class="step-body">
-            <div class="step-title">Create</div>
-            <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print, all under one roof.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <span class="step-num">04</span>
-          <div class="step-body">
-            <div class="step-title">Measure</div>
-            <p class="step-desc">We track, report, and optimize so your campaign keeps improving — not just launched and forgotten.</p>
-          </div>
-        </li>
-      </ul>
+    <div class="process-steps stagger">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discover</div>
+        <p class="step-desc">We dig into your brand, audience, and competitive landscape before touching a single creative asset.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Strategy</div>
+        <p class="step-desc">A precise media and messaging strategy built around your goals — not guesswork or trend-chasing.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Create</div>
+        <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print, all under one roof.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Measure</div>
+        <p class="step-desc">We track, report, and optimize so your campaign keeps improving — not just launched and forgotten.</p>
+      </div>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
-    <p class="label reveal">About the Agency</p>
-    <h2 class="heading reveal">Know the Client.<br>Understand the Need.</h2>
+    <div class="about-quote reveal">
+      <span class="about-quote-mark">"</span>
+      <div class="about-quote-text">
+        Know the Client. Understand the Need.
+        <em>— Larry John Wright, Inc. · Est. 1984</em>
+      </div>
+    </div>
 
     <div class="about-grid">
       <div class="about-copy reveal">
+        <p class="label">About the Agency</p>
         <p>Larry John Wright, Inc. is a <strong>full-service advertising and marketing agency</strong> based in Mesa, Arizona. For over four decades, we've helped brands connect with their audiences through creative work that drives measurable results.</p>
         <p>Our difference is in how we operate. We run an <strong>on-site, in-house production studio</strong> — giving us the speed, control, and quality that outside vendors simply can't match. From concept to final cut, every element is built under one roof.</p>
         <p>We don't just make things that look good. We make things that <strong>work</strong> — backed by data, sharpened by strategy, and delivered with the craft this market deserves.</p>
