@@ -6,7 +6,7 @@
   <title>Larry John Wright — Full-Service Ad Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,15 +15,16 @@
       --bg-raised: #0E0F18;
       --text:      #ECEEF5;
       --muted:     rgba(236,238,245,0.42);
-      --faint:     rgba(236,238,245,0.14);
+      --faint:     rgba(236,238,245,0.1);
       --blue:      #64A0ED;
-      --blue-dim:  rgba(100,160,237,0.12);
+      --blue-dim:  rgba(100,160,237,0.1);
       --border:    rgba(100,160,237,0.1);
-      --border-hi: rgba(100,160,237,0.28);
+      --border-hi: rgba(100,160,237,0.3);
       --spring:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --spring-b:  cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    ::selection { background: var(--blue); color: #fff; }
     html { scroll-behavior: smooth; }
 
     body {
@@ -35,7 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* SVG noise texture */
     body::before {
       content: '';
       position: fixed;
@@ -45,7 +45,53 @@
       z-index: 0;
     }
 
-    /* ── NAV ── */
+    /* ─── FUNNEL RAIL ─── */
+    /* Fixed left side showing funnel stage */
+    .funnel-rail {
+      position: fixed;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .rail-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .rail-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--faint);
+      border: 1px solid rgba(100,160,237,0.2);
+      transition: background 0.3s, transform 0.3s var(--spring-b), border-color 0.3s;
+      flex-shrink: 0;
+    }
+
+    .rail-step.active .rail-dot {
+      background: var(--blue);
+      border-color: var(--blue);
+      transform: scale(1.5);
+    }
+
+    .rail-line {
+      width: 1px;
+      height: 32px;
+      background: var(--border);
+    }
+
+    .rail-step:last-child + .rail-line { display: none; }
+
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       inset: 0 0 auto;
@@ -55,14 +101,14 @@
       justify-content: space-between;
       padding: 0 3rem;
       height: 68px;
-      transition: background 0.5s var(--spring), border-color 0.5s;
+      transition: background 0.4s var(--spring), border-color 0.4s;
       border-bottom: 1px solid transparent;
     }
 
     nav.scrolled {
-      background: rgba(9,9,15,0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(9,9,15,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom-color: var(--border);
     }
 
@@ -75,40 +121,134 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2.75rem;
+      gap: 2.5rem;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--text);
-      text-decoration: none;
       font-size: 0.625rem;
       font-weight: 500;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.5;
-      transition: opacity 0.2s;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
     }
 
-    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover { color: var(--text); }
 
     .nav-cta {
-      opacity: 1 !important;
       color: var(--blue) !important;
       border: 1px solid var(--border-hi) !important;
       padding: 0.5rem 1.25rem;
-      border-radius: 3px;
-      font-size: 0.625rem !important;
-      transition: background 0.2s, color 0.2s, border-color 0.2s !important;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s !important;
     }
 
-    .nav-cta:hover {
-      background: var(--blue) !important;
-      color: #fff !important;
-      border-color: var(--blue) !important;
+    .nav-cta:hover { background: var(--blue) !important; color: #fff !important; }
+
+    /* ─── SHARED ─── */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.575rem;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1rem;
     }
 
-    /* ── HERO ── */
+    .label::before { content: ''; width: 1.5rem; height: 1px; background: var(--blue); }
+
+    .heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.75rem, 4.5vw, 5rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.875rem 1.875rem;
+      border-radius: 2px;
+      transition: transform 0.25s var(--spring-b), background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
+    .btn-primary:hover { background: #5591de; border-color: #5591de; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--border-hi); }
+
+    /* ─── SECTION BRIDGE ─── */
+    /* Visual connector between funnel steps */
+    .bridge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 2.5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .bridge-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--border), var(--blue-dim));
+    }
+
+    .bridge-node {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-hi);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-size: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+    }
+
+    .bridge-line-bottom {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--blue-dim), transparent);
+    }
+
+    /* ─── FUNNEL PHASE LABELS ─── */
+    .phase-label {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center;
+      font-size: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════
+       STAGE 1 — HOOK
+    ═══════════════════════════════ */
     .hero {
       position: relative;
       min-height: 100dvh;
@@ -120,11 +260,9 @@
 
     .hero-glow {
       position: absolute;
-      top: -15%;
-      right: -5%;
-      width: 65vw;
-      height: 65vw;
-      background: radial-gradient(ellipse at center, rgba(100,160,237,0.06) 0%, transparent 62%);
+      top: -15%; right: -5%;
+      width: 65vw; height: 65vw;
+      background: radial-gradient(ellipse, rgba(100,160,237,0.06) 0%, transparent 62%);
       pointer-events: none;
     }
 
@@ -132,8 +270,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(100,160,237,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(100,160,237,0.035) 1px, transparent 1px);
+        linear-gradient(rgba(100,160,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100,160,237,0.03) 1px, transparent 1px);
       background-size: 72px 72px;
       mask-image: radial-gradient(ellipse 85% 75% at 65% 35%, black 20%, transparent 100%);
       pointer-events: none;
@@ -152,9 +290,9 @@
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      font-size: 0.625rem;
+      font-size: 0.575rem;
       font-weight: 500;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--blue);
       margin-bottom: 2rem;
@@ -163,13 +301,7 @@
       animation: fadeUp 0.7s var(--spring) 0.2s forwards;
     }
 
-    .hero-eyebrow::before {
-      content: '';
-      width: 2rem;
-      height: 1px;
-      background: var(--blue);
-      flex-shrink: 0;
-    }
+    .hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--blue); }
 
     .hero-headline {
       font-family: 'Bebas Neue', sans-serif;
@@ -182,23 +314,14 @@
     }
 
     .hero-headline .line1 { display: block; }
-
-    .hero-headline .line2 {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(236,238,245,0.2);
-    }
-
-    .hero-headline .line3 {
-      display: block;
-      color: var(--blue);
-    }
+    .hero-headline .line2 { display: block; color: transparent; -webkit-text-stroke: 1px rgba(236,238,245,0.18); }
+    .hero-headline .line3 { display: block; color: var(--blue); }
 
     .hero-foot {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      padding: 2rem 0 5rem;
+      padding: 2rem 0 4rem;
       position: relative;
       z-index: 1;
       gap: 3rem;
@@ -212,56 +335,113 @@
       color: var(--muted);
       max-width: 38ch;
       line-height: 1.85;
-      font-weight: 300;
     }
 
-    .hero-actions {
+    .hero-actions { display: flex; gap: 0.75rem; flex-shrink: 0; }
+
+    /* Scroll cue */
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
-      gap: 0.75rem;
-      flex-shrink: 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--faint);
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--spring) 1.2s forwards;
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--border-hi), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
     }
 
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.625rem;
+    /* ═══════════════════════════════
+       STAGE 2 — CREDIBILITY
+    ═══════════════════════════════ */
+    .credibility {
+      background: var(--bg-raised);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .credibility-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .cred-stat {
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .cred-stat:last-child { border-right: none; }
+    .cred-stat:hover { background: var(--blue-dim); }
+
+    .cred-stat::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--blue);
+      transition: width 0.5s var(--spring);
+    }
+
+    .cred-stat:hover::after { width: 100%; }
+
+    .cred-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 5vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .cred-num sup { font-size: 0.38em; color: var(--blue); vertical-align: super; }
+
+    .cred-label {
+      font-size: 0.6rem;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.875rem 1.875rem;
-      border-radius: 3px;
-      transition: transform 0.25s var(--spring-b), background 0.2s, border-color 0.2s, opacity 0.2s;
-      cursor: pointer;
-      border: none;
+      color: var(--muted);
+      margin-top: 0.5rem;
     }
 
-    .btn:hover { transform: translateY(-2px); }
-    .btn:active { transform: scale(0.98); }
-
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
+    .cred-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      opacity: 0.6;
+      line-height: 1.5;
     }
 
-    .btn-primary:hover { background: #5591de; }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover { border-color: var(--border-hi); }
-
-    /* ── TICKER ── */
+    /* ═══════════════════════════════
+       TICKER
+    ═══════════════════════════════ */
     .ticker {
       background: var(--blue);
       overflow: hidden;
@@ -273,6 +453,7 @@
 
     .ticker-track {
       display: inline-flex;
+      align-items: center;
       animation: ticker 18s linear infinite;
       will-change: transform;
     }
@@ -282,153 +463,14 @@
       to   { transform: translateX(-33.333%); }
     }
 
-    .ticker-item {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.05rem;
-      letter-spacing: 0.18em;
-      color: #fff;
-      padding: 0 1.5rem;
-    }
+    .ticker-item { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.18em; color: #fff; padding: 0 1.5rem; }
+    .ticker-dot { align-self: center; font-size: 0.3rem; color: rgba(255,255,255,0.4); }
 
-    .ticker-dot {
-      align-self: center;
-      font-size: 0.35rem;
-      color: rgba(255,255,255,0.4);
-    }
-
-    /* ── STATS — editorial asymmetric layout ── */
-    .stats-section {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .stat-feature {
-      padding: 5rem 3rem;
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-feature::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 3rem;
-      height: 2px;
-      background: var(--blue);
-      transition: width 0.6s var(--spring);
-    }
-
-    .stat-feature:hover::after { width: 100%; }
-
-    .stat-feature-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .stat-feature-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 8vw, 9rem);
-      line-height: 0.88;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-
-    .stat-feature-num sup {
-      font-size: 0.3em;
-      color: var(--blue);
-      vertical-align: super;
-      letter-spacing: 0;
-    }
-
-    .stat-feature-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      max-width: 20ch;
-      line-height: 1.6;
-    }
-
-    .stat-col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-item {
-      padding: 2.75rem 2.5rem;
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
-    }
-
-    .stat-item:hover { background: var(--blue-dim); }
-    .stat-col:last-child .stat-item { border-right: none; }
-    .stat-item:last-child { border-bottom: none; }
-
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 4vw, 4rem);
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .stat-num sup {
-      font-size: 0.38em;
-      color: var(--blue);
-      vertical-align: super;
-    }
-
-    .stat-lbl {
-      font-size: 0.625rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.5rem;
-      font-weight: 500;
-    }
-
-    /* ── SECTION LABELS ── */
-    .label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--blue);
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-    }
-
-    .label::before {
-      content: '';
-      width: 1.5rem;
-      height: 1px;
-      background: var(--blue);
-    }
-
-    .heading {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 5vw, 5.25rem);
-      line-height: 0.92;
-      letter-spacing: -0.01em;
-    }
-
-    /* ── PORTFOLIO — asymmetric bento ── */
+    /* ═══════════════════════════════
+       STAGE 3 — PROOF OF WORK
+    ═══════════════════════════════ */
     .portfolio {
-      padding: 8rem 3rem;
+      padding: 7rem 3rem;
       position: relative;
       z-index: 1;
     }
@@ -442,22 +484,17 @@
 
     .link-sm {
       font-size: 0.6rem;
-      letter-spacing: 0.2em;
+      font-weight: 500;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 500;
       transition: color 0.2s;
     }
 
     .link-sm:hover { color: var(--blue); }
-    .link-sm::after { content: '→'; transition: transform 0.2s var(--spring-b); }
-    .link-sm:hover::after { transform: translateX(4px); }
 
-    /* Asymmetric bento grid */
+    /* asymmetric bento */
     .bento {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -470,141 +507,85 @@
       overflow: hidden;
       background: var(--bg-raised);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
     }
 
-    /* Featured card: tall left column */
-    .p-card--featured {
-      grid-row: span 2;
-    }
+    .p-card--featured { grid-row: span 2; }
+    .p-card--featured .p-card-inner { aspect-ratio: unset; height: 100%; min-height: 500px; }
 
-    .p-card--featured .p-card-inner { aspect-ratio: unset; height: 100%; min-height: 520px; }
-
-    .p-card-inner {
-      aspect-ratio: 16/9;
-      position: relative;
-      overflow: hidden;
-    }
+    .p-card-inner { aspect-ratio: 16/9; position: relative; overflow: hidden; }
 
     .p-card video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 1s var(--spring);
-      display: block;
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: transform 1s var(--spring); display: block;
     }
 
     .p-card:hover video { transform: scale(1.05); }
 
-    /* cohesive tint */
     .p-card-tint {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(150deg, rgba(12,22,48,0.6) 0%, rgba(9,9,15,0.15) 100%);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      transition: opacity 0.4s;
+      position: absolute; inset: 0;
+      background: linear-gradient(150deg, rgba(12,22,48,0.6) 0%, rgba(9,9,15,0.1) 100%);
+      mix-blend-mode: multiply; pointer-events: none; transition: opacity 0.4s;
     }
 
-    .p-card:hover .p-card-tint { opacity: 0.55; }
+    .p-card:hover .p-card-tint { opacity: 0.5; }
 
-    /* always-visible bottom info */
     .p-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(9,9,15,0.96) 0%, rgba(9,9,15,0.1) 50%, transparent 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.5rem;
-      pointer-events: none;
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(9,9,15,0.96) 0%, rgba(9,9,15,0.08) 50%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; pointer-events: none;
     }
 
     .p-card--featured .p-card-overlay { padding: 2rem; }
 
-    .p-card-info {
-      transform: translateY(5px);
-      transition: transform 0.45s var(--spring);
-    }
-
+    .p-card-info { transform: translateY(5px); transition: transform 0.45s var(--spring); }
     .p-card:hover .p-card-info { transform: translateY(0); }
 
-    .p-card-cat {
-      font-size: 0.575rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--blue);
-      font-weight: 500;
-      margin-bottom: 0.35rem;
-    }
-
-    .p-card-title {
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 0.02em;
-      line-height: 1.05;
-    }
-
+    .p-card-cat { font-size: 0.525rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 0.35rem; }
     .p-card--featured .p-card-title { font-size: 2.5rem; }
-    .p-card-title { font-size: 1.6rem; }
+    .p-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.02em; line-height: 1.05; }
 
-    /* type badge */
     .p-card-badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: rgba(9,9,15,0.72);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-      padding: 0.28rem 0.7rem;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-radius: 2px;
-      font-weight: 500;
-      z-index: 2;
+      position: absolute; top: 1rem; left: 1rem; z-index: 2;
+      background: rgba(9,9,15,0.7); border: 1px solid var(--border);
+      backdrop-filter: blur(8px); padding: 0.28rem 0.7rem;
+      font-size: 0.525rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); border-radius: 2px; font-weight: 500;
     }
 
-    /* play button */
-    .p-card-play {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
+    .p-card-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
     .p-card-play-btn {
-      width: 52px;
-      height: 52px;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(9,9,15,0.45);
-      backdrop-filter: blur(8px);
-      transform: scale(0.88);
-      transition: transform 0.35s var(--spring-b), border-color 0.3s;
+      width: 52px; height: 52px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,0.45); backdrop-filter: blur(8px);
+      transform: scale(0.88); transition: transform 0.35s var(--spring-b), border-color 0.3s;
     }
-
     .p-card-play-btn svg { width: 16px; height: 16px; fill: #fff; margin-left: 3px; }
-
     .p-card:hover .p-card-play { opacity: 1; }
-
-    .p-card:hover .p-card-play-btn {
-      transform: scale(1);
-      border-color: var(--blue);
-    }
-
+    .p-card:hover .p-card-play-btn { transform: scale(1); border-color: var(--blue); }
     .p-card.playing .p-card-play { opacity: 0 !important; }
 
-    /* ── PROCESS ── */
+    /* Micro-CTA after portfolio */
+    .micro-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding: 2rem 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--blue-dim);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .micro-cta:hover { border-color: var(--border-hi); background: rgba(100,160,237,0.14); }
+
+    .micro-cta-text { font-size: 0.875rem; color: var(--muted); }
+    .micro-cta-text strong { color: var(--text); font-weight: 400; }
+
+    /* ═══════════════════════════════
+       STAGE 4 — HOW IT WORKS
+    ═══════════════════════════════ */
     .process {
       padding: 7rem 3rem;
       border-top: 1px solid var(--border);
@@ -622,96 +603,63 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .process-header p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      max-width: 36ch;
-      line-height: 1.75;
-      margin-top: 0.75rem;
-    }
+    .process-header p { font-size: 0.875rem; color: var(--muted); max-width: 36ch; line-height: 1.75; margin-top: 0.75rem; }
 
-    /* 4-col horizontal diagram */
     .process-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       position: relative;
     }
 
-    /* connecting line across the top */
     .process-steps::before {
       content: '';
       position: absolute;
-      top: 3.5rem;
-      left: 0;
-      right: 0;
+      top: 3.25rem; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(to right, var(--blue-dim), var(--border), var(--blue-dim));
     }
 
-    .process-step {
-      padding: 0 2.5rem 2.5rem 0;
-      position: relative;
-      cursor: default;
-    }
-
+    .process-step { padding: 0 2.5rem 2.5rem 0; position: relative; cursor: default; }
     .process-step:not(:first-child) { padding-left: 2.5rem; border-left: 1px solid var(--border); }
 
-    /* dot on the connecting line */
     .process-step::before {
       content: '';
       display: block;
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--blue);
       margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       transition: transform 0.3s var(--spring-b), box-shadow 0.3s;
     }
 
-    .process-step:hover::before {
-      transform: scale(1.5);
-      box-shadow: 0 0 12px rgba(100,160,237,0.5);
-    }
+    .process-step:hover::before { transform: scale(1.5); box-shadow: 0 0 14px rgba(100,160,237,0.5); }
 
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 5rem;
-      color: rgba(100,160,237,0.07);
-      line-height: 1;
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.02em;
-      transition: color 0.3s;
-    }
+    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: rgba(100,160,237,0.07); line-height: 1; margin-bottom: 1rem; letter-spacing: -0.02em; transition: color 0.3s; }
+    .process-step:hover .step-num { color: rgba(100,160,237,0.15); }
+    .step-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.75rem; letter-spacing: 0.02em; line-height: 1; margin-bottom: 0.75rem; }
+    .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.75; }
 
-    .process-step:hover .step-num { color: rgba(100,160,237,0.14); }
-
-    .step-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.75rem;
-      letter-spacing: 0.02em;
-      line-height: 1;
-      margin-bottom: 0.75rem;
-      color: var(--text);
-    }
-
-    .step-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    /* ── ABOUT ── */
+    /* ═══════════════════════════════
+       STAGE 5 — WHO WE ARE
+    ═══════════════════════════════ */
     .about {
       border-top: 1px solid var(--border);
+      background: var(--bg);
       position: relative;
       z-index: 1;
       overflow: hidden;
-      background: var(--bg);
     }
 
-    /* big pull-quote strip at the top */
+    .about::before {
+      content: '';
+      position: absolute;
+      left: -20%; bottom: 0;
+      width: 55vw; height: 55vw;
+      background: radial-gradient(ellipse, rgba(80,72,91,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
     .about-quote {
       border-bottom: 1px solid var(--border);
       padding: 4rem 3rem;
@@ -720,184 +668,114 @@
       gap: 2rem;
     }
 
-    .about-quote-mark {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 8rem;
-      line-height: 0.75;
-      color: var(--blue);
-      opacity: 0.18;
-      flex-shrink: 0;
-      user-select: none;
-    }
+    .about-quote-mark { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; line-height: 0.75; color: var(--blue); opacity: 0.15; flex-shrink: 0; user-select: none; }
 
-    .about-quote-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 3.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.01em;
-      color: var(--text);
-      opacity: 0.55;
-    }
+    .about-quote-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.75rem, 3vw, 3rem); line-height: 0.95; letter-spacing: 0.01em; color: var(--text); opacity: 0.5; }
 
-    .about-quote-text em {
-      font-family: 'Poppins', sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 0.6em;
-      color: var(--blue);
-      display: block;
-      margin-top: 0.5rem;
-      letter-spacing: 0.02em;
-      opacity: 0.8;
-    }
+    .about-quote-text em { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 300; font-size: 0.55em; color: var(--blue); display: block; margin-top: 0.5rem; opacity: 0.8; }
 
-    .about::before {
-      content: '';
-      position: absolute;
-      left: -25%;
-      bottom: 0;
-      width: 55vw;
-      height: 55vw;
-      background: radial-gradient(ellipse, rgba(80,72,91,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; padding: 6rem 3rem; align-items: start; }
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7rem;
-      padding: 6rem 3rem;
-      align-items: start;
-    }
-
-    .about-copy p {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 1.375rem;
-    }
-
+    .about-copy p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.375rem; }
     .about-copy strong { color: var(--text); font-weight: 400; }
 
     .studio-callout {
-      margin-top: 2.5rem;
-      padding: 1.375rem 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: var(--blue-dim);
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
+      margin-top: 2.5rem; padding: 1.375rem 1.5rem;
+      border: 1px solid var(--border); border-radius: 3px; background: var(--blue-dim);
+      display: flex; gap: 1rem; align-items: flex-start;
     }
 
-    .studio-icon {
-      width: 34px;
-      height: 34px;
-      flex-shrink: 0;
-      border: 1px solid rgba(100,160,237,0.22);
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .studio-icon { width: 34px; height: 34px; flex-shrink: 0; border: 1px solid rgba(100,160,237,0.22); border-radius: 3px; display: flex; align-items: center; justify-content: center; }
     .studio-icon svg { width: 15px; height: 15px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
-
     .studio-text { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
     .studio-text strong { color: var(--blue); font-weight: 500; }
 
     .about-actions { margin-top: 2.5rem; display: flex; gap: 0.75rem; }
 
-    /* services list */
     .services-list { list-style: none; }
-
-    .services-list li {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
-      gap: 1rem;
-      padding: 1.625rem 0;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
-      transition: padding-left 0.3s var(--spring), background 0.25s;
-      cursor: default;
-    }
-
+    .services-list li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); align-items: start; transition: padding-left 0.3s var(--spring); cursor: default; }
     .services-list li:first-child { border-top: 1px solid var(--border); }
     .services-list li:hover { padding-left: 0.5rem; }
+    .svc-num { font-size: 0.55rem; color: var(--blue); font-weight: 500; letter-spacing: 0.1em; padding-top: 0.25rem; opacity: 0.55; }
+    .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.04em; display: block; line-height: 1.1; }
+    .svc-desc { font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; display: block; line-height: 1.65; }
 
-    .svc-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.8rem;
-      color: var(--blue);
-      letter-spacing: 0.08em;
-      padding-top: 0.15rem;
-      opacity: 0.55;
-    }
-
-    .svc-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.35rem;
-      letter-spacing: 0.04em;
-      display: block;
-      line-height: 1.1;
-    }
-
-    .svc-desc {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-      display: block;
-      line-height: 1.65;
-    }
-
-    /* ── CLIENTS ── */
-    .clients {
-      padding: 5.5rem 3rem;
+    /* ═══════════════════════════════
+       STAGE 6 — SOCIAL PROOF
+    ═══════════════════════════════ */
+    .trust {
       border-top: 1px solid var(--border);
+      background: var(--bg-raised);
+      padding: 5.5rem 3rem;
       position: relative;
       z-index: 1;
     }
 
-    .clients-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-      margin-bottom: 3rem;
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
     }
+
+    .clients-eyebrow { margin-bottom: 2.5rem; }
 
     .clients-row {
       display: flex;
-      align-items: center;
-      gap: 4.5rem;
       flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
     }
 
     .client-mark {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       letter-spacing: 0.12em;
       color: var(--faint);
       cursor: default;
-      transition: color 0.3s var(--spring);
+      transition: color 0.3s;
+      padding: 1.25rem 1.75rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      width: 50%;
     }
 
     .client-mark:hover { color: var(--muted); }
 
-    /* ── CTA BAND ── */
+    /* testimonial */
+    .testimonial {
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--blue-dim);
+      position: relative;
+    }
+
+    .testimonial-quote { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--blue); opacity: 0.15; line-height: 0.8; margin-bottom: 1rem; user-select: none; }
+
+    .testimonial-text { font-size: 1rem; color: var(--muted); line-height: 1.8; font-style: italic; margin-bottom: 1.5rem; }
+
+    .testimonial-attr { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-line { width: 1.5rem; height: 1px; background: var(--blue); }
+    .testimonial-name { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+
+    /* ═══════════════════════════════
+       STAGE 7 — ACTION
+    ═══════════════════════════════ */
     .cta-band {
       padding: 9rem 3rem;
       border-top: 1px solid var(--border);
+      background: var(--bg);
       position: relative;
       z-index: 1;
       overflow: hidden;
+      text-align: center;
     }
 
     .cta-band::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: radial-gradient(ellipse 65% 75% at 50% 60%, rgba(100,160,237,0.055) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -909,139 +787,71 @@
       font-size: clamp(4rem, 9vw, 10.5rem);
       line-height: 0.87;
       letter-spacing: -0.02em;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
-    .cta-band h2 .outline {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(236,238,245,0.18);
-    }
-
+    .cta-band h2 .outline { display: block; color: transparent; -webkit-text-stroke: 1px rgba(236,238,245,0.18); }
     .cta-band h2 .solid { display: block; color: var(--blue); }
 
-    .cta-row {
+    .cta-sub { font-size: 0.9375rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 38ch; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+    .cta-row { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+
+    .cta-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; margin-top: 1.5rem; }
+
+    /* urgency strip */
+    .urgency {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 2rem;
-      flex-wrap: wrap;
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
     }
 
-    .cta-divider {
-      width: 1px;
-      height: 2rem;
-      background: var(--border);
-    }
-
-    .cta-meta {
-      font-size: 0.75rem;
+    .urgency-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.7rem;
       color: var(--muted);
-      letter-spacing: 0.06em;
     }
 
-    /* ── FOOTER ── */
+    .urgency-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
       padding: 5rem 3rem 3rem;
+      background: var(--bg-raised);
       position: relative;
       z-index: 1;
     }
 
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.75fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 4rem;
-    }
+    .footer-grid { display: grid; grid-template-columns: 1.75fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
 
-    .footer-brand-logo {
-      height: 30px;
-      filter: brightness(0) invert(1);
-      opacity: 0.5;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
+    .footer-brand-logo { height: 30px; filter: brightness(0) invert(1); opacity: 0.5; margin-bottom: 1.5rem; display: block; }
+    .footer-tagline { font-size: 0.8rem; color: var(--muted); line-height: 1.9; max-width: 26ch; }
 
-    .footer-tagline {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.9;
-      max-width: 26ch;
-    }
-
-    .footer-col h4 {
-      font-size: 0.575rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
+    .footer-col h4 { font-size: 0.575rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; font-weight: 500; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 0.875rem; }
-
-    .footer-col ul li a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      opacity: 0.38;
-      transition: opacity 0.2s, color 0.2s;
-    }
-
+    .footer-col ul li a { color: var(--text); text-decoration: none; font-size: 0.875rem; opacity: 0.38; transition: opacity 0.2s, color 0.2s; }
     .footer-col ul li a:hover { opacity: 0.9; color: var(--blue); }
 
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-copy {
-      font-size: 0.675rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      opacity: 0.55;
-    }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .footer-copy { font-size: 0.675rem; color: var(--muted); letter-spacing: 0.06em; opacity: 0.55; }
 
     .social-row { display: flex; gap: 0.5rem; }
-
-    .social-sq {
-      width: 34px;
-      height: 34px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.58rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s, transform 0.25s var(--spring-b);
-    }
-
+    .social-sq { width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.25s var(--spring-b); }
     .social-sq:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.65s var(--spring), transform 0.65s var(--spring);
-    }
-
+    /* ─── REVEALS ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s var(--spring), transform 0.65s var(--spring); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* staggered cascade via --i custom property */
-    .stagger > * {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.6s var(--spring), transform 0.6s var(--spring);
-    }
-
+    .stagger > * { opacity: 0; transform: translateY(14px); transition: opacity 0.55s var(--spring), transform 0.55s var(--spring); }
     .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
     .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
     .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
@@ -1052,6 +862,23 @@
 </head>
 <body>
 
+  <!-- FUNNEL RAIL -->
+  <div class="funnel-rail" id="funnel-rail">
+    <a class="rail-step" href="#hook" data-section="hook"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#credibility" data-section="credibility"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#work" data-section="work"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#process" data-section="process"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#about" data-section="about"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#trust" data-section="trust"><div class="rail-dot"></div></a>
+    <div class="rail-line"></div>
+    <a class="rail-step" href="#contact" data-section="contact"><div class="rail-dot"></div></a>
+  </div>
+
   <!-- NAV -->
   <nav id="main-nav">
     <a href="#" class="nav-logo">
@@ -1061,13 +888,12 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#careers">Careers</a></li>
       <li><a href="#contact" class="nav-cta">Start a Project</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- ═══ STAGE 1 — HOOK ═══ -->
+  <section class="hero" id="hook">
     <div class="hero-glow"></div>
     <div class="hero-grid-lines"></div>
     <div class="hero-body">
@@ -1085,7 +911,46 @@
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
     </div>
+    <div class="hero-scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
   </section>
+
+  <!-- ═══ STAGE 2 — CREDIBILITY ═══ -->
+  <div id="credibility">
+    <div class="credibility">
+      <div class="credibility-inner stagger">
+        <div class="cred-stat">
+          <div class="cred-num"><span class="count-val" data-count="40">40</span><sup>+</sup></div>
+          <div class="cred-label">Years in Business</div>
+          <div class="cred-desc">Built from the ground up in Mesa, AZ</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-num"><span class="count-val" data-count="500">500</span><sup>+</sup></div>
+          <div class="cred-label">Campaigns Launched</div>
+          <div class="cred-desc">Across every medium and market</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-num">06</div>
+          <div class="cred-label">Core Disciplines</div>
+          <div class="cred-desc">All under one roof</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-num">01</div>
+          <div class="cred-label">In-House Studio</div>
+          <div class="cred-desc">Full production, zero outsourcing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bridge -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-node">▼</div>
+      <div class="bridge-line-bottom"></div>
+    </div>
+  </div>
 
   <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
@@ -1114,177 +979,80 @@
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-section">
-    <!-- Featured stat — largest cell -->
-    <div class="stat-feature reveal">
-      <span class="stat-feature-eyebrow">Years in Business</span>
-      <div class="stat-feature-num"><span class="count-val" data-count="40">40</span><sup>+</sup></div>
-      <p class="stat-feature-label">Four decades of full-service advertising out of Mesa, Arizona.</p>
-    </div>
-    <!-- Right column — stacked -->
-    <div class="stat-col">
-      <div class="stat-item reveal">
-        <div class="stat-num"><span class="count-val" data-count="500">500</span><sup>+</sup></div>
-        <div class="stat-lbl">Campaigns Launched</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">06</div>
-        <div class="stat-lbl">Core Disciplines</div>
-      </div>
-    </div>
-    <div class="stat-col">
-      <div class="stat-item reveal">
-        <div class="stat-num">US</div>
-        <div class="stat-lbl">Nationwide Reach</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">01</div>
-        <div class="stat-lbl">In-House Studio</div>
-      </div>
-    </div>
-    <div class="stat-col">
-      <div class="stat-item reveal">
-        <div class="stat-num">TV</div>
-        <div class="stat-lbl">Broadcast to Streaming</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">AZ</div>
-        <div class="stat-lbl">Based in Mesa</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PORTFOLIO -->
+  <!-- ═══ STAGE 3 — PROOF OF WORK ═══ -->
   <section class="portfolio" id="work">
     <div class="portfolio-header reveal">
       <div>
-        <p class="label">Selected Work</p>
-        <h2 class="heading">What We've Built</h2>
+        <p class="label">Proof of Work</p>
+        <h2 class="heading">Results You Can See</h2>
       </div>
-      <a href="#" class="link-sm">View All Projects</a>
+      <a href="#" class="link-sm">View All Projects →</a>
     </div>
 
     <div class="bento stagger">
-
-      <!-- Featured tall card -->
       <div class="p-card p-card--featured">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67477.mp4"
-                 preload="metadata" muted loop playsinline></video>
+          <video src="https://www.larryjohnwright.com/tvspots/67477.mp4" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
-          <div class="p-card-play">
-            <div class="p-card-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="p-card-overlay">
-            <div class="p-card-info">
-              <p class="p-card-cat">Television · Brand Campaign</p>
-              <div class="p-card-title">Moxie Pest Control</div>
-            </div>
-          </div>
+          <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+          <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Brand Campaign</p><div class="p-card-title">Moxie Pest Control</div></div></div>
         </div>
       </div>
-
-      <!-- Express -->
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67707.mp4"
-                 preload="metadata" muted loop playsinline></video>
+          <video src="https://www.larryjohnwright.com/tvspots/67707.mp4" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
-          <div class="p-card-play">
-            <div class="p-card-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="p-card-overlay">
-            <div class="p-card-info">
-              <p class="p-card-cat">Television · Retail</p>
-              <div class="p-card-title">Express — BOGO</div>
-            </div>
-          </div>
+          <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+          <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Retail</p><div class="p-card-title">Express — BOGO</div></div></div>
         </div>
       </div>
-
-      <!-- Weathergard -->
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67878.mp4"
-                 preload="metadata" muted loop playsinline></video>
+          <video src="https://www.larryjohnwright.com/tvspots/67878.mp4" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
-          <div class="p-card-play">
-            <div class="p-card-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="p-card-overlay">
-            <div class="p-card-info">
-              <p class="p-card-cat">Television · Home Services</p>
-              <div class="p-card-title">Weathergard</div>
-            </div>
-          </div>
+          <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+          <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Home Services</p><div class="p-card-title">Weathergard</div></div></div>
         </div>
       </div>
-
-      <!-- Hastings -->
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67794.mp4"
-                 preload="metadata" muted loop playsinline></video>
+          <video src="https://www.larryjohnwright.com/tvspots/67794.mp4" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
-          <div class="p-card-play">
-            <div class="p-card-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="p-card-overlay">
-            <div class="p-card-info">
-              <p class="p-card-cat">Television · Automotive</p>
-              <div class="p-card-title">Hastings Motorcycle</div>
-            </div>
-          </div>
+          <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+          <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Automotive</p><div class="p-card-title">Hastings Motorcycle</div></div></div>
         </div>
       </div>
-
-      <!-- Blue Sky -->
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67734.mp4"
-                 preload="metadata" muted loop playsinline></video>
+          <video src="https://www.larryjohnwright.com/tvspots/67734.mp4" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
-          <div class="p-card-play">
-            <div class="p-card-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="p-card-overlay">
-            <div class="p-card-info">
-              <p class="p-card-cat">Television · Sports</p>
-              <div class="p-card-title">Blue Sky Pitcher</div>
-            </div>
-          </div>
+          <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+          <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Sports</p><div class="p-card-title">Blue Sky Pitcher</div></div></div>
         </div>
       </div>
-
     </div>
+
+    <!-- micro-CTA after seeing work -->
+    <a href="#contact" class="micro-cta reveal">
+      <p class="micro-cta-text"><strong>Like what you see?</strong> Let's talk about what we can build for your brand.</p>
+      <span class="btn btn-primary">Start a Conversation →</span>
+    </a>
   </section>
 
-  <!-- PROCESS -->
+  <!-- ═══ STAGE 4 — HOW IT WORKS ═══ -->
   <section class="process" id="process">
     <div class="process-header reveal">
       <div>
-        <p class="label">How We Work</p>
-        <h2 class="heading">From Idea to Impact</h2>
+        <p class="label">How It Works</p>
+        <h2 class="heading">From Brief to Broadcast</h2>
       </div>
-      <p>We run a tight process — no handoffs to unknown vendors, no creative by committee. Strategy and production live under the same roof.</p>
+      <p>No mystery. No middlemen. You brief us, we build it — strategy, creative, and production all under one roof.</p>
     </div>
-
     <div class="process-steps stagger">
       <div class="process-step">
         <div class="step-num">01</div>
@@ -1294,12 +1062,12 @@
       <div class="process-step">
         <div class="step-num">02</div>
         <div class="step-title">Strategy</div>
-        <p class="step-desc">A precise media and messaging strategy built around your goals — not guesswork or trend-chasing.</p>
+        <p class="step-desc">A precise media and messaging plan built around your goals — not guesswork or trend-chasing.</p>
       </div>
       <div class="process-step">
         <div class="step-num">03</div>
         <div class="step-title">Create</div>
-        <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print, all under one roof.</p>
+        <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print. All under one roof.</p>
       </div>
       <div class="process-step">
         <div class="step-num">04</div>
@@ -1309,7 +1077,7 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ═══ STAGE 5 — WHO WE ARE ═══ -->
   <section class="about" id="about">
     <div class="about-quote reveal">
       <span class="about-quote-mark">"</span>
@@ -1318,97 +1086,76 @@
         <em>— Larry John Wright, Inc. · Est. 1984</em>
       </div>
     </div>
-
     <div class="about-grid">
       <div class="about-copy reveal">
         <p class="label">About the Agency</p>
         <p>Larry John Wright, Inc. is a <strong>full-service advertising and marketing agency</strong> based in Mesa, Arizona. For over four decades, we've helped brands connect with their audiences through creative work that drives measurable results.</p>
-        <p>Our difference is in how we operate. We run an <strong>on-site, in-house production studio</strong> — giving us the speed, control, and quality that outside vendors simply can't match. From concept to final cut, every element is built under one roof.</p>
-        <p>We don't just make things that look good. We make things that <strong>work</strong> — backed by data, sharpened by strategy, and delivered with the craft this market deserves.</p>
-
+        <p>Our difference is in how we operate. We run an <strong>on-site, in-house production studio</strong> — giving us the speed, control, and quality that outside vendors simply can't match.</p>
+        <p>We don't just make things that look good. We make things that <strong>work</strong> — backed by data, sharpened by strategy.</p>
         <div class="studio-callout">
-          <div class="studio-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          </div>
-          <p class="studio-text"><strong>On-site production studio.</strong> Broadcast-quality TV spots, radio production, and digital content — no outside vendors, no scheduling delays, no markup.</p>
+          <div class="studio-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
+          <p class="studio-text"><strong>On-site production studio.</strong> Broadcast-quality TV, radio, and digital content — no outside vendors, no scheduling delays, no markup.</p>
         </div>
-
         <div class="about-actions">
-          <a href="#" class="btn btn-primary">Our Story</a>
-          <a href="#careers" class="btn btn-outline">Careers</a>
+          <a href="#contact" class="btn btn-primary">Work With Us</a>
+          <a href="#" class="btn btn-outline">Our Story</a>
         </div>
       </div>
-
       <ul class="services-list stagger">
-        <li>
-          <span class="svc-num">01</span>
-          <div>
-            <span class="svc-name">Television</span>
-            <span class="svc-desc">Broadcast spots, OTT/streaming, and full in-house production.</span>
-          </div>
-        </li>
-        <li>
-          <span class="svc-num">02</span>
-          <div>
-            <span class="svc-name">Digital</span>
-            <span class="svc-desc">Paid media, display, video pre-roll, and programmatic campaigns.</span>
-          </div>
-        </li>
-        <li>
-          <span class="svc-num">03</span>
-          <div>
-            <span class="svc-name">Radio</span>
-            <span class="svc-desc">Scripting, voice talent sourcing, and airtime strategy.</span>
-          </div>
-        </li>
-        <li>
-          <span class="svc-num">04</span>
-          <div>
-            <span class="svc-name">Social Media</span>
-            <span class="svc-desc">Content creation, paid social, and community strategy.</span>
-          </div>
-        </li>
-        <li>
-          <span class="svc-num">05</span>
-          <div>
-            <span class="svc-name">Print</span>
-            <span class="svc-desc">Direct mail, collateral, OOH, and publication design.</span>
-          </div>
-        </li>
-        <li>
-          <span class="svc-num">06</span>
-          <div>
-            <span class="svc-name">Media Buying</span>
-            <span class="svc-desc">Strategic placement across all channels for maximum ROI.</span>
-          </div>
-        </li>
+        <li><span class="svc-num">01</span><div><span class="svc-name">Television</span><span class="svc-desc">Broadcast spots, OTT/streaming, and full in-house production.</span></div></li>
+        <li><span class="svc-num">02</span><div><span class="svc-name">Digital</span><span class="svc-desc">Paid media, display, video pre-roll, and programmatic campaigns.</span></div></li>
+        <li><span class="svc-num">03</span><div><span class="svc-name">Radio</span><span class="svc-desc">Scripting, voice talent sourcing, and airtime strategy.</span></div></li>
+        <li><span class="svc-num">04</span><div><span class="svc-name">Social Media</span><span class="svc-desc">Content creation, paid social, and community strategy.</span></div></li>
+        <li><span class="svc-num">05</span><div><span class="svc-name">Print</span><span class="svc-desc">Direct mail, collateral, OOH, and publication design.</span></div></li>
+        <li><span class="svc-num">06</span><div><span class="svc-name">Media Buying</span><span class="svc-desc">Strategic placement across all channels for maximum ROI.</span></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- CLIENTS -->
-  <section class="clients">
-    <p class="clients-eyebrow reveal">Brands We've Built With</p>
-    <div class="clients-row stagger">
-      <span class="client-mark">Moxie</span>
-      <span class="client-mark">Express</span>
-      <span class="client-mark">Hastings</span>
-      <span class="client-mark">Weathergard</span>
-      <span class="client-mark">Blue Sky</span>
+  <!-- ═══ STAGE 6 — SOCIAL PROOF ═══ -->
+  <section class="trust" id="trust">
+    <div class="trust-grid">
+      <div>
+        <p class="label clients-eyebrow reveal">Brands We've Built With</p>
+        <div class="clients-row stagger">
+          <span class="client-mark">Moxie</span>
+          <span class="client-mark">Express</span>
+          <span class="client-mark">Hastings</span>
+          <span class="client-mark">Weathergard</span>
+          <span class="client-mark">Blue Sky</span>
+          <span class="client-mark">Ed Bernstein</span>
+          <span class="client-mark">Zeidmans</span>
+          <span class="client-mark">Hamra</span>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Working with LJW transformed how we approached our market. Their in-house production meant our campaign went from brief to broadcast in weeks — not months. The results spoke for themselves.</p>
+        <div class="testimonial-attr">
+          <div class="testimonial-line"></div>
+          <span class="testimonial-name">Marketing Director · Regional Brand Partner</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- ═══ STAGE 7 — ACTION ═══ -->
   <section class="cta-band" id="contact">
-    <div class="cta-inner">
-      <h2 class="reveal">
+    <div class="cta-inner reveal">
+      <h2>
         <span class="outline">Ready to Build</span>
         <span class="solid">Something Real?</span>
       </h2>
-      <div class="cta-row reveal">
-        <a href="mailto:hello@larryjohnwright.com" class="btn btn-primary">Start a Conversation</a>
-        <div class="cta-divider"></div>
-        <span class="cta-meta">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000</span>
+      <p class="cta-sub">Less talk. More advertising. We've been doing this for four decades — let's put that experience to work for you.</p>
+      <div class="cta-row">
+        <a href="mailto:hello@larryjohnwright.com" class="btn btn-primary">Start a Conversation →</a>
+        <a href="tel:+14800000000" class="btn btn-outline">Call Us</a>
+      </div>
+      <p class="cta-meta">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000 &nbsp;·&nbsp; hello@larryjohnwright.com</p>
+      <div class="urgency">
+        <div class="urgency-item"><div class="urgency-dot"></div>No long-term contracts required</div>
+        <div class="urgency-item"><div class="urgency-dot"></div>In-house studio — faster turnaround</div>
+        <div class="urgency-item"><div class="urgency-dot"></div>40+ years serving the Southwest</div>
       </div>
     </div>
   </section>
@@ -1420,34 +1167,9 @@
         <img class="footer-brand-logo" src="https://www.larryjohnwright.com/wp-content/uploads/2018/10/ljwicon.png" alt="LJW">
         <p class="footer-tagline">Full-service advertising and marketing in the heart of the Southwest. Creative that connects — since 1984.</p>
       </div>
-      <div class="footer-col">
-        <h4>Work</h4>
-        <ul>
-          <li><a href="#">Television</a></li>
-          <li><a href="#">Digital</a></li>
-          <li><a href="#">Radio</a></li>
-          <li><a href="#">Social Media</a></li>
-          <li><a href="#">Print</a></li>
-          <li><a href="#">Media Buying</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Culture</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Studio</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="#">Start a Project</a></li>
-          <li><a href="#">Mesa, Arizona</a></li>
-          <li><a href="#">hello@ljw.com</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h4>Work</h4><ul><li><a href="#">Television</a></li><li><a href="#">Digital</a></li><li><a href="#">Radio</a></li><li><a href="#">Social Media</a></li><li><a href="#">Print</a></li><li><a href="#">Media Buying</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Culture</a></li><li><a href="#">Careers</a></li><li><a href="#">Studio</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">Start a Project</a></li><li><a href="#">Mesa, Arizona</a></li><li><a href="#">hello@ljw.com</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">&copy; 2026 Larry John Wright, Inc. All rights reserved.</span>
@@ -1465,33 +1187,24 @@
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
 
-    // Scroll reveal — single IntersectionObserver handles both .reveal and .stagger
+    // Scroll reveal
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
-
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
     document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
 
-    // Counter animation — spring ease out cubic
+    // Counter animation
     function animateCount(el, target, duration = 1600) {
       let start = null;
-      const tick = (t) => {
+      const tick = t => {
         if (!start) start = t;
         const p = Math.min((t - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(eased * target);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = target;
+        el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = target;
       };
       requestAnimationFrame(tick);
     }
-
-    const countIO = new IntersectionObserver((entries) => {
+    const countIO = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         const el = e.target.querySelector('.count-val');
@@ -1500,21 +1213,31 @@
         countIO.unobserve(e.target);
       });
     }, { threshold: 0.5 });
-
     document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
 
-    // Video hover-to-play — transform/opacity only, no layout changes
+    // Video hover-to-play
     document.querySelectorAll('.p-card').forEach(card => {
       const video = card.querySelector('video');
       if (!video) return;
-      card.addEventListener('mouseenter', () => {
-        video.play().then(() => card.classList.add('playing')).catch(() => {});
+      card.addEventListener('mouseenter', () => video.play().then(() => card.classList.add('playing')).catch(() => {}));
+      card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; card.classList.remove('playing'); });
+    });
+
+    // Funnel rail — highlight active section
+    const sections = ['hook','credibility','work','process','about','trust','contact'];
+    const railSteps = document.querySelectorAll('.rail-step');
+
+    const sectionIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const id = e.target.id;
+        railSteps.forEach(s => s.classList.toggle('active', s.dataset.section === id));
       });
-      card.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-        card.classList.remove('playing');
-      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionIO.observe(el);
     });
   </script>
 </body>
