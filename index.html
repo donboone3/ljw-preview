@@ -14,8 +14,8 @@
       --bg:        #09090F;
       --bg-raised: #0E0F18;
       --text:      #ECEEF5;
-      --muted:     rgba(236,238,245,0.42);
-      --faint:     rgba(236,238,245,0.1);
+      --muted:     rgba(236,238,245,0.55);
+      --faint:     rgba(236,238,245,0.18);
       --blue:      #64A0ED;
       --blue-dim:  rgba(100,160,237,0.1);
       --border:    rgba(100,160,237,0.1);
@@ -152,7 +152,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      font-size: 0.575rem;
+      font-size: 0.65rem;
       font-weight: 500;
       letter-spacing: 0.26em;
       text-transform: uppercase;
@@ -290,7 +290,7 @@
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      font-size: 0.575rem;
+      font-size: 0.65rem;
       font-weight: 500;
       letter-spacing: 0.26em;
       text-transform: uppercase;
@@ -435,7 +435,6 @@
       font-size: 0.75rem;
       color: var(--muted);
       margin-top: 0.35rem;
-      opacity: 0.6;
       line-height: 1.5;
     }
 
@@ -614,7 +613,7 @@
     .process-steps::before {
       content: '';
       position: absolute;
-      top: 3.25rem; left: 0; right: 0;
+      top: 0.25rem; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(to right, var(--blue-dim), var(--border), var(--blue-dim));
     }
@@ -670,11 +669,11 @@
 
     .about-quote-mark { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; line-height: 0.75; color: var(--blue); opacity: 0.15; flex-shrink: 0; user-select: none; }
 
-    .about-quote-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.75rem, 3vw, 3rem); line-height: 0.95; letter-spacing: 0.01em; color: var(--text); opacity: 0.5; }
+    .about-quote-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.75rem, 3vw, 3rem); line-height: 0.95; letter-spacing: 0.01em; color: var(--text); opacity: 0.88; }
 
     .about-quote-text em { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 300; font-size: 0.55em; color: var(--blue); display: block; margin-top: 0.5rem; opacity: 0.8; }
 
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; padding: 6rem 3rem; align-items: start; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 6rem 3rem; align-items: start; }
 
     .about-copy p { font-size: 0.9375rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.375rem; }
     .about-copy strong { color: var(--text); font-weight: 400; }
@@ -696,7 +695,7 @@
     .services-list li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); align-items: start; transition: padding-left 0.3s var(--spring); cursor: default; }
     .services-list li:first-child { border-top: 1px solid var(--border); }
     .services-list li:hover { padding-left: 0.5rem; }
-    .svc-num { font-size: 0.55rem; color: var(--blue); font-weight: 500; letter-spacing: 0.1em; padding-top: 0.25rem; opacity: 0.55; }
+    .svc-num { font-size: 0.55rem; color: var(--blue); font-weight: 500; letter-spacing: 0.1em; padding-top: 0.25rem; opacity: 0.9; }
     .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.04em; display: block; line-height: 1.1; }
     .svc-desc { font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; display: block; line-height: 1.65; }
 
@@ -732,7 +731,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.4rem;
       letter-spacing: 0.12em;
-      color: var(--faint);
+      color: rgba(236,238,245,0.38);
       cursor: default;
       transition: color 0.3s;
       padding: 1.25rem 1.75rem;
@@ -837,7 +836,7 @@
     .footer-col h4 { font-size: 0.575rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; font-weight: 500; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 0.875rem; }
-    .footer-col ul li a { color: var(--text); text-decoration: none; font-size: 0.875rem; opacity: 0.38; transition: opacity 0.2s, color 0.2s; }
+    .footer-col ul li a { color: var(--text); text-decoration: none; font-size: 0.875rem; opacity: 0.65; transition: opacity 0.2s, color 0.2s; }
     .footer-col ul li a:hover { opacity: 0.9; color: var(--blue); }
 
     .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid var(--border); }
@@ -905,7 +904,7 @@
       </h1>
     </div>
     <div class="hero-foot">
-      <p class="hero-sub">Full-service advertising and marketing agency with an on-site production studio. Four decades of creative that drives measurable results.</p>
+      <p class="hero-sub">Forty years of earned trust. The same team, the same craft — a full-service agency built on the conviction that great advertising outlasts every trend.</p>
       <div class="hero-actions">
         <a href="#work" class="btn btn-primary">See Our Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -924,22 +923,22 @@
         <div class="cred-stat">
           <div class="cred-num"><span class="count-val" data-count="40">40</span><sup>+</sup></div>
           <div class="cred-label">Years in Business</div>
-          <div class="cred-desc">Built from the ground up in Mesa, AZ</div>
+          <div class="cred-desc">Founded in Mesa, AZ — still here, still building</div>
         </div>
         <div class="cred-stat">
-          <div class="cred-num"><span class="count-val" data-count="500">500</span><sup>+</sup></div>
-          <div class="cred-label">Campaigns Launched</div>
-          <div class="cred-desc">Across every medium and market</div>
+          <div class="cred-num"><span class="count-val" data-count="20">20</span><sup>+</sup></div>
+          <div class="cred-label">Staff, 15+ Year Tenure</div>
+          <div class="cred-desc">The same people. The same standards.</div>
         </div>
         <div class="cred-stat">
-          <div class="cred-num">06</div>
-          <div class="cred-label">Core Disciplines</div>
-          <div class="cred-desc">All under one roof</div>
+          <div class="cred-num">30<sup>+</sup></div>
+          <div class="cred-label">Year Client Relationships</div>
+          <div class="cred-desc">Some partnerships span three decades</div>
         </div>
         <div class="cred-stat">
           <div class="cred-num">01</div>
           <div class="cred-label">In-House Studio</div>
-          <div class="cred-desc">Full production, zero outsourcing</div>
+          <div class="cred-desc">Production, post, and strategy under one roof</div>
         </div>
       </div>
     </div>
@@ -947,7 +946,7 @@
     <!-- bridge -->
     <div class="bridge">
       <div class="bridge-line"></div>
-      <div class="bridge-node">▼</div>
+      <div class="bridge-node"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 1L5 7L9 1" stroke="#64A0ED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="bridge-line-bottom"></div>
     </div>
   </div>
@@ -984,7 +983,7 @@
     <div class="portfolio-header reveal">
       <div>
         <p class="label">Proof of Work</p>
-        <h2 class="heading">Results You Can See</h2>
+        <h2 class="heading">Forty Years of Work That Moves People</h2>
       </div>
       <a href="#" class="link-sm">View All Projects →</a>
     </div>
@@ -1049,30 +1048,30 @@
     <div class="process-header reveal">
       <div>
         <p class="label">How It Works</p>
-        <h2 class="heading">From Brief to Broadcast</h2>
+        <h2 class="heading">Built to Last</h2>
       </div>
-      <p>No mystery. No middlemen. You brief us, we build it — strategy, creative, and production all under one roof.</p>
+      <p>Four decades means we've refined every step. Our process stays lean because it has to — strategy, creative, and production under one roof, every time.</p>
     </div>
     <div class="process-steps stagger">
       <div class="process-step">
         <div class="step-num">01</div>
-        <div class="step-title">Discover</div>
-        <p class="step-desc">We dig into your brand, audience, and competitive landscape before touching a single creative asset.</p>
+        <div class="step-title">Listen</div>
+        <p class="step-desc">Forty years of client work taught us one thing: the best briefs start with the right questions. We find them first.</p>
       </div>
       <div class="process-step">
         <div class="step-num">02</div>
-        <div class="step-title">Strategy</div>
-        <p class="step-desc">A precise media and messaging plan built around your goals — not guesswork or trend-chasing.</p>
+        <div class="step-title">Strategize</div>
+        <p class="step-desc">Media and messaging plans grounded in decades of market experience — not guesswork or quarterly trends.</p>
       </div>
       <div class="process-step">
         <div class="step-num">03</div>
-        <div class="step-title">Create</div>
-        <p class="step-desc">In-house production from concept to final cut — TV, radio, digital, print. All under one roof.</p>
+        <div class="step-title">Build</div>
+        <p class="step-desc">In-house, start to finish. TV, radio, digital, print — one team, one roof, no outside vendors, no markup.</p>
       </div>
       <div class="process-step">
         <div class="step-num">04</div>
-        <div class="step-title">Measure</div>
-        <p class="step-desc">We track, report, and optimize so your campaign keeps improving — not just launched and forgotten.</p>
+        <div class="step-title">Refine</div>
+        <p class="step-desc">We track every result and report with transparency. It's how single campaigns become decade-long partnerships.</p>
       </div>
     </div>
   </section>
@@ -1089,9 +1088,9 @@
     <div class="about-grid">
       <div class="about-copy reveal">
         <p class="label">About the Agency</p>
-        <p>Larry John Wright, Inc. is a <strong>full-service advertising and marketing agency</strong> based in Mesa, Arizona. For over four decades, we've helped brands connect with their audiences through creative work that drives measurable results.</p>
-        <p>Our difference is in how we operate. We run an <strong>on-site, in-house production studio</strong> — giving us the speed, control, and quality that outside vendors simply can't match.</p>
-        <p>We don't just make things that look good. We make things that <strong>work</strong> — backed by data, sharpened by strategy.</p>
+        <p>Larry John Wright, Inc. has been a <strong>full-service advertising and marketing agency</strong> in Mesa, Arizona since 1984. We were built on the belief that great work comes from deep relationships — and four decades of results back it up.</p>
+        <p>More than <strong>20 members of our team have been here 15 years or longer</strong>. Several client partnerships span more than three decades. That continuity is rare in this industry — and it shows in every campaign we touch.</p>
+        <p>We're <strong>tradigital</strong> by nature: TV and radio built our backbone, and digital, social, and streaming have grown alongside our clients. We don't abandon what works. We evolve it.</p>
         <div class="studio-callout">
           <div class="studio-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
           <p class="studio-text"><strong>On-site production studio.</strong> Broadcast-quality TV, radio, and digital content — no outside vendors, no scheduling delays, no markup.</p>
@@ -1130,10 +1129,10 @@
       </div>
       <div class="testimonial reveal">
         <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">Working with LJW transformed how we approached our market. Their in-house production meant our campaign went from brief to broadcast in weeks — not months. The results spoke for themselves.</p>
+        <p class="testimonial-text">"We've been with LJW for over fifteen years. They've watched us grow, adapted our strategy with us, and never once felt like a vendor. They feel like part of the team."</p>
         <div class="testimonial-attr">
           <div class="testimonial-line"></div>
-          <span class="testimonial-name">Marketing Director · Regional Brand Partner</span>
+          <span class="testimonial-name">Long-Term Client Partner · Southwest Region</span>
         </div>
       </div>
     </div>
@@ -1146,16 +1145,16 @@
         <span class="outline">Ready to Build</span>
         <span class="solid">Something Real?</span>
       </h2>
-      <p class="cta-sub">Less talk. More advertising. We've been doing this for four decades — let's put that experience to work for you.</p>
+      <p class="cta-sub">Four decades of trust, built one campaign at a time. When you work with LJW, you get a team that's been here — and plans to stay.</p>
       <div class="cta-row">
         <a href="mailto:hello@larryjohnwright.com" class="btn btn-primary">Start a Conversation →</a>
         <a href="tel:+14800000000" class="btn btn-outline">Call Us</a>
       </div>
       <p class="cta-meta">Mesa, AZ &nbsp;·&nbsp; (480) 000-0000 &nbsp;·&nbsp; hello@larryjohnwright.com</p>
       <div class="urgency">
-        <div class="urgency-item"><div class="urgency-dot"></div>No long-term contracts required</div>
-        <div class="urgency-item"><div class="urgency-dot"></div>In-house studio — faster turnaround</div>
-        <div class="urgency-item"><div class="urgency-dot"></div>40+ years serving the Southwest</div>
+        <div class="urgency-item"><div class="urgency-dot"></div>40+ years. The same team. The same standard.</div>
+        <div class="urgency-item"><div class="urgency-dot"></div>In-house studio — TV to digital, zero vendors</div>
+        <div class="urgency-item"><div class="urgency-dot"></div>Client partnerships that span three decades</div>
       </div>
     </div>
   </section>
