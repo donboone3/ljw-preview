@@ -759,9 +759,9 @@
 
     .brand-row {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: center;
-      gap: 0.4em;
+      gap: 0;
       flex-wrap: wrap;
       line-height: 1;
     }
@@ -770,25 +770,29 @@
       font-family: 'Bebas Neue', sans-serif;
       letter-spacing: 0.05em;
       color: var(--text);
-      transition: color 0.3s var(--spring);
+      transition: color 0.3s var(--spring), opacity 0.3s;
       cursor: default;
       white-space: nowrap;
+      padding: 0 0.5em;
     }
 
     .brand-name:hover { color: var(--blue); }
 
     .brand-sep {
-      font-family: 'Bebas Neue', sans-serif;
-      color: var(--blue);
-      opacity: 0.22;
+      display: block;
+      width: 1px;
+      background: var(--border-hi);
+      flex-shrink: 0;
+      align-self: stretch;
+      margin: 0.15em 0;
     }
 
     .brand-row--xl .brand-name { font-size: clamp(4.5rem, 9vw, 10rem); opacity: 1; }
-    .brand-row--xl .brand-sep  { font-size: clamp(3rem, 5vw, 5.5rem); }
+    .brand-row--xl .brand-sep  { height: clamp(3rem, 5vw, 5.5rem); }
     .brand-row--lg .brand-name { font-size: clamp(2.75rem, 5.5vw, 6.5rem); opacity: 0.6; }
-    .brand-row--lg .brand-sep  { font-size: clamp(2rem, 3.5vw, 4rem); }
-    .brand-row--md .brand-name { font-size: clamp(1.5rem, 3vw, 3.5rem); opacity: 0.3; }
-    .brand-row--md .brand-sep  { font-size: clamp(1rem, 2vw, 2rem); }
+    .brand-row--lg .brand-sep  { height: clamp(2rem, 3.5vw, 4rem); }
+    .brand-row--md .brand-name { font-size: clamp(1.5rem, 3vw, 3.5rem); opacity: 0.32; }
+    .brand-row--md .brand-sep  { height: clamp(1rem, 2vw, 2rem); }
 
     /* Full-width centered testimonial */
     .testimonial-full {
@@ -1211,23 +1215,23 @@
     <div class="brand-wall stagger">
       <div class="brand-row brand-row--xl">
         <span class="brand-name">Moxie</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">Ed Bernstein</span>
       </div>
       <div class="brand-row brand-row--lg">
         <span class="brand-name">Weathergard</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">Hastings</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">Express</span>
       </div>
       <div class="brand-row brand-row--md">
         <span class="brand-name">Blue Sky</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">Zeidmans</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">Hamra</span>
-        <span class="brand-sep">·</span>
+        <span class="brand-sep"></span>
         <span class="brand-name">And More</span>
       </div>
     </div>
