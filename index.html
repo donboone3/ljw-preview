@@ -14,7 +14,7 @@
       --bg:        #09090F;
       --bg-raised: #0E0F18;
       --text:      #ECEEF5;
-      --muted:     rgba(236,238,245,0.55);
+      --muted:     rgba(236,238,245,0.72);
       --faint:     rgba(236,238,245,0.18);
       --blue:      #64A0ED;
       --blue-dim:  rgba(100,160,237,0.1);
@@ -609,15 +609,16 @@
     }
 
     .process-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 3rem;
       margin-bottom: 4rem;
       padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .process-header p { font-size: 0.875rem; color: var(--muted); max-width: 36ch; line-height: 1.75; margin-top: 0.75rem; }
+    .process-header p { font-size: 0.9375rem; color: var(--muted); max-width: 40ch; line-height: 1.8; padding-bottom: 0.2rem; }
 
     .process-steps {
       display: grid;
