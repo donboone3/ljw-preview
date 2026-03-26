@@ -971,6 +971,99 @@
     .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
     .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
     .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+
+    /* ══════════════════════════════════════
+       TABLET — max 1024px
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .credibility-inner { grid-template-columns: repeat(2, 1fr); }
+      .cred-stat:nth-child(2) { border-right: none; }
+      .cred-stat:nth-child(3) { border-top: 1px solid var(--border); }
+      .cred-stat:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+
+      .bento { grid-template-columns: 1fr 1fr; }
+      .p-card--featured { grid-column: span 2; grid-row: span 1; }
+      .p-card--featured .p-card-inner { min-height: 340px; }
+
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .process-step:nth-child(3) { border-left: none; border-top: 1px solid var(--border); padding-top: 2.5rem; }
+      .process-step:nth-child(4) { border-top: 1px solid var(--border); padding-top: 2.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE — max 768px
+    ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 0 1.25rem; }
+      .nav-links li:not(:last-child) { display: none; }
+      .nav-links { gap: 0; }
+
+      /* Hide funnel rail */
+      .funnel-rail { display: none; }
+
+      /* Hero */
+      .hero { padding: 0 1.25rem; }
+      .hero-foot { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding-bottom: 3rem; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-scroll-cue { right: 1.25rem; bottom: 1.5rem; }
+
+      /* Credibility */
+      .credibility-inner { grid-template-columns: repeat(2, 1fr); }
+      .cred-stat { padding: 2.5rem 1.5rem; }
+
+      /* Portfolio */
+      .portfolio { padding: 4rem 1.25rem; }
+      .bento { grid-template-columns: 1fr; }
+      .p-card--featured { grid-column: span 1; }
+      .p-card--featured .p-card-inner { min-height: 260px; }
+
+      /* Micro CTA */
+      .micro-cta { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
+      .micro-cta-right { flex-direction: column; width: 100%; }
+      .micro-cta-right .btn { width: 100%; justify-content: center; }
+
+      /* Process */
+      .process { padding: 4rem 1.25rem 5rem; }
+      .process-header { grid-template-columns: 1fr; gap: 1.25rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+      .process-step:not(:first-child) { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 2rem; }
+
+      /* About */
+      .about-quote { flex-direction: column; gap: 0.5rem; text-align: center; padding: 3rem 1.25rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.25rem; }
+      .about-actions { flex-direction: column; }
+      .about-actions .btn { width: 100%; justify-content: center; }
+
+      /* Trust */
+      .trust { padding: 4rem 1.25rem 5rem; }
+      .trust-intro { gap: 1rem; }
+      .trust-intro-line { display: none; }
+      .brand-row--xl { font-size: clamp(2.5rem, 10vw, 4rem); }
+      .brand-row--lg { font-size: clamp(1.75rem, 7vw, 2.75rem); }
+      .brand-row--md { font-size: clamp(1.1rem, 4.5vw, 1.75rem); }
+
+      /* CTA */
+      .cta-band { padding: 5rem 1.25rem; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-row .btn { width: 100%; justify-content: center; }
+      .urgency { flex-direction: column; align-items: flex-start; gap: 0.875rem; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 3.5rem 1.25rem 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1.25rem; text-align: center; }
+
+      /* Section padding */
+      .portfolio-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
   </style>
 </head>
 <body>
