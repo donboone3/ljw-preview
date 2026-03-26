@@ -1022,7 +1022,8 @@
       .portfolio { padding: 4rem 1.25rem; }
       .bento { grid-template-columns: 1fr; }
       .p-card--featured { grid-column: span 1; }
-      .p-card--featured .p-card-inner { min-height: 260px; }
+      .p-card-inner { flex: none; aspect-ratio: 16/9; }
+      .p-card--featured .p-card-inner { flex: none; aspect-ratio: 16/9; min-height: unset; }
 
       /* Micro CTA */
       .micro-cta { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
