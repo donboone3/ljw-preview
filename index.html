@@ -781,18 +781,20 @@
     .brand-sep {
       display: block;
       width: 1px;
+      height: 0.58em;
       background: var(--border-hi);
       flex-shrink: 0;
-      align-self: stretch;
-      margin: 0.15em 0;
+      align-self: center;
     }
 
-    .brand-row--xl .brand-name { font-size: clamp(4.5rem, 9vw, 10rem); opacity: 1; }
-    .brand-row--xl .brand-sep  { height: clamp(3rem, 5vw, 5.5rem); }
-    .brand-row--lg .brand-name { font-size: clamp(2.75rem, 5.5vw, 6.5rem); opacity: 0.6; }
-    .brand-row--lg .brand-sep  { height: clamp(2rem, 3.5vw, 4rem); }
-    .brand-row--md .brand-name { font-size: clamp(1.5rem, 3vw, 3.5rem); opacity: 0.32; }
-    .brand-row--md .brand-sep  { height: clamp(1rem, 2vw, 2rem); }
+    .brand-row--xl { font-size: clamp(4.5rem, 9vw, 10rem); }
+    .brand-row--xl .brand-name { font-size: 1em; opacity: 1; }
+
+    .brand-row--lg { font-size: clamp(2.75rem, 5.5vw, 6.5rem); }
+    .brand-row--lg .brand-name { font-size: 1em; opacity: 0.6; }
+
+    .brand-row--md { font-size: clamp(1.5rem, 3vw, 3.5rem); }
+    .brand-row--md .brand-name { font-size: 1em; opacity: 0.32; }
 
     /* Full-width centered testimonial */
     .testimonial-full {
