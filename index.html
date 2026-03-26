@@ -1211,7 +1211,7 @@
       <div class="p-card p-card--featured">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67477.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
+          <video data-src="https://www.larryjohnwright.com/tvspots/67477.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
           <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Brand Campaign</p><div class="p-card-title">Moxie Pest Control</div></div></div>
@@ -1220,7 +1220,7 @@
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67707.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
+          <video data-src="https://www.larryjohnwright.com/tvspots/67707.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
           <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Retail</p><div class="p-card-title">Express — BOGO</div></div></div>
@@ -1229,7 +1229,7 @@
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67878.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
+          <video data-src="https://www.larryjohnwright.com/tvspots/67878.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
           <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Home Services</p><div class="p-card-title">Weathergard</div></div></div>
@@ -1238,7 +1238,7 @@
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67794.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
+          <video data-src="https://www.larryjohnwright.com/tvspots/67794.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
           <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Automotive</p><div class="p-card-title">Hastings Motorcycle</div></div></div>
@@ -1247,7 +1247,7 @@
       <div class="p-card">
         <span class="p-card-badge">Television</span>
         <div class="p-card-inner">
-          <video src="https://www.larryjohnwright.com/tvspots/67734.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
+          <video data-src="https://www.larryjohnwright.com/tvspots/67734.mp4#t=0.001" preload="metadata" muted loop playsinline></video>
           <div class="p-card-tint"></div>
           <div class="p-card-play"><div class="p-card-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
           <div class="p-card-overlay"><div class="p-card-info"><p class="p-card-cat">Television · Sports</p><div class="p-card-title">Blue Sky Pitcher</div></div></div>
@@ -1434,6 +1434,18 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
     document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+    // Lazy-load portfolio videos — only fetch when card near viewport
+    const videoIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const v = e.target;
+          if (v.dataset.src) { v.src = v.dataset.src; delete v.dataset.src; }
+          videoIO.unobserve(v);
+        }
+      });
+    }, { rootMargin: '200px' });
+    document.querySelectorAll('video[data-src]').forEach(v => videoIO.observe(v));
 
     // Counter animation
     function animateCount(el, target, duration = 1600) {
