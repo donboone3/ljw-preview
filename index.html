@@ -570,17 +570,52 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 3rem;
-      padding: 2rem 2.5rem;
-      border: 1px solid var(--border);
+      padding: 3rem 3rem;
+      border: 1px solid var(--border-hi);
       border-radius: 3px;
-      background: var(--blue-dim);
-      transition: border-color 0.2s, background 0.2s;
+      background: linear-gradient(120deg, rgba(100,160,237,0.09) 0%, var(--bg-raised) 55%);
+      position: relative;
+      overflow: hidden;
+      gap: 3rem;
+      text-decoration: none;
+      transition: border-color 0.3s;
     }
 
-    .micro-cta:hover { border-color: var(--border-hi); background: rgba(100,160,237,0.14); }
+    .micro-cta::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--blue), rgba(100,160,237,0.1));
+    }
 
-    .micro-cta-text { font-size: 0.875rem; color: var(--muted); }
-    .micro-cta-text strong { color: var(--text); font-weight: 400; }
+    .micro-cta:hover { border-color: var(--blue); }
+
+    .micro-cta-left { flex: 1; }
+
+    .micro-cta-eyebrow {
+      font-size: 0.575rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .micro-cta-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3.25rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+
+    .micro-cta-right {
+      display: flex;
+      gap: 0.75rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
 
     /* ═══════════════════════════════
        STAGE 4 — HOW IT WORKS
@@ -707,59 +742,119 @@
     .trust {
       border-top: 1px solid var(--border);
       background: var(--bg-raised);
-      padding: 5.5rem 3rem;
+      padding: 6rem 3rem 7rem;
       position: relative;
       z-index: 1;
+      overflow: hidden;
     }
 
-    .trust-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .clients-eyebrow { margin-bottom: 2.5rem; }
-
-    .clients-row {
+    .trust-intro {
       display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .trust-intro-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .trust-intro-end {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.65;
+    }
+
+    /* Brand wall — typographic hierarchy */
+    .brand-wall {
+      text-align: center;
+      margin-bottom: 6rem;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.4em;
       flex-wrap: wrap;
-      gap: 0;
-      border-top: 1px solid var(--border);
-      border-left: 1px solid var(--border);
+      line-height: 1;
     }
 
-    .client-mark {
+    .brand-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.12em;
-      color: rgba(236,238,245,0.38);
+      letter-spacing: 0.05em;
+      color: var(--text);
+      transition: color 0.3s var(--spring);
       cursor: default;
-      transition: color 0.3s;
-      padding: 1.25rem 1.75rem;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      width: 50%;
+      white-space: nowrap;
     }
 
-    .client-mark:hover { color: var(--muted); }
+    .brand-name:hover { color: var(--blue); }
 
-    /* testimonial */
-    .testimonial {
-      padding: 2.5rem;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: var(--blue-dim);
+    .brand-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      color: var(--blue);
+      opacity: 0.22;
+    }
+
+    .brand-row--xl .brand-name { font-size: clamp(4.5rem, 9vw, 10rem); opacity: 1; }
+    .brand-row--xl .brand-sep  { font-size: clamp(3rem, 5vw, 5.5rem); }
+    .brand-row--lg .brand-name { font-size: clamp(2.75rem, 5.5vw, 6.5rem); opacity: 0.6; }
+    .brand-row--lg .brand-sep  { font-size: clamp(2rem, 3.5vw, 4rem); }
+    .brand-row--md .brand-name { font-size: clamp(1.5rem, 3vw, 3.5rem); opacity: 0.3; }
+    .brand-row--md .brand-sep  { font-size: clamp(1rem, 2vw, 2rem); }
+
+    /* Full-width centered testimonial */
+    .testimonial-full {
+      border-top: 1px solid var(--border);
+      padding-top: 5.5rem;
+      text-align: center;
       position: relative;
+      max-width: 66ch;
+      margin: 0 auto;
     }
 
-    .testimonial-quote { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--blue); opacity: 0.15; line-height: 0.8; margin-bottom: 1rem; user-select: none; }
+    .test-bg-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(12rem, 22vw, 26rem);
+      line-height: 0.65;
+      color: var(--blue);
+      opacity: 0.04;
+      position: absolute;
+      top: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+    }
 
-    .testimonial-text { font-size: 1rem; color: var(--muted); line-height: 1.8; font-style: italic; margin-bottom: 1.5rem; }
+    .test-body { position: relative; }
 
-    .testimonial-attr { display: flex; align-items: center; gap: 0.75rem; }
-    .testimonial-line { width: 1.5rem; height: 1px; background: var(--blue); }
-    .testimonial-name { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+    .test-quote {
+      font-size: clamp(1rem, 1.7vw, 1.35rem);
+      color: var(--text);
+      line-height: 1.8;
+      font-style: italic;
+      font-weight: 300;
+      opacity: 0.85;
+      margin-bottom: 2rem;
+    }
+
+    .test-attr {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .test-line { width: 1.5rem; height: 1px; background: var(--blue); }
+    .test-name { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); }
 
     /* ═══════════════════════════════
        STAGE 7 — ACTION
@@ -835,7 +930,7 @@
     .footer-brand-logo { height: 30px; filter: brightness(0) invert(1); opacity: 0.5; margin-bottom: 1.5rem; display: block; }
     .footer-tagline { font-size: 0.8rem; color: var(--muted); line-height: 1.9; max-width: 26ch; }
 
-    .footer-col h4 { font-size: 0.575rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; font-weight: 500; }
+    .footer-col h4 { font-size: 0.65rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; font-weight: 500; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 0.875rem; }
     .footer-col ul li a { color: var(--text); text-decoration: none; font-size: 0.875rem; opacity: 0.65; transition: opacity 0.2s, color 0.2s; }
@@ -847,6 +942,9 @@
     .social-row { display: flex; gap: 0.5rem; }
     .social-sq { width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.25s var(--spring-b); }
     .social-sq:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+    /* ─── SECTION SCROLL OFFSET (fixed nav) ─── */
+    section[id], div[id] { scroll-margin-top: 80px; }
 
     /* ─── REVEALS ─── */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s var(--spring), transform 0.65s var(--spring); }
@@ -1039,10 +1137,16 @@
     </div>
 
     <!-- micro-CTA after seeing work -->
-    <a href="#contact" class="micro-cta reveal">
-      <p class="micro-cta-text"><strong>Like what you see?</strong> Let's talk about what we can build for your brand.</p>
-      <span class="btn btn-primary">Start a Conversation →</span>
-    </a>
+    <div class="micro-cta reveal">
+      <div class="micro-cta-left">
+        <p class="micro-cta-eyebrow">[ Next Step ]</p>
+        <p class="micro-cta-headline">Seen Enough?<br>Let's Build Something.</p>
+      </div>
+      <div class="micro-cta-right">
+        <a href="#contact" class="btn btn-primary">Start a Conversation →</a>
+        <a href="#process" class="btn btn-outline">See How We Work</a>
+      </div>
+    </div>
   </section>
 
   <!-- ═══ STAGE 4 — HOW IT WORKS ═══ -->
@@ -1116,26 +1220,43 @@
 
   <!-- ═══ STAGE 6 — SOCIAL PROOF ═══ -->
   <section class="trust" id="trust">
-    <div class="trust-grid">
-      <div>
-        <p class="label clients-eyebrow reveal">Brands We've Built With</p>
-        <div class="clients-row stagger">
-          <span class="client-mark">Moxie</span>
-          <span class="client-mark">Express</span>
-          <span class="client-mark">Hastings</span>
-          <span class="client-mark">Weathergard</span>
-          <span class="client-mark">Blue Sky</span>
-          <span class="client-mark">Ed Bernstein</span>
-          <span class="client-mark">Zeidmans</span>
-          <span class="client-mark">Hamra</span>
-        </div>
+    <div class="trust-intro reveal">
+      <p class="label">Trusted By</p>
+      <div class="trust-intro-line"></div>
+      <span class="trust-intro-end">40+ Years · Southwest &amp; Beyond</span>
+    </div>
+
+    <div class="brand-wall stagger">
+      <div class="brand-row brand-row--xl">
+        <span class="brand-name">Moxie</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">Ed Bernstein</span>
       </div>
-      <div class="testimonial reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">"We've been with LJW for over fifteen years. They've watched us grow, adapted our strategy with us, and never once felt like a vendor. They feel like part of the team."</p>
-        <div class="testimonial-attr">
-          <div class="testimonial-line"></div>
-          <span class="testimonial-name">Long-Term Client Partner · Southwest Region</span>
+      <div class="brand-row brand-row--lg">
+        <span class="brand-name">Weathergard</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">Hastings</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">Express</span>
+      </div>
+      <div class="brand-row brand-row--md">
+        <span class="brand-name">Blue Sky</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">Zeidmans</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">Hamra</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-name">And More</span>
+      </div>
+    </div>
+
+    <div class="testimonial-full reveal">
+      <div class="test-bg-mark">"</div>
+      <div class="test-body">
+        <p class="test-quote">"We've been with LJW for over fifteen years. They've watched us grow, adapted our strategy with us, and never once felt like a vendor. They feel like part of the team."</p>
+        <div class="test-attr">
+          <div class="test-line"></div>
+          <span class="test-name">Long-Term Client Partner · Southwest Region</span>
         </div>
       </div>
     </div>
