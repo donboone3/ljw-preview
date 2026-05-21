@@ -598,6 +598,15 @@
               <button class="tab-btn" id="inf-img-tab-4" onclick="switchImage('influencer', 4)" style="font-size: 11px; padding: 8px 6px;">4: Research Focus</button>
             </div>
             
+            <!-- Aspect Ratio Selector -->
+            <div id="inf-ratio-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: var(--radius-md);">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-400); text-transform: uppercase; letter-spacing: 0.05em;">Preview Aspect Ratio</span>
+              <div style="display: flex; gap: 6px; background: rgba(0,0,0,0.3); padding: 3px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <button id="inf-ratio-1-1" class="ratio-btn" onclick="setRatio('influencer', '1-1')" style="font-size: 10px; font-weight: 700; padding: 4px 10px; background: var(--brand-blue); border: none; border-radius: 4px; color: white; cursor: pointer; transition: all 0.2s;">1:1 Feed</button>
+                <button id="inf-ratio-9-16" class="ratio-btn" onclick="setRatio('influencer', '9-16')" style="font-size: 10px; font-weight: 700; padding: 4px 10px; background: transparent; border: none; border-radius: 4px; color: var(--text-400); cursor: pointer; transition: all 0.2s;" disabled style="opacity: 0.35; cursor: not-allowed;">1:1 Only</button>
+              </div>
+            </div>
+
             <div class="image-container">
               <img id="inf-adImgPreview" src="rev_meta_ad_creator.png" alt="RevHealth Influencer Recruitment Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+Recruitment+Ad';">
             </div>
@@ -915,6 +924,15 @@ Apply now: https://www.revhealth.net/affiliates
               <button class="tab-btn" id="b2b-img-tab-3" onclick="switchImage('b2b', 3)" style="font-size: 11px; padding: 8px 6px;">3: Patient Demand</button>
             </div>
             
+            <!-- Aspect Ratio Selector -->
+            <div id="b2b-ratio-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: var(--radius-md);">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-400); text-transform: uppercase; letter-spacing: 0.05em;">Preview Aspect Ratio</span>
+              <div style="display: flex; gap: 6px; background: rgba(0,0,0,0.3); padding: 3px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <button id="b2b-ratio-1-1" class="ratio-btn" onclick="setRatio('b2b', '1-1')" style="font-size: 10px; font-weight: 700; padding: 4px 10px; background: var(--brand-blue); border: none; border-radius: 4px; color: white; cursor: pointer; transition: all 0.2s;">1:1 Feed</button>
+                <button id="b2b-ratio-9-16" class="ratio-btn" onclick="setRatio('b2b', '9-16')" style="font-size: 10px; font-weight: 700; padding: 4px 10px; background: transparent; border: none; border-radius: 4px; color: var(--text-400); cursor: pointer; transition: all 0.2s;" disabled style="opacity: 0.35; cursor: not-allowed;">1:1 Only</button>
+              </div>
+            </div>
+
             <div class="image-container">
               <img id="b2b-adImgPreview" src="rev_b2b_ad_1.png" alt="RevHealth B2B Practitioner Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+B2B+Ad';">
             </div>
@@ -1243,6 +1261,82 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
       }
     }
 
+    // Ratio state management
+    let currentRatios = {
+      influencer: '1-1',
+      b2b: '1-1'
+    };
+
+    function setRatio(suite, ratio) {
+      currentRatios[suite] = ratio;
+      const prefix = suite === 'influencer' ? 'inf' : 'b2b';
+      
+      // Update buttons style
+      const btn1_1 = document.getElementById(`${prefix}-ratio-1-1`);
+      const btn9_16 = document.getElementById(`${prefix}-ratio-9-16`);
+      
+      if (btn1_1 && btn9_16) {
+        if (ratio === '1-1') {
+          btn1_1.style.background = 'var(--brand-blue)';
+          btn1_1.style.color = 'white';
+          btn9_16.style.background = 'transparent';
+          btn9_16.style.color = 'var(--text-400)';
+        } else {
+          btn9_16.style.background = 'var(--brand-blue)';
+          btn9_16.style.color = 'white';
+          btn1_1.style.background = 'transparent';
+          btn1_1.style.color = 'var(--text-400)';
+        }
+      }
+
+      // Update image container aspect ratio and styles
+      const container = document.querySelector(`#suite-${suite} .image-container`);
+      if (container) {
+        if (ratio === '9-16') {
+          container.style.aspectRatio = '9 / 16';
+          container.style.maxHeight = '650px';
+        } else {
+          container.style.aspectRatio = '1 / 1';
+          container.style.maxHeight = 'none';
+        }
+      }
+
+      // Refresh image source
+      const activeNum = getActiveImageNum(suite);
+      updateAdImageSrc(suite, activeNum, ratio);
+    }
+
+    function getActiveImageNum(suite) {
+      const prefix = suite === 'influencer' ? 'inf' : 'b2b';
+      const maxTabs = suite === 'influencer' ? 4 : 3;
+      for (let i = 1; i <= maxTabs; i++) {
+        const tab = document.getElementById(`${prefix}-img-tab-${i}`);
+        if (tab && tab.classList.contains('active')) {
+          return i;
+        }
+      }
+      return 1;
+    }
+
+    function updateAdImageSrc(suite, num, ratio) {
+      const prefix = suite === 'influencer' ? 'inf' : 'b2b';
+      const img = document.getElementById(`${prefix}-adImgPreview`);
+      if (!img) return;
+
+      if (suite === 'influencer') {
+        if (num === 1) img.src = 'rev_meta_ad_creator.png';
+        if (num === 2) {
+          img.src = ratio === '9-16' ? 'rev_meta_ad_creator_2_vertical.png' : 'rev_meta_ad_creator_2.png';
+        }
+        if (num === 3) img.src = 'rev_meta_ad_creator_3.png';
+        if (num === 4) img.src = 'rev_meta_ad_creator_4.png';
+      } else {
+        if (num === 1) img.src = 'rev_b2b_ad_1.png';
+        if (num === 2) img.src = 'rev_b2b_ad_2.png';
+        if (num === 3) img.src = 'rev_b2b_ad_3.png';
+      }
+    }
+
     // Image Switching inside Suites
     function switchImage(suite, num) {
       const prefix = suite === 'influencer' ? 'inf' : 'b2b';
@@ -1254,20 +1348,31 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
         if (tab) tab.classList.toggle('active', i === num);
       }
 
-      // Update Image Source
-      const img = document.getElementById(`${prefix}-adImgPreview`);
-      if (img) {
-        if (suite === 'influencer') {
-          if (num === 1) img.src = 'rev_meta_ad_creator.png';
-          if (num === 2) img.src = 'rev_meta_ad_creator_2.png';
-          if (num === 3) img.src = 'rev_meta_ad_creator_3.png';
-          if (num === 4) img.src = 'rev_meta_ad_creator_4.png';
+      // Check if 9:16 is available for this active creative
+      const hasVertical = (suite === 'influencer' && num === 2);
+      const btn9_16 = document.getElementById(`${prefix}-ratio-9-16`);
+      
+      if (btn9_16) {
+        if (hasVertical) {
+          btn9_16.disabled = false;
+          btn9_16.style.opacity = '1';
+          btn9_16.style.cursor = 'pointer';
+          btn9_16.innerText = '9:16 Story';
         } else {
-          if (num === 1) img.src = 'rev_b2b_ad_1.png';
-          if (num === 2) img.src = 'rev_b2b_ad_2.png';
-          if (num === 3) img.src = 'rev_b2b_ad_3.png';
+          btn9_16.disabled = true;
+          btn9_16.style.opacity = '0.35';
+          btn9_16.style.cursor = 'not-allowed';
+          btn9_16.innerText = '1:1 Only';
+          
+          // Force back to 1-1 if currently on 9-16
+          if (currentRatios[suite] === '9-16') {
+            setRatio(suite, '1-1');
+          }
         }
       }
+
+      // Update Image Source
+      updateAdImageSrc(suite, num, currentRatios[suite]);
 
       // Update OCR Pills
       const ocrContainer = document.getElementById(`${prefix}-ocrContainer`);
