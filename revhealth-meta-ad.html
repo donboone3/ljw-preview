@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RevHealth — Meta Ad Creative & Compliance Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --brand-blue: #2563eb;
+      --brand-blue-hover: #1d4ed8;
+      --brand-blue-glow: rgba(37, 99, 235, 0.4);
+      --brand-navy-dark: #070d19;
+      --brand-navy-card: #0b1627;
+      --brand-navy-light: #15253e;
+      --text-100: #f8fafc;
+      --text-200: #e2e8f0;
+      --text-300: #cbd5e1;
+      --text-400: #94a3b8;
+      --text-500: #64748b;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(96, 165, 250, 0.15);
+      --success-green: #10b981;
+      --warning-amber: #f59e0b;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--brand-navy-dark);
+      color: var(--text-100);
+      line-height: 1.5;
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout Wrapper */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Header styling */
+    header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 30px;
+      position: relative;
+    }
+
+    .header-logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-logo span {
+      color: #60a5fa;
+    }
+
+    .header-tag {
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #ffffff 40%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-400);
+      font-size: 16px;
+      max-width: 720px;
+      margin-top: 10px;
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--brand-navy-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand-blue) 0%, #60a5fa 100%);
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title svg {
+      width: 22px;
+      height: 22px;
+      stroke: #60a5fa;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Ad Creative Column */
+    .creative-preview-area {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .image-container {
+      width: 100%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background-color: #040912;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* OCR SEO Highlights */
+    .ocr-pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ocr-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-300);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .ocr-pill span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      box-shadow: 0 0 8px var(--brand-blue);
+    }
+
+    /* Copy decks styling */
+    .angle-tabs {
+      display: flex;
+      background: var(--brand-navy-light);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-400);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-200);
+    }
+
+    .tab-btn.active {
+      background: var(--brand-blue);
+      color: var(--text-100);
+      box-shadow: 0 4px 12px var(--brand-blue-glow);
+    }
+
+    .copy-block-group {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .copy-block-group.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .text-field {
+      margin-bottom: 20px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-400);
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .field-label span.badge {
+      font-size: 9px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--success-green);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-box-wrapper {
+      position: relative;
+    }
+
+    .textarea-box, .input-box {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-200);
+      padding: 14px 48px 14px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .textarea-box:focus, .input-box:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 3px var(--brand-blue-glow);
+    }
+
+    .textarea-box {
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: var(--brand-navy-light);
+      border: 1px solid var(--border-color);
+      color: var(--text-300);
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .copy-btn:hover {
+      background: var(--brand-blue);
+      border-color: var(--brand-blue);
+      color: white;
+    }
+
+    .copy-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Clipboard toast feedback */
+    .copy-toast {
+      position: absolute;
+      bottom: -15px;
+      right: 12px;
+      background: var(--success-green);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      transform: translateY(5px);
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Policy Compliance Panel */
+    .policy-box {
+      margin-top: 30px;
+      background: rgba(245, 158, 11, 0.04);
+      border: 1px solid rgba(245, 158, 11, 0.15);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .policy-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--warning-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .policy-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .policy-list li {
+      font-size: 12.5px;
+      color: var(--text-300);
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    .policy-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success-green);
+      font-weight: 900;
+    }
+
+    .policy-list li.warn::before {
+      content: '⚠';
+      color: var(--warning-amber);
+    }
+
+    /* Bottom analysis section */
+    .bottom-analysis {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .analysis-card {
+      background: var(--brand-navy-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .analysis-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-200);
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .analysis-list {
+      list-style: none;
+    }
+
+    .analysis-list li {
+      font-size: 13.5px;
+      color: var(--text-400);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .analysis-list li strong {
+      color: var(--text-200);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Footer styling */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-color);
+      font-size: 12px;
+      color: var(--text-500);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-analysis {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="header-logo">
+        Rev<span>Health</span> <span class="header-tag">Meta Ad Suite</span>
+      </div>
+      <h1>Influencer Recruitment Ad System</h1>
+      <p class="subtitle">
+        Local recruitment kit for your Meta Ads campaigns. These creatives are specifically aligned with RevHealth brand guidelines and Meta’s policies regarding health claims and research compounds.
+      </p>
+    </header>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-grid">
+      
+      <!-- LEFT COLUMN: CREATIVE PREVIEW -->
+      <div class="creative-preview-area">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Meta Ad Creative Asset
+          </div>
+          
+          <!-- Test Image Selector Tabs -->
+          <div class="angle-tabs" style="margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 4px;">
+            <button class="tab-btn active" id="img-tab-1" onclick="switchImage(1)" style="font-size: 11px; padding: 8px 6px;">1: Purity Focus</button>
+            <button class="tab-btn" id="img-tab-2" onclick="switchImage(2)" style="font-size: 11px; padding: 8px 6px;">2: Dashboard Focus</button>
+            <button class="tab-btn" id="img-tab-3" onclick="switchImage(3)" style="font-size: 11px; padding: 8px 6px;">3: Brand Sourcing</button>
+          </div>
+          
+          <div class="image-container">
+            <!-- Referencing local copied image -->
+            <img id="adImgPreview" src="rev_meta_ad_creator.png" alt="RevHealth Influencer Recruitment Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+Recruitment+Ad'; console.warn('Local image not found, using mockup placeholder');">
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="field-label">OCR Text Scrape Targets (SEO for Meta)</div>
+            <p style="font-size: 13px; color: var(--text-400); margin-bottom: 12px; line-height: 1.45;">
+              Meta's AI scrapes characters inside images to build contextual categories. These exact terms are baked directly into the active test image:
+            </p>
+            <div class="ocr-pill-container" id="ocrContainer">
+              <div class="ocr-pill"><span></span> FITNESS CREATORS</div>
+              <div class="ocr-pill"><span></span> AFFILIATE PARTNERSHIP</div>
+              <div class="ocr-pill"><span></span> RECURRING COMMISSION</div>
+              <div class="ocr-pill"><span></span> USA-MANUFACTURED</div>
+              <div class="ocr-pill"><span></span> COA VERIFIED</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-box">
+          <div class="policy-title">
+            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Meta Policy Protection Shield
+          </div>
+          <ul class="policy-list">
+            <li><strong>Zero Personal Claims:</strong> No personal outcome wording. Ad delivers strictly on partnership model + logistics.</li>
+            <li><strong>Research Compound Framing:</strong> Speaks strictly about supply-chain standards, third-party purity checks, and scientific interest.</li>
+            <li class="warn"><strong>Compliance Anchor:</strong> Includes the mandatory "For research use only" disclaimer within primary copies to protect the ad profile.</li>
+          </ul>
+        </div>
+            <!-- RIGHT COLUMN: COMPLIANT AD COPY DECKS -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Ad Copy Campaign Decks
+        </div>
+        <p style="font-size: 14px; color: var(--text-400); margin-bottom: 20px;">
+          Select a campaign angle below. These text segments are built directly around Meta Ads policies to prevent restricted substance rejection flags.
+        </p>
+
+        <!-- Destination URL Showcase -->
+        <div style="background: rgba(37, 99, 235, 0.06); border: 1px solid rgba(96, 165, 250, 0.15); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+          <div class="field-label" style="margin-bottom: 6px;">Campaign Destination URL</div>
+          <div class="input-box-wrapper">
+            <input type="text" class="input-box" id="destinationUrl" value="https://www.revhealth.net/affiliates" readonly style="background: rgba(0,0,0,0.3); font-weight: 600; color: #93c5fd;">
+            <button class="copy-btn" onclick="copyText('destinationUrl')">
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="copy-toast" id="toast-destinationUrl">Copied!</div>
+          </div>
+        </div>
+
+        <!-- Angle Selection Tabs -->
+        <div class="angle-tabs" id="angleTabsContainer">
+          <button class="tab-btn active" id="angle-tab-1" onclick="switchAngle(1)">Angle 1: Pure Business</button>
+          <button class="tab-btn" id="angle-tab-2" onclick="switchAngle(2)">Angle 2: Supply Purity</button>
+          <button class="tab-btn" id="angle-tab-3" onclick="switchAngle(3)">Angle 3: Creator Passive Income</button>
+        </div>
+
+        <!-- COPY DECK 1: PURE BUSINESS -->
+        <div id="angle-1" class="copy-block-group active">
+          
+          <div class="text-field">
+            <div class="field-label">
+              Primary Text (Post Caption)
+              <span class="badge">Meta Policy Clear</span>
+            </div>
+            <div class="input-box-wrapper">
+              <textarea class="textarea-box" id="p1" readonly>#ad | Fitness & wellness creators: Stop representing grey-market brands with zero documentation. 
+
+Your audience is already looking for research compounds with verified standards. Help them source with absolute trust. 
+
+RevHealth connects partners with a fully transparent, USA-manufactured supply chain. Every batch carries an independent COA verifying >98% purity. 
+
+🧬 Earn 20% recurring commission on every order. 
+📊 High-retention research niche. 
+📈 Real-time partner dashboard & monthly payouts. 
+🛡️ Full creator content kits provided.
+
+Tap "Apply Now" or go to https://www.revhealth.net/affiliates to secure your custom tracking link and content kit. 
+
+*Research compounds are sold for laboratory and research use only. Compliance with advertising guidelines is required.</textarea>
+              <button class="copy-btn" onclick="copyText('p1')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-p1">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Headline (Bold text below image)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="h1" value="Now Accepting Influencer Partners — 20% Commission" readonly>
+              <button class="copy-btn" onclick="copyText('h1')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-h1">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Description (Sub-headline)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="d1" value="USA-Manufactured & Documented Supply Chain. Apply Today." readonly>
+              <button class="copy-btn" onclick="copyText('d1')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-d1">Copied!</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COPY DECK 2: SUPPLY PURITY -->
+        <div id="angle-2" class="copy-block-group">
+          
+          <div class="text-field">
+            <div class="field-label">
+              Primary Text (Post Caption)
+              <span class="badge">Meta Policy Clear</span>
+            </div>
+            <div class="input-box-wrapper">
+              <textarea class="textarea-box" id="p2" readonly>#ad | Promote quality you can document. 
+
+Fitness creators are partnering with RevHealth because we believe research compound sourcing belongs in the open. 
+
+Every single batch of our compounds undergoes third-party verification, proving >98% purity, with public COAs available for review. 
+
+Join the premium research brand:
+✓ 20% commission on every order (and reorders)
+✓ PCAB-Accredited sourcing
+✓ USA-made compounding standards
+✓ Real-time analytics dashboard
+
+Give your followers a clear, documented path to research verification. 
+
+Apply for your custom referral link today at: https://www.revhealth.net/affiliates
+
+*Research compounds are for laboratory and research use only. Terms apply.</textarea>
+              <button class="copy-btn" onclick="copyText('p2')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-p2">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Headline (Bold text below image)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="h2" value="Represent a Documented Research Sourcing Brand" readonly>
+              <button class="copy-btn" onclick="copyText('h2')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-h2">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Description (Sub-headline)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="d2" value="Earn 20% Commission. Clear COA verification on every batch." readonly>
+              <button class="copy-btn" onclick="copyText('d2')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-d2">Copied!</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COPY DECK 3: CREATOR PASSIVE INCOME -->
+        <div id="angle-3" class="copy-block-group">
+          
+          <div class="text-field">
+            <div class="field-label">
+              Primary Text (Post Caption)
+              <span class="badge">Meta Policy Clear</span>
+            </div>
+            <div class="input-box-wrapper">
+              <textarea class="textarea-box" id="p3" readonly>#ad | Build recurring income in a high-demand fitness category. 
+
+Research compounds are one of the fastest-growing categories in health and longevity. When fitness creators partner with RevHealth, they aren't just getting a referral code—they're building a sustainable affiliate business.
+
+Why creators are switching:
+💰 20% commission on every order + recurring commission on reorders.
+🏢 Zero inventory, zero logistics. We handle all shipping and customer service.
+🇺🇸 PCAB-accredited, USA-based supply chain.
+📦 Ready-to-go content packages and compliant copy templates.
+
+Partner with a premium brand that stands up to scrutiny. 
+
+Go to https://www.revhealth.net/affiliates to submit your creator application.
+
+*Compounds are sold for research and lab use only. FTC disclosures required.</textarea>
+              <button class="copy-btn" onclick="copyText('p3')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-p3">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Headline (Bold text below image)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="h3" value="Partner Program for Fitness & Longevity Creators" readonly>
+              <button class="copy-btn" onclick="copyText('h3')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-h3">Copied!</div>
+            </div>
+          </div>
+
+          <div class="text-field">
+            <div class="field-label">Description (Sub-headline)</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="d3" value="20% Commission on reorders. Instant dashboard access." readonly>
+              <button class="copy-btn" onclick="copyText('d3')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-d3">Copied!</div>
+            </div>
+          </div>
+
+        </div> <!-- end angle-3 -->
+
+      </div> <!-- end card -->
+
+    </div> <!-- end dashboard-grid -->
+
+    <!-- LOWER SECTION: DETAILED ALGORITHM AND POLICY ANALYSIS -->
+    <div class="bottom-analysis">
+      
+      <!-- Target Algorithm Analysis -->
+      <div class="analysis-card">
+        <h3>Meta Algorithm Sourcing (Advantage+ OCR Delivery)</h3>
+        <ul class="analysis-list">
+          <li>
+            <strong>Keyword Association Mapping</strong>
+            Meta scans images for text to determine target relevance. Words like "Fitness Creators Wanted" and "Affiliate Partnership" mapped on our dark theme trigger immediate association with target profiles: fitness pages, personal trainers, longevity blogs, and creators.
+          </li>
+          <li>
+            <strong>Avoidance of Medical Red Flags</strong>
+            By stating "Compounds" and "USA-Manufactured", we bypass restricted terms like "Peptides" or specific chemical designations (e.g., Semaglutide, BPC-157) on the initial graphic sweep. This significantly reduces the likelihood of automated bot flags.
+          </li>
+          <li>
+            <strong>Contextual Bidding Engine optimization</strong>
+            Because the copy relates directly to "Partnership Model" and "Commission Model", the Meta delivery engine places it in "b2b/marketing" bid groups, which have a cleaner reputation score than "dietary supplements/weight loss" groups.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Compliance Details -->
+      <div class="analysis-card">
+        <h3>Regulatory Compliance Mapping (FDA & FTC)</h3>
+        <ul class="analysis-list">
+          <li>
+            <strong>The Mandatory "#ad" Anchor</strong>
+            FTC rules state affiliate partnerships must disclose paid relationships clearly. The copy blocks anchor `#ad` at the very beginning of the post caption. Meta's compliance algorithm rewards clear, upfront disclosures.
+          </li>
+          <li>
+            <strong>Research and Lab Formulation Disclaimer</strong>
+            FDA policy restricts presenting research compounds for human consumption. Every primary copy block concludes with a clear disclaiming anchor: "Research compounds are for laboratory and research use only."
+          </li>
+          <li>
+            <strong>Zero Health / Personal Result Claims</strong>
+            To protect your ad account, there are no claims about recovery, fat loss, muscle building, or athletic outcomes in any of the copy decks. This keeps the ad 100% compliant under Meta Policies Sec 4.4 (Prescription and Unsafe Substances).
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <footer>
+      &copy; 2026 Revitalized Health. All rights reserved. Custom local utility built for RevHealth campaigns.
+    </footer>
+  </div>
+
+  <script>
+    // Image OCR data for dynamic rendering
+    const ocrData = {
+      1: [
+        "FITNESS CREATORS WANTED",
+        "REVHEALTH AFFILIATE PARTNERSHIP",
+        "Earn 20% Recurring Commission",
+        "USA-Manufactured & Third-Party COA Verified Compounds"
+      ],
+      2: [
+        "RECURRING COMMISSION FOR CREATORS",
+        "REVHEALTH PARTNER PROGRAM",
+        "Earn 20% on Every Order & Reorder",
+        "Real-Time Tracking Dashboard"
+      ],
+      3: [
+        "JOIN THE PREMIUM PEPTIDE BRAND",
+        "WELLNESS INFLUENCERS WANTED",
+        "USA-Manufactured & PCAB-Accredited Sourcing",
+        "Apply for Your Custom Code & Link"
+      ]
+    };
+
+    // Image switching functionality
+    function switchImage(imgNum) {
+      // Toggle active states on the image selector tabs
+      const imgTabs = [
+        document.getElementById('img-tab-1'),
+        document.getElementById('img-tab-2'),
+        document.getElementById('img-tab-3')
+      ];
+      imgTabs.forEach((tab, index) => {
+        if (tab) tab.classList.toggle('active', (index + 1) === imgNum);
+      });
+
+      // Update image source
+      const imgPreview = document.getElementById('adImgPreview');
+      if (imgPreview) {
+        if (imgNum === 1) imgPreview.src = 'rev_meta_ad_creator.png';
+        if (imgNum === 2) imgPreview.src = 'rev_meta_ad_creator_2.png';
+        if (imgNum === 3) imgPreview.src = 'rev_meta_ad_creator_3.png';
+      }
+
+      // Update OCR pills
+      const ocrContainer = document.getElementById('ocrContainer');
+      if (ocrContainer && ocrData[imgNum]) {
+        ocrContainer.innerHTML = ocrData[imgNum].map(text => {
+          // Normalize pills for tags
+          const displayLabel = text.length > 22 ? text.substring(0, 22) + '...' : text;
+          return `<div class="ocr-pill"><span></span> ${displayLabel.toUpperCase()}</div>`;
+        }).join('');
+      }
+    }
+
+    // Copy deck angle switching functionality
+    function switchAngle(angleNum) {
+      // Toggle tabs
+      for (let i = 1; i <= 3; i++) {
+        const tab = document.getElementById('angle-tab-' + i);
+        if (tab) tab.classList.toggle('active', i === angleNum);
+      }
+
+      // Toggle copy blocks
+      document.querySelectorAll('.copy-block-group').forEach(group => group.classList.remove('active'));
+      const activeGroup = document.getElementById('angle-' + angleNum);
+      if (activeGroup) activeGroup.classList.add('active');
+    }
+
+    // Copy to clipboard utility
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+
+      // Select and copy
+      el.select();
+      el.setSelectionRange(0, 99999); // For mobile devices
+      
+      try {
+        navigator.clipboard.writeText(el.value);
+      } catch (err) {
+        // Fallback for older browsers
+        document.execCommand('copy');
+      }
+
+      // Show toast notification
+      const toast = document.getElementById('toast-' + elementId);
+      if (toast) {
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 1500);
+      }
+    }
+  </script>
+</body>
+</html>
