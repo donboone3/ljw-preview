@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RevHealth — Meta Ad Creative & Compliance Suite</title>
+  <title>RevHealth — Meta Ads Creative & Compliance Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -57,9 +57,9 @@
 
     /* Header styling */
     header {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 30px;
+      padding-bottom: 25px;
       position: relative;
     }
 
@@ -71,7 +71,13 @@
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+    }
+
+    .header-logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
     }
 
     .header-logo span {
@@ -104,8 +110,74 @@
     .subtitle {
       color: var(--text-400);
       font-size: 16px;
-      max-width: 720px;
+      max-width: 820px;
       margin-top: 10px;
+    }
+
+    /* Top Suite Selector tabs */
+    .suite-selector-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0 40px;
+    }
+
+    .suite-selector {
+      display: inline-flex;
+      background: var(--brand-navy-light);
+      border: 1px solid var(--border-color);
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .suite-btn {
+      background: none;
+      border: none;
+      color: var(--text-400);
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .suite-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .suite-btn:hover {
+      color: var(--text-200);
+    }
+
+    .suite-btn.active {
+      background: var(--brand-blue);
+      color: var(--text-100);
+      box-shadow: 0 4px 20px var(--brand-blue-glow);
+    }
+
+    /* Multi-dashboard display logic */
+    .dashboard-container {
+      display: none;
+      animation: fadeInSuite 0.4s ease forwards;
+    }
+
+    .dashboard-container.active {
+      display: block;
+    }
+
+    @keyframes fadeInSuite {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Grid Layout */
@@ -309,7 +381,7 @@
     }
 
     .textarea-box {
-      min-height: 120px;
+      min-height: 140px;
       line-height: 1.6;
     }
 
@@ -482,102 +554,115 @@
     <!-- HEADER -->
     <header>
       <div class="header-logo">
-        Rev<span>Health</span> <span class="header-tag">Meta Ad Suite</span>
+        <img src="logo.png" alt="RevHealth" class="header-logo-img" onerror="this.src='https://www.revhealth.net/logo.png';">
+        Rev<span>Health</span> <span class="header-tag">Meta Ads Master Suite</span>
       </div>
-      <h1>Influencer Recruitment Ad System</h1>
-      <p class="subtitle">
-        Local recruitment kit for your Meta Ads campaigns. These creatives are specifically aligned with RevHealth brand guidelines and Meta’s policies regarding health claims and research compounds.
+      <h1 id="main-title">Meta Ad Optimization Hub</h1>
+      <p class="subtitle" id="main-subtitle">
+        Toggle between the campaigns below to access creative assets, targeted OCR terms, and Meta policy compliance guardrails.
       </p>
     </header>
 
-    <!-- DASHBOARD -->
-    <div class="dashboard-grid">
-      
-      <!-- LEFT COLUMN: CREATIVE PREVIEW -->
-      <div class="creative-preview-area">
+    <!-- SUITE SELECTOR (TABS) -->
+    <div class="suite-selector-wrapper">
+      <div class="suite-selector">
+        <button class="suite-btn active" id="suite-tab-influencer" onclick="switchSuite('influencer')">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          1. Influencer Recruitment
+        </button>
+        <button class="suite-btn" id="suite-tab-b2b" onclick="switchSuite('b2b')">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          2. B2B Practitioner & Clinic
+        </button>
+      </div>
+    </div>
+
+    <!-- ==============================================
+         SUITE CONTAINER: INFLUENCER RECRUITMENT
+         ============================================== -->
+    <div id="suite-influencer" class="dashboard-container active">
+      <div class="dashboard-grid">
+        
+        <!-- LEFT COLUMN: CREATIVE PREVIEW -->
+        <div class="creative-preview-area">
+          <div class="card">
+            <div class="card-title">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Influencer Ad Creatives
+            </div>
+            
+            <div class="angle-tabs" style="margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 4px;">
+              <button class="tab-btn active" id="inf-img-tab-1" onclick="switchImage('influencer', 1)" style="font-size: 11px; padding: 8px 6px;">1: Purity Focus</button>
+              <button class="tab-btn" id="inf-img-tab-2" onclick="switchImage('influencer', 2)" style="font-size: 11px; padding: 8px 6px;">2: Dashboard Focus</button>
+              <button class="tab-btn" id="inf-img-tab-3" onclick="switchImage('influencer', 3)" style="font-size: 11px; padding: 8px 6px;">3: Brand Sourcing</button>
+            </div>
+            
+            <div class="image-container">
+              <img id="inf-adImgPreview" src="rev_meta_ad_creator.png" alt="RevHealth Influencer Recruitment Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+Recruitment+Ad';">
+            </div>
+
+            <div style="margin-top: 20px;">
+              <div class="field-label">OCR Text Scrape Targets (SEO for Meta)</div>
+              <p style="font-size: 13px; color: var(--text-400); margin-bottom: 12px; line-height: 1.45;">
+                Terms embedded directly into the ad graphic to trigger Meta's vision scraper to deliver to fitness/wellness creator profiles:
+              </p>
+              <div class="ocr-pill-container" id="inf-ocrContainer">
+                <div class="ocr-pill"><span></span> FITNESS CREATORS WANTED</div>
+                <div class="ocr-pill"><span></span> REVHEALTH AFFILIATE PARTNERSHIP</div>
+                <div class="ocr-pill"><span></span> EARN 20% RECURRING COMMISSION</div>
+                <div class="ocr-pill"><span></span> USA-MANUFACTURED & THIRD-PARTY COA</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-box">
+            <div class="policy-title">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Influencer Compliance Guardrails
+            </div>
+            <ul class="policy-list">
+              <li><strong>Zero Personal Health Claims:</strong> Avoids claims regarding weight loss, recovery, muscle gains, or visual change.</li>
+              <li><strong>Affiliate Partner Framing:</strong> Focuses strictly on business parameters, logistics, dashboard features, and commissions.</li>
+              <li class="warn"><strong>FTC Mandatory Disclosures:</strong> Commences all primary copy blocks with the `#ad` marker to satisfy ad network transparency rules.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: COMPLIANT AD COPY DECKS -->
         <div class="card">
           <div class="card-title">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Meta Ad Creative Asset
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Influencer Ad Copy Decks
           </div>
-          
-          <!-- Test Image Selector Tabs -->
-          <div class="angle-tabs" style="margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 4px;">
-            <button class="tab-btn active" id="img-tab-1" onclick="switchImage(1)" style="font-size: 11px; padding: 8px 6px;">1: Purity Focus</button>
-            <button class="tab-btn" id="img-tab-2" onclick="switchImage(2)" style="font-size: 11px; padding: 8px 6px;">2: Dashboard Focus</button>
-            <button class="tab-btn" id="img-tab-3" onclick="switchImage(3)" style="font-size: 11px; padding: 8px 6px;">3: Brand Sourcing</button>
-          </div>
-          
-          <div class="image-container">
-            <!-- Referencing local copied image -->
-            <img id="adImgPreview" src="rev_meta_ad_creator.png" alt="RevHealth Influencer Recruitment Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+Recruitment+Ad'; console.warn('Local image not found, using mockup placeholder');">
-          </div>
+          <p style="font-size: 14px; color: var(--text-400); margin-bottom: 20px;">
+            Select a campaign angle below. These text segments are built directly around Meta Ads policies to prevent restricted substance rejection flags.
+          </p>
 
-          <div style="margin-top: 20px;">
-            <div class="field-label">OCR Text Scrape Targets (SEO for Meta)</div>
-            <p style="font-size: 13px; color: var(--text-400); margin-bottom: 12px; line-height: 1.45;">
-              Meta's AI scrapes characters inside images to build contextual categories. These exact terms are baked directly into the active test image:
-            </p>
-            <div class="ocr-pill-container" id="ocrContainer">
-              <div class="ocr-pill"><span></span> FITNESS CREATORS</div>
-              <div class="ocr-pill"><span></span> AFFILIATE PARTNERSHIP</div>
-              <div class="ocr-pill"><span></span> RECURRING COMMISSION</div>
-              <div class="ocr-pill"><span></span> USA-MANUFACTURED</div>
-              <div class="ocr-pill"><span></span> COA VERIFIED</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="policy-box">
-          <div class="policy-title">
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            Meta Policy Protection Shield
-          </div>
-          <ul class="policy-list">
-            <li><strong>Zero Personal Claims:</strong> No personal outcome wording. Ad delivers strictly on partnership model + logistics.</li>
-            <li><strong>Research Compound Framing:</strong> Speaks strictly about supply-chain standards, third-party purity checks, and scientific interest.</li>
-            <li class="warn"><strong>Compliance Anchor:</strong> Includes the mandatory "For research use only" disclaimer within primary copies to protect the ad profile.</li>
-          </ul>
-        </div>
-            <!-- RIGHT COLUMN: COMPLIANT AD COPY DECKS -->
-      <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          Ad Copy Campaign Decks
-        </div>
-        <p style="font-size: 14px; color: var(--text-400); margin-bottom: 20px;">
-          Select a campaign angle below. These text segments are built directly around Meta Ads policies to prevent restricted substance rejection flags.
-        </p>
-
-        <!-- Destination URL Showcase -->
-        <div style="background: rgba(37, 99, 235, 0.06); border: 1px solid rgba(96, 165, 250, 0.15); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
-          <div class="field-label" style="margin-bottom: 6px;">Campaign Destination URL</div>
-          <div class="input-box-wrapper">
-            <input type="text" class="input-box" id="destinationUrl" value="https://www.revhealth.net/affiliates" readonly style="background: rgba(0,0,0,0.3); font-weight: 600; color: #93c5fd;">
-            <button class="copy-btn" onclick="copyText('destinationUrl')">
-              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            </button>
-            <div class="copy-toast" id="toast-destinationUrl">Copied!</div>
-          </div>
-        </div>
-
-        <!-- Angle Selection Tabs -->
-        <div class="angle-tabs" id="angleTabsContainer">
-          <button class="tab-btn active" id="angle-tab-1" onclick="switchAngle(1)">Angle 1: Pure Business</button>
-          <button class="tab-btn" id="angle-tab-2" onclick="switchAngle(2)">Angle 2: Supply Purity</button>
-          <button class="tab-btn" id="angle-tab-3" onclick="switchAngle(3)">Angle 3: Creator Passive Income</button>
-        </div>
-
-        <!-- COPY DECK 1: PURE BUSINESS -->
-        <div id="angle-1" class="copy-block-group active">
-          
-          <div class="text-field">
-            <div class="field-label">
-              Primary Text (Post Caption)
-              <span class="badge">Meta Policy Clear</span>
-            </div>
+          <!-- Destination URL Showcase -->
+          <div style="background: rgba(37, 99, 235, 0.06); border: 1px solid rgba(96, 165, 250, 0.15); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+            <div class="field-label" style="margin-bottom: 6px;">Campaign Destination URL</div>
             <div class="input-box-wrapper">
-              <textarea class="textarea-box" id="p1" readonly>#ad | Fitness & wellness creators: Stop representing grey-market brands with zero documentation. 
+              <input type="text" class="input-box" id="inf-destinationUrl" value="https://www.revhealth.net/affiliates" readonly style="background: rgba(0,0,0,0.3); font-weight: 600; color: #93c5fd;">
+              <button class="copy-btn" onclick="copyText('inf-destinationUrl')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-inf-destinationUrl">Copied!</div>
+            </div>
+          </div>
+
+          <!-- Angle Selection Tabs -->
+          <div class="angle-tabs" id="inf-angleTabsContainer">
+            <button class="tab-btn active" id="inf-angle-tab-1" onclick="switchAngle('influencer', 1)">Angle 1: Pure Business</button>
+            <button class="tab-btn" id="inf-angle-tab-2" onclick="switchAngle('influencer', 2)">Angle 2: Supply Purity</button>
+            <button class="tab-btn" id="inf-angle-tab-3" onclick="switchAngle('influencer', 3)">Angle 3: Creator Sourcing</button>
+          </div>
+
+          <!-- COPY DECK 1: PURE BUSINESS -->
+          <div id="inf-angle-1" class="copy-block-group active">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="inf-p1" readonly>#ad | Fitness & wellness creators: Stop representing grey-market brands with zero documentation. 
 
 Your audience is already looking for research compounds with verified standards. Help them source with absolute trust. 
 
@@ -591,47 +676,42 @@ RevHealth connects partners with a fully transparent, USA-manufactured supply ch
 Tap "Apply Now" or go to https://www.revhealth.net/affiliates to secure your custom tracking link and content kit. 
 
 *Research compounds are sold for laboratory and research use only. Compliance with advertising guidelines is required.</textarea>
-              <button class="copy-btn" onclick="copyText('p1')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-p1">Copied!</div>
+                <button class="copy-btn" onclick="copyText('inf-p1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-p1">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-h1" value="Now Accepting Influencer Partners — 20% Commission" readonly>
+                <button class="copy-btn" onclick="copyText('inf-h1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-h1">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-d1" value="USA-Manufactured & Documented Supply Chain. Apply Today." readonly>
+                <button class="copy-btn" onclick="copyText('inf-d1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-d1">Copied!</div>
+              </div>
             </div>
           </div>
 
-          <div class="text-field">
-            <div class="field-label">Headline (Bold text below image)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="h1" value="Now Accepting Influencer Partners — 20% Commission" readonly>
-              <button class="copy-btn" onclick="copyText('h1')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-h1">Copied!</div>
-            </div>
-          </div>
-
-          <div class="text-field">
-            <div class="field-label">Description (Sub-headline)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="d1" value="USA-Manufactured & Documented Supply Chain. Apply Today." readonly>
-              <button class="copy-btn" onclick="copyText('d1')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-d1">Copied!</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- COPY DECK 2: SUPPLY PURITY -->
-        <div id="angle-2" class="copy-block-group">
-          
-          <div class="text-field">
-            <div class="field-label">
-              Primary Text (Post Caption)
-              <span class="badge">Meta Policy Clear</span>
-            </div>
-            <div class="input-box-wrapper">
-              <textarea class="textarea-box" id="p2" readonly>#ad | Promote quality you can document. 
+          <!-- COPY DECK 2: SUPPLY PURITY -->
+          <div id="inf-angle-2" class="copy-block-group">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="inf-p2" readonly>#ad | Promote quality you can document. 
 
 Fitness creators are partnering with RevHealth because we believe research compound sourcing belongs in the open. 
 
@@ -648,47 +728,42 @@ Give your followers a clear, documented path to research verification.
 Apply for your custom referral link today at: https://www.revhealth.net/affiliates
 
 *Research compounds are for laboratory and research use only. Terms apply.</textarea>
-              <button class="copy-btn" onclick="copyText('p2')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-p2">Copied!</div>
+                <button class="copy-btn" onclick="copyText('inf-p2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-p2">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-h2" value="Represent a Documented Research Sourcing Brand" readonly>
+                <button class="copy-btn" onclick="copyText('inf-h2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-h2">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-d2" value="Earn 20% Commission. Clear COA verification on every batch." readonly>
+                <button class="copy-btn" onclick="copyText('inf-d2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-d2">Copied!</div>
+              </div>
             </div>
           </div>
 
-          <div class="text-field">
-            <div class="field-label">Headline (Bold text below image)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="h2" value="Represent a Documented Research Sourcing Brand" readonly>
-              <button class="copy-btn" onclick="copyText('h2')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-h2">Copied!</div>
-            </div>
-          </div>
-
-          <div class="text-field">
-            <div class="field-label">Description (Sub-headline)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="d2" value="Earn 20% Commission. Clear COA verification on every batch." readonly>
-              <button class="copy-btn" onclick="copyText('d2')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-d2">Copied!</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- COPY DECK 3: CREATOR PASSIVE INCOME -->
-        <div id="angle-3" class="copy-block-group">
-          
-          <div class="text-field">
-            <div class="field-label">
-              Primary Text (Post Caption)
-              <span class="badge">Meta Policy Clear</span>
-            </div>
-            <div class="input-box-wrapper">
-              <textarea class="textarea-box" id="p3" readonly>#ad | Build recurring income in a high-demand fitness category. 
+          <!-- COPY DECK 3: CREATOR PASSIVE INCOME -->
+          <div id="inf-angle-3" class="copy-block-group">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="inf-p3" readonly>#ad | Build recurring income in a high-demand fitness category. 
 
 Research compounds are one of the fastest-growing categories in health and longevity. When fitness creators partner with RevHealth, they aren't just getting a referral code—they're building a sustainable affiliate business.
 
@@ -703,174 +778,477 @@ Partner with a premium brand that stands up to scrutiny.
 Go to https://www.revhealth.net/affiliates to submit your creator application.
 
 *Compounds are sold for research and lab use only. FTC disclosures required.</textarea>
-              <button class="copy-btn" onclick="copyText('p3')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-p3">Copied!</div>
+                <button class="copy-btn" onclick="copyText('inf-p3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-p3">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-h3" value="Partner Program for Fitness & Longevity Creators" readonly>
+                <button class="copy-btn" onclick="copyText('inf-h3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-h3">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-d3" value="20% Commission on reorders. Instant dashboard access." readonly>
+                <button class="copy-btn" onclick="copyText('inf-d3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-d3">Copied!</div>
+              </div>
             </div>
           </div>
-
-          <div class="text-field">
-            <div class="field-label">Headline (Bold text below image)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="h3" value="Partner Program for Fitness & Longevity Creators" readonly>
-              <button class="copy-btn" onclick="copyText('h3')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-h3">Copied!</div>
-            </div>
-          </div>
-
-          <div class="text-field">
-            <div class="field-label">Description (Sub-headline)</div>
-            <div class="input-box-wrapper">
-              <input type="text" class="input-box" id="d3" value="20% Commission on reorders. Instant dashboard access." readonly>
-              <button class="copy-btn" onclick="copyText('d3')">
-                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-              <div class="copy-toast" id="toast-d3">Copied!</div>
-            </div>
-          </div>
-
-        </div> <!-- end angle-3 -->
-
-      </div> <!-- end card -->
-
-    </div> <!-- end dashboard-grid -->
-
-    <!-- LOWER SECTION: DETAILED ALGORITHM AND POLICY ANALYSIS -->
-    <div class="bottom-analysis">
-      
-      <!-- Target Algorithm Analysis -->
-      <div class="analysis-card">
-        <h3>Meta Algorithm Sourcing (Advantage+ OCR Delivery)</h3>
-        <ul class="analysis-list">
-          <li>
-            <strong>Keyword Association Mapping</strong>
-            Meta scans images for text to determine target relevance. Words like "Fitness Creators Wanted" and "Affiliate Partnership" mapped on our dark theme trigger immediate association with target profiles: fitness pages, personal trainers, longevity blogs, and creators.
-          </li>
-          <li>
-            <strong>Avoidance of Medical Red Flags</strong>
-            By stating "Compounds" and "USA-Manufactured", we bypass restricted terms like "Peptides" or specific chemical designations (e.g., Semaglutide, BPC-157) on the initial graphic sweep. This significantly reduces the likelihood of automated bot flags.
-          </li>
-          <li>
-            <strong>Contextual Bidding Engine optimization</strong>
-            Because the copy relates directly to "Partnership Model" and "Commission Model", the Meta delivery engine places it in "b2b/marketing" bid groups, which have a cleaner reputation score than "dietary supplements/weight loss" groups.
-          </li>
-        </ul>
+        </div>
       </div>
 
-      <!-- Compliance Details -->
-      <div class="analysis-card">
-        <h3>Regulatory Compliance Mapping (FDA & FTC)</h3>
-        <ul class="analysis-list">
-          <li>
-            <strong>The Mandatory "#ad" Anchor</strong>
-            FTC rules state affiliate partnerships must disclose paid relationships clearly. The copy blocks anchor `#ad` at the very beginning of the post caption. Meta's compliance algorithm rewards clear, upfront disclosures.
-          </li>
-          <li>
-            <strong>Research and Lab Formulation Disclaimer</strong>
-            FDA policy restricts presenting research compounds for human consumption. Every primary copy block concludes with a clear disclaiming anchor: "Research compounds are for laboratory and research use only."
-          </li>
-          <li>
-            <strong>Zero Health / Personal Result Claims</strong>
-            To protect your ad account, there are no claims about recovery, fat loss, muscle building, or athletic outcomes in any of the copy decks. This keeps the ad 100% compliant under Meta Policies Sec 4.4 (Prescription and Unsafe Substances).
-          </li>
-        </ul>
+      <!-- LOWER SECTION: ANALYSIS -->
+      <div class="bottom-analysis">
+        <div class="analysis-card">
+          <h3>Meta Algorithm Sourcing (Advantage+ OCR Delivery)</h3>
+          <ul class="analysis-list">
+            <li>
+              <strong>Keyword Association Mapping</strong>
+              Scrapes terms like "Fitness Creators Wanted" and "Affiliate Partnership" inside the graphic to align ad serving with target user profiles.
+            </li>
+            <li>
+              <strong>Bypassing Substance Rejections</strong>
+              Uses abstract, compliant branding to avoid substance restrictions and automated policy warnings.
+            </li>
+          </ul>
+        </div>
+        <div class="analysis-card">
+          <h3>Regulatory Compliance (FDA & FTC)</h3>
+          <ul class="analysis-list">
+            <li>
+              <strong>Mandatory FTC Disclosure</strong>
+              Positioning `#ad` at the visual start of copies is rewarded by social platform compliance filters.
+            </li>
+            <li>
+              <strong>Purity/Supply Chain Safety</strong>
+              Focuses on lab validation standards instead of physiological results to satisfy FDA compliance.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         SUITE CONTAINER: B2B PRACTITIONER & CLINIC
+         ============================================== -->
+    <div id="suite-b2b" class="dashboard-container">
+      <div class="dashboard-grid">
+        
+        <!-- LEFT COLUMN: CREATIVE PREVIEW -->
+        <div class="creative-preview-area">
+          <div class="card">
+            <div class="card-title">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              B2B Practitioner Creatives
+            </div>
+            
+            <div class="angle-tabs" style="margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 4px;">
+              <button class="tab-btn active" id="b2b-img-tab-1" onclick="switchImage('b2b', 1)" style="font-size: 11px; padding: 8px 6px;">1: Clinic Revenue</button>
+              <button class="tab-btn" id="b2b-img-tab-2" onclick="switchImage('b2b', 2)" style="font-size: 11px; padding: 8px 6px;">2: Supply Integrity</button>
+              <button class="tab-btn" id="b2b-img-tab-3" onclick="switchImage('b2b', 3)" style="font-size: 11px; padding: 8px 6px;">3: Patient Demand</button>
+            </div>
+            
+            <div class="image-container">
+              <img id="b2b-adImgPreview" src="rev_b2b_ad_1.png" alt="RevHealth B2B Practitioner Meta Ad" onerror="this.src='https://placehold.co/600x600/0b1627/60a5fa?text=RevHealth+B2B+Ad';">
+            </div>
+
+            <div style="margin-top: 20px;">
+              <div class="field-label">OCR Text Scrape Targets (SEO for Meta)</div>
+              <p style="font-size: 13px; color: var(--text-400); margin-bottom: 12px; line-height: 1.45;">
+                Terms embedded directly into the ad graphic to trigger Meta's vision scraper to deliver to medical clinic owners & operators:
+              </p>
+              <div class="ocr-pill-container" id="b2b-ocrContainer">
+                <div class="ocr-pill"><span></span> CLINIC OWNERS WANTED</div>
+                <div class="ocr-pill"><span></span> ADD HIGH-MARGIN REVENUE</div>
+                <div class="ocr-pill"><span></span> REVHEALTH B2B PARTNER</div>
+                <div class="ocr-pill"><span></span> USA-MANUFACTURED</div>
+                <div class="ocr-pill"><span></span> PRACTITIONER PORTAL</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-box">
+            <div class="policy-title">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              B2B Regulatory Shield
+            </div>
+            <ul class="policy-list">
+              <li><strong>Zero Consumer Drug Claims:</strong> No direct compound indications or patient treatment claims in ad copy.</li>
+              <li><strong>Practitioner-Only Sourcing:</strong> Framed strictly as a wholesale B2B platform for certified healthcare practices.</li>
+              <li class="warn"><strong>Clinical Use Disclaimers:</strong> Mandatory professional safety/provider footnote attached to all templates.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: COMPLIANT AD COPY DECKS -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            B2B Ad Copy Decks
+          </div>
+          <p style="font-size: 14px; color: var(--text-400); margin-bottom: 20px;">
+            Select a campaign angle below. These text segments are built directly around Meta Ads policies to prevent restricted substance rejection flags.
+          </p>
+
+          <!-- Destination URL Showcase -->
+          <div style="background: rgba(37, 99, 235, 0.06); border: 1px solid rgba(96, 165, 250, 0.15); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+            <div class="field-label" style="margin-bottom: 6px;">Campaign Destination URL</div>
+            <div class="input-box-wrapper">
+              <input type="text" class="input-box" id="b2b-destinationUrl" value="https://www.revhealth.net/affiliates" readonly style="background: rgba(0,0,0,0.3); font-weight: 600; color: #93c5fd;">
+              <button class="copy-btn" onclick="copyText('b2b-destinationUrl')">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <div class="copy-toast" id="toast-b2b-destinationUrl">Copied!</div>
+            </div>
+          </div>
+
+          <!-- Angle Selection Tabs -->
+          <div class="angle-tabs" id="b2b-angleTabsContainer">
+            <button class="tab-btn active" id="b2b-angle-tab-1" onclick="switchAngle('b2b', 1)">Angle 1: Practice Revenue</button>
+            <button class="tab-btn" id="b2b-angle-tab-2" onclick="switchAngle('b2b', 2)">Angle 2: Supply Integrity</button>
+            <button class="tab-btn" id="b2b-angle-tab-3" onclick="switchAngle('b2b', 3)">Angle 3: Patient Demand</button>
+          </div>
+
+          <!-- COPY DECK 1: PRACTICE REVENUE -->
+          <div id="b2b-angle-1" class="copy-block-group active">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="b2b-p1" readonly>Grow your practice’s wellness offering with a premium, high-margin revenue model.
+
+As clinic owners and practitioners, finding a reliable, transparent supply chain is essential to meet patient wellness demand. RevHealth provides direct B2B portal access to USA-manufactured compounding standards, allowing licensed practices to introduce premium protocols with minimal friction.
+
+Why clinics are partnering with us:
+📊 Up to 40% margin on client-directed orders.
+🏢 Zero inventory requirements — custom practitioner-directed logistics.
+🇺🇸 Sourced from PCAB-accredited, FDA-registered 503B and dual 503A/503B facilities.
+🧪 Full batch transparency with independent COA verification.
+💻 Dedicated practitioner portal with real-time tracking.
+
+Scale your practice revenue while maintaining the highest standard of compounding integrity.
+
+Apply for practitioner portal access today: https://www.revhealth.net/affiliates
+
+*Compounds available for licensed healthcare providers only. For professional use. Research and laboratory standards apply.*</textarea>
+                <button class="copy-btn" onclick="copyText('b2b-p1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-p1">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-h1" value="B2B Partner Program for Clinics & Practitioners" readonly>
+                <button class="copy-btn" onclick="copyText('b2b-h1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-h1">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-d1" value="High-Margin Practice Growth. PCAB-Accredited Sourcing. Apply for Portal Access." readonly>
+                <button class="copy-btn" onclick="copyText('b2b-d1')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-d1">Copied!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COPY DECK 2: SUPPLY INTEGRITY -->
+          <div id="b2b-angle-2" class="copy-block-group">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="b2b-p2" readonly>Secure your clinical supply chain with PCAB-accredited, dual 503A/503B compounding standards.
+
+In the wellness compound market, sourcing transparency is non-negotiable. RevHealth delivers clinic-level compounds with certified documentation on every batch, ensuring your practice stocks only verified, USA-manufactured protocols.
+
+Our Quality & Sourcing standards:
+✓ Sourced from FDA-registered 503B facilities.
+✓ PCAB-Accredited compounding and cGMP standards.
+✓ Independent third-party COA proving >98% purity on every batch.
+✓ Direct wholesale pricing for licensed providers.
+✓ Fully temperature-controlled medical logistics.
+
+Never compromise on compound integrity or supply reliability. Access our batch testing data and practitioner pricing.
+
+Apply for your wholesale account today: https://www.revhealth.net/affiliates
+
+*Compounds available for licensed healthcare providers only. For professional use. Research and laboratory standards apply.*</textarea>
+                <button class="copy-btn" onclick="copyText('b2b-p2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-p2">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-h2" value="Verified Compound Sourcing for Licensed Providers" readonly>
+                <button class="copy-btn" onclick="copyText('b2b-h2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-h2">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-d2" value="USA-compounded. PCAB accredited. Batch-specific COA verification." readonly>
+                <button class="copy-btn" onclick="copyText('b2b-d2')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-d2">Copied!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COPY DECK 3: PATIENT DEMAND -->
+          <div id="b2b-angle-3" class="copy-block-group">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="b2b-p3" readonly>Your patients are already asking for peptide protocols. Meet the demand with a verified B2B partner.
+
+Integrative medicine, longevity, and metabolic reset protocols are the fastest-growing categories in modern practice. RevHealth offers licensed clinics and practitioners a streamlined portal to order verified, high-purity wellness compounds directly for their practice or patient-referred pathways.
+
+Practice Integration Benefits:
+📈 Meet the growing demand for modern wellness protocols.
+🛡️ PCAB-accredited sourcing with dual 503A/503B quality controls.
+📦 Zero inventory overhead — drop-ship and client-directed logistics options.
+🧬 Premium batch purity (>98% verified by independent COA).
+🤝 Direct wholesale portal access for certified clinicians.
+
+Equip your practice to deliver high-demand, quality-certified protocols with complete supply chain confidence.
+
+Register your clinic for portal access: https://www.revhealth.net/affiliates
+
+*Compounds available for licensed healthcare providers only. For professional use. Research and laboratory standards apply.*</textarea>
+                <button class="copy-btn" onclick="copyText('b2b-p3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-p3">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-h3" value="Add Certified Peptide Protocols to Your Clinic" readonly>
+                <button class="copy-btn" onclick="copyText('b2b-h3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-h3">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="b2b-d3" value="Streamlined practitioner portal. 503B supply chain quality. Apply today." readonly>
+                <button class="copy-btn" onclick="copyText('b2b-d3')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-b2b-d3">Copied!</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- LOWER SECTION: ANALYSIS -->
+      <div class="bottom-analysis">
+        <div class="analysis-card">
+          <h3>Meta Algorithm Sourcing (B2B Adv+ OCR Delivery)</h3>
+          <ul class="analysis-list">
+            <li>
+              <strong>Targeting Clinic Owners</strong>
+              Uses embedded OCR text like "Clinic Owners Wanted" to drive Advantage+ delivery mechanisms to practitioners and business administrators.
+            </li>
+            <li>
+              <strong>Evading Restricted Keywords</strong>
+              Stops prescription flags by speaking about wholesale systems instead of retail consumer medication protocols.
+            </li>
+          </ul>
+        </div>
+        <div class="analysis-card">
+          <h3>Regulatory Compliance & Guardrails</h3>
+          <ul class="analysis-list">
+            <li>
+              <strong>B2B Wholesale Commercial Intent</strong>
+              Framed as clinical supplier services to satisfy Meta policies on commercial operations.
+            </li>
+            <li>
+              <strong>Provider Footnote Safeguard</strong>
+              Anchors a clear disclaimer identifying the compounds as for licensed practitioner distribution only.
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <footer>
-      &copy; 2026 Revitalized Health. All rights reserved. Custom local utility built for RevHealth campaigns.
+      &copy; 2026 Revitalized Health. All rights reserved. Meta Ad Optimization Hub.
     </footer>
   </div>
 
   <script>
-    // Image OCR data for dynamic rendering
+    // OCR Metadata mapping
     const ocrData = {
-      1: [
-        "FITNESS CREATORS WANTED",
-        "REVHEALTH AFFILIATE PARTNERSHIP",
-        "Earn 20% Recurring Commission",
-        "USA-Manufactured & Third-Party COA Verified Compounds"
-      ],
-      2: [
-        "RECURRING COMMISSION FOR CREATORS",
-        "REVHEALTH PARTNER PROGRAM",
-        "Earn 20% on Every Order & Reorder",
-        "Real-Time Tracking Dashboard"
-      ],
-      3: [
-        "JOIN THE PREMIUM PEPTIDE BRAND",
-        "WELLNESS INFLUENCERS WANTED",
-        "USA-Manufactured & PCAB-Accredited Sourcing",
-        "Apply for Your Custom Code & Link"
-      ]
+      influencer: {
+        1: [
+          "FITNESS CREATORS WANTED",
+          "REVHEALTH AFFILIATE PARTNERSHIP",
+          "Earn 20% Recurring Commission",
+          "USA-Manufactured & Third-Party COA Verified Compounds"
+        ],
+        2: [
+          "RECURRING COMMISSION FOR CREATORS",
+          "REVHEALTH PARTNER PROGRAM",
+          "Earn 20% on Every Order & Reorder",
+          "Real-Time Tracking Dashboard"
+        ],
+        3: [
+          "JOIN THE PREMIUM PEPTIDE BRAND",
+          "WELLNESS INFLUENCERS WANTED",
+          "USA-Manufactured & PCAB-Accredited Sourcing",
+          "Apply for Your Custom Code & Link"
+        ]
+      },
+      b2b: {
+        1: [
+          "CLINIC OWNERS WANTED",
+          "ADD HIGH-MARGIN REVENUE",
+          "REVHEALTH B2B PARTNER",
+          "USA-MANUFACTURED",
+          "PRACTITIONER PORTAL"
+        ],
+        2: [
+          "STOCK VERIFIED COMPOUNDS",
+          "PCAB-ACCREDITED SOURCING",
+          "B2B WHOLESALE PRICING",
+          "COA ON EVERY BATCH",
+          "LICENSED PROVIDERS ONLY"
+        ],
+        3: [
+          "YOUR PATIENTS ARE ASKING",
+          "PEPTIDE PROTOCOLS FOR CLINICS",
+          "RECURRING REVENUE MODEL",
+          "APPLY TODAY"
+        ]
+      }
     };
 
-    // Image switching functionality
-    function switchImage(imgNum) {
-      // Toggle active states on the image selector tabs
-      const imgTabs = [
-        document.getElementById('img-tab-1'),
-        document.getElementById('img-tab-2'),
-        document.getElementById('img-tab-3')
-      ];
-      imgTabs.forEach((tab, index) => {
-        if (tab) tab.classList.toggle('active', (index + 1) === imgNum);
-      });
+    // Suite Switcher Tabs
+    function switchSuite(suite) {
+      // Toggle selector buttons
+      document.getElementById('suite-tab-influencer').classList.toggle('active', suite === 'influencer');
+      document.getElementById('suite-tab-b2b').classList.toggle('active', suite === 'b2b');
 
-      // Update image source
-      const imgPreview = document.getElementById('adImgPreview');
-      if (imgPreview) {
-        if (imgNum === 1) imgPreview.src = 'rev_meta_ad_creator.png';
-        if (imgNum === 2) imgPreview.src = 'rev_meta_ad_creator_2.png';
-        if (imgNum === 3) imgPreview.src = 'rev_meta_ad_creator_3.png';
+      // Toggle display containers
+      document.getElementById('suite-influencer').classList.toggle('active', suite === 'influencer');
+      document.getElementById('suite-b2b').classList.toggle('active', suite === 'b2b');
+
+      // Update titles
+      const title = document.getElementById('main-title');
+      const subtitle = document.getElementById('main-subtitle');
+
+      if (suite === 'influencer') {
+        title.innerHTML = "Influencer Recruitment Ad System";
+        subtitle.innerHTML = "Local recruitment kit for your Meta Ads campaigns. These creatives are specifically aligned with RevHealth brand guidelines and Meta’s policies regarding health claims and research compounds.";
+      } else {
+        title.innerHTML = "Practitioner & Clinic Ad System";
+        subtitle.innerHTML = "B2B ad creative optimization suite. These split-test creatives focus on practice expansion, clinic sales growth, and secure supply chain standards, keeping compliance centered under Meta's healthcare policies.";
+      }
+    }
+
+    // Image Switching inside Suites
+    function switchImage(suite, num) {
+      const prefix = suite === 'influencer' ? 'inf' : 'b2b';
+      
+      // Update image tabs
+      for (let i = 1; i <= 3; i++) {
+        const tab = document.getElementById(`${prefix}-img-tab-${i}`);
+        if (tab) tab.classList.toggle('active', i === num);
       }
 
-      // Update OCR pills
-      const ocrContainer = document.getElementById('ocrContainer');
-      if (ocrContainer && ocrData[imgNum]) {
-        ocrContainer.innerHTML = ocrData[imgNum].map(text => {
-          // Normalize pills for tags
-          const displayLabel = text.length > 22 ? text.substring(0, 22) + '...' : text;
+      // Update Image Source
+      const img = document.getElementById(`${prefix}-adImgPreview`);
+      if (img) {
+        if (suite === 'influencer') {
+          if (num === 1) img.src = 'rev_meta_ad_creator.png';
+          if (num === 2) img.src = 'rev_meta_ad_creator_2.png';
+          if (num === 3) img.src = 'rev_meta_ad_creator_3.png';
+        } else {
+          if (num === 1) img.src = 'rev_b2b_ad_1.png';
+          if (num === 2) img.src = 'rev_b2b_ad_2.png';
+          if (num === 3) img.src = 'rev_b2b_ad_3.png';
+        }
+      }
+
+      // Update OCR Pills
+      const ocrContainer = document.getElementById(`${prefix}-ocrContainer`);
+      if (ocrContainer && ocrData[suite] && ocrData[suite][num]) {
+        ocrContainer.innerHTML = ocrData[suite][num].map(text => {
+          const maxLen = suite === 'influencer' ? 22 : 28;
+          const displayLabel = text.length > maxLen ? text.substring(0, maxLen) + '...' : text;
           return `<div class="ocr-pill"><span></span> ${displayLabel.toUpperCase()}</div>`;
         }).join('');
       }
     }
 
-    // Copy deck angle switching functionality
-    function switchAngle(angleNum) {
-      // Toggle tabs
+    // Angle Switching inside Suites
+    function switchAngle(suite, num) {
+      const prefix = suite === 'influencer' ? 'inf' : 'b2b';
+
+      // Update tabs
       for (let i = 1; i <= 3; i++) {
-        const tab = document.getElementById('angle-tab-' + i);
-        if (tab) tab.classList.toggle('active', i === angleNum);
+        const tab = document.getElementById(`${prefix}-angle-tab-${i}`);
+        if (tab) tab.classList.toggle('active', i === num);
       }
 
-      // Toggle copy blocks
-      document.querySelectorAll('.copy-block-group').forEach(group => group.classList.remove('active'));
-      const activeGroup = document.getElementById('angle-' + angleNum);
+      // Hide and show copy blocks
+      document.querySelectorAll(`#suite-${suite} .copy-block-group`).forEach(group => group.classList.remove('active'));
+      const activeGroup = document.getElementById(`${prefix}-angle-${num}`);
       if (activeGroup) activeGroup.classList.add('active');
     }
 
-    // Copy to clipboard utility
+    // Copy to Clipboard Utility
     function copyText(elementId) {
       const el = document.getElementById(elementId);
       if (!el) return;
 
-      // Select and copy
       el.select();
-      el.setSelectionRange(0, 99999); // For mobile devices
+      el.setSelectionRange(0, 99999);
       
       try {
         navigator.clipboard.writeText(el.value);
       } catch (err) {
-        // Fallback for older browsers
         document.execCommand('copy');
       }
 
-      // Show toast notification
       const toast = document.getElementById('toast-' + elementId);
       if (toast) {
         toast.classList.add('show');
