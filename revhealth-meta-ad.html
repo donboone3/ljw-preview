@@ -595,6 +595,7 @@
               <button class="tab-btn active" id="inf-img-tab-1" onclick="switchImage('influencer', 1)" style="font-size: 11px; padding: 8px 6px;">1: Purity Focus</button>
               <button class="tab-btn" id="inf-img-tab-2" onclick="switchImage('influencer', 2)" style="font-size: 11px; padding: 8px 6px;">2: Dashboard Focus</button>
               <button class="tab-btn" id="inf-img-tab-3" onclick="switchImage('influencer', 3)" style="font-size: 11px; padding: 8px 6px;">3: Brand Sourcing</button>
+              <button class="tab-btn" id="inf-img-tab-4" onclick="switchImage('influencer', 4)" style="font-size: 11px; padding: 8px 6px;">4: Research Focus</button>
             </div>
             
             <div class="image-container">
@@ -655,6 +656,7 @@
             <button class="tab-btn active" id="inf-angle-tab-1" onclick="switchAngle('influencer', 1)">Angle 1: Pure Business</button>
             <button class="tab-btn" id="inf-angle-tab-2" onclick="switchAngle('influencer', 2)">Angle 2: Supply Purity</button>
             <button class="tab-btn" id="inf-angle-tab-3" onclick="switchAngle('influencer', 3)">Angle 3: Creator Sourcing</button>
+            <button class="tab-btn" id="inf-angle-tab-4" onclick="switchAngle('influencer', 4)">Angle 4: Research Advocacy</button>
           </div>
 
           <!-- COPY DECK 1: PURE BUSINESS -->
@@ -804,6 +806,57 @@ Go to https://www.revhealth.net/affiliates to submit your creator application.
                   <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 </button>
                 <div class="copy-toast" id="toast-inf-d3">Copied!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COPY DECK 4: RESEARCH ADVOCACY -->
+          <div id="inf-angle-4" class="copy-block-group">
+            <div class="text-field">
+              <div class="field-label">Primary Text (Post Caption) <span class="badge">Meta Policy Clear</span></div>
+              <div class="input-box-wrapper">
+                <textarea class="textarea-box" id="inf-p4" readonly>#ad | Fitness creators & longevity advocates: Help represent a higher standard in peptide sourcing.
+
+If you want to earn recurring revenue while helping your community source research compounds with absolute transparency, RevHealth is looking for you.
+
+Our program connects creator partners with a premium, USA-manufactured, PCAB-accredited supply chain. We believe quality research compounds belong in the light, supported by independent third-party lab COAs proving >98% purity.
+
+🔬 Support transparent scientific research sourcing
+💰 Earn 20% recurring commission on all customer orders
+📊 Access a real-time analytics dashboard
+🛡️ Receive compliant content kits & expert guidelines
+
+Help your audience source with trust and clarity. Join the program today.
+
+Apply now: https://www.revhealth.net/affiliates
+
+*Compounds are sold for laboratory and research use only. Creator guidelines apply.</textarea>
+                <button class="copy-btn" onclick="copyText('inf-p4')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-p4">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Headline (Bold text below image)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-h4" value="For Creators Who Want to Support Quality Peptide Sourcing" readonly>
+                <button class="copy-btn" onclick="copyText('inf-h4')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-h4">Copied!</div>
+              </div>
+            </div>
+
+            <div class="text-field">
+              <div class="field-label">Description (Sub-headline)</div>
+              <div class="input-box-wrapper">
+                <input type="text" class="input-box" id="inf-d4" value="Earn 20% recurring commission representing lab-grade purity." readonly>
+                <button class="copy-btn" onclick="copyText('inf-d4')">
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <div class="copy-toast" id="toast-inf-d4">Copied!</div>
               </div>
             </div>
           </div>
@@ -1135,6 +1188,12 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
           "WELLNESS INFLUENCERS WANTED",
           "APPLY FOR YOUR CUSTOM LINK",
           "USA-ACCREDITED COMPOUNDS"
+        ],
+        4: [
+          "FITNESS CREATORS WANTED",
+          "HELP FURTHER PEPTIDE RESEARCH",
+          "EARN 20% COMMISSION ON SOURCING",
+          "USA-MANUFACTURED COMPOUNDS"
         ]
       },
       b2b: {
@@ -1189,7 +1248,8 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
       const prefix = suite === 'influencer' ? 'inf' : 'b2b';
       
       // Update image tabs
-      for (let i = 1; i <= 3; i++) {
+      const maxTabs = suite === 'influencer' ? 4 : 3;
+      for (let i = 1; i <= maxTabs; i++) {
         const tab = document.getElementById(`${prefix}-img-tab-${i}`);
         if (tab) tab.classList.toggle('active', i === num);
       }
@@ -1201,6 +1261,7 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
           if (num === 1) img.src = 'rev_meta_ad_creator.png';
           if (num === 2) img.src = 'rev_meta_ad_creator_2.png';
           if (num === 3) img.src = 'rev_meta_ad_creator_3.png';
+          if (num === 4) img.src = 'rev_meta_ad_creator_4.png';
         } else {
           if (num === 1) img.src = 'rev_b2b_ad_1.png';
           if (num === 2) img.src = 'rev_b2b_ad_2.png';
@@ -1224,7 +1285,8 @@ Register your clinic for portal access: https://www.revhealth.net/affiliates
       const prefix = suite === 'influencer' ? 'inf' : 'b2b';
 
       // Update tabs
-      for (let i = 1; i <= 3; i++) {
+      const maxAngles = suite === 'influencer' ? 4 : 3;
+      for (let i = 1; i <= maxAngles; i++) {
         const tab = document.getElementById(`${prefix}-angle-tab-${i}`);
         if (tab) tab.classList.toggle('active', i === num);
       }
